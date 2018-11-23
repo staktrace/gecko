@@ -110,3 +110,34 @@ jobs:
         when:
             files-changed:
                 - 'gfx/wr/**'
+
+    windows:
+        description: Runs WebRender CI tests on a Windows worker
+        worker-type: aws-provisioner-v1/gecko-t-win10-64-gpu
+        worker:
+            max-run-time: 3600
+            env:
+                RUST_BACKTRACE: 'full'
+                RUSTFLAGS: '--deny warnings'
+        toolchains:
+            - win64-rust
+            - wrench-deps
+        run:
+            using: run-task
+            command:
+                - 'bash'
+                - '-cx'
+                - >-
+                  cd $GECKO_PATH &&
+                  ./mach artifact toolchain -v $MOZ_TOOLCHAINS &&
+                  export PATH=$PATH:$PWD/rustc/bin &&
+                  mv vendored/.cargo gfx/wr &&
+                  cd gfx/wr/wrench &&
+                  cargo build --verbose --frozen
+        treeherder:
+            platform: windows10-64-qr/release
+            symbol: WR(wrench)
+            kind: other
+        when:
+            files-changed:
+                - 'gfx/wr/**'
