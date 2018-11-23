@@ -84,6 +84,7 @@ treeherder:
         'TPS': 'Sync tests'
         'UV': 'Update verify'
         'pipfu': 'pipfile update'
+        'WR': 'WebRender standalone'
 
 index:
     products:
