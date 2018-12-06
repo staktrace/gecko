@@ -2343,6 +2343,7 @@ nsDOMWindowUtils::FlushApzRepaints(bool* aOutResult) {
     *aOutResult = false;
     return NS_OK;
   }
+  printf_stderr("DWU::FlushApzRepaints with CBC Open %d\n", CompositorBridgeChild::Get()->IPCOpen());
   if (WebRenderLayerManager* wrlm = manager->AsWebRenderLayerManager()) {
     WebRenderBridgeChild* wrbc = wrlm->WrBridge();
     if (!wrbc) {

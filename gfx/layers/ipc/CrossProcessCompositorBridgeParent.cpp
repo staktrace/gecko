@@ -518,6 +518,9 @@ void CrossProcessCompositorBridgeParent::FlushApzRepaints(
   if (!state) {
     return;
   }
+  if (!state->mParent) {
+      printf_stderr("FlushApzRepaints failing to find mParent for %" PRIu64 "\n", aLayersId.mId);
+  }
 
   MOZ_ASSERT(state->mParent);
   state->mParent->FlushApzRepaints(aLayersId);

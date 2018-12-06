@@ -418,6 +418,7 @@ void CompositorBridgeParent::ForceIsFirstPaint() {
 }
 
 void CompositorBridgeParent::StopAndClearResources() {
+  printf_stderr("CBP runig StopAndClearResources\n");
   if (mForceCompositionTask) {
     mForceCompositionTask->Cancel();
     mForceCompositionTask = nullptr;
@@ -441,7 +442,8 @@ void CompositorBridgeParent::StopAndClearResources() {
   // Ensure that the layer manager is destroyed before CompositorBridgeChild.
   if (mLayerManager) {
     MonitorAutoLock lock(*sIndirectLayerTreesLock);
-    ForEachIndirectLayerTree([this](LayerTreeState* lts, LayersId) -> void {
+    ForEachIndirectLayerTree([this](LayerTreeState* lts, LayersId id) -> void {
+      printf_stderr("CBP clearing mParent for layers id %" PRIu64 "\n", id.mId);
       mLayerManager->ClearCachedResources(lts->mRoot);
       lts->mLayerManager = nullptr;
       lts->mParent = nullptr;
@@ -510,6 +512,7 @@ void CompositorBridgeParent::StopAndClearResources() {
 }
 
 mozilla::ipc::IPCResult CompositorBridgeParent::RecvWillClose() {
+  printf_stderr("CBP::RecvWillClose\n");
   StopAndClearResources();
   // Once we get the WillClose message, the client side is going to go away
   // soon and we can't be guaranteed that sending messages will work.
@@ -624,6 +627,7 @@ mozilla::ipc::IPCResult CompositorBridgeParent::RecvStopFrameTimeRecording(
 void CompositorBridgeParent::ActorDestroy(ActorDestroyReason why) {
   mCanSend = false;
 
+  printf_stderr("CBP::ActorDestroy\n");
   StopAndClearResources();
 
   RemoveCompositor(mCompositorBridgeID);

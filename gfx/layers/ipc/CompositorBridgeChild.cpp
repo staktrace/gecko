@@ -674,6 +674,7 @@ void CompositorBridgeChild::CancelNotifyAfterRemotePaint(TabChild* aTabChild) {
 }
 
 bool CompositorBridgeChild::SendWillClose() {
+  printf_stderr("CBC sending will close in proc (parent:%d)\n", XRE_IsParentProcess() ? 1 : 0);
   MOZ_RELEASE_ASSERT(mCanSend);
   return PCompositorBridgeChild::SendWillClose();
 }
