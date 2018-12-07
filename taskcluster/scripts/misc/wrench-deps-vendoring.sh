@@ -19,7 +19,7 @@ cd vendored
 cargo vendor --sync $SRCDIR/gfx/wr/Cargo.lock > .cargo/config
 cd $WORKSPACE
 tar cf wrench-deps.tar vendored/
-xz wrench-deps.tar
+bzip2 wrench-deps.tar
 
 mkdir -p $UPLOAD_DIR
-mv wrench-deps.tar.xz $UPLOAD_DIR/
+mv wrench-deps.tar.bz2 $UPLOAD_DIR/
