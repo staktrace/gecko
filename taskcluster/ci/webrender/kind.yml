@@ -120,11 +120,12 @@ jobs:
                 RUST_BACKTRACE: 'full'
                 RUSTFLAGS: '--deny warnings'
         toolchains:
+            - win64-clang-cl
             - win64-rust
             - wrench-deps
         run:
             using: run-task
-            command: 'cd $GECKO_PATH && ./mach artifact toolchain -v $MOZ_TOOLCHAINS && export PATH=$PATH:$PWD/rustc/bin && mv vendored/{vendor,.cargo} gfx/wr && cd gfx/wr/wrench && cargo build --verbose --frozen'
+            command: 'cd $GECKO_PATH && ./mach artifact toolchain -v $MOZ_TOOLCHAINS && export PATH=$PATH:$PWD/rustc/bin:$PWD/clang/bin && mv vendored/{vendor,.cargo} gfx/wr && cd gfx/wr/wrench && RUSTC_LINKER=lld-link.exe cargo build --verbose --frozen'
         treeherder:
             platform: windows10-64-qr/release
             symbol: WR(wrench)
