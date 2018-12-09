@@ -14,11 +14,12 @@ cd $WORKSPACE
 $SRCDIR/mach artifact toolchain -v $MOZ_TOOLCHAINS
 export PATH=$PATH:$PWD/rustc/bin
 cargo install --version 0.1.21 cargo-vendor
-mkdir -p vendored/.cargo
-cd vendored
-cargo vendor --sync $SRCDIR/gfx/wr/Cargo.lock > .cargo/config
-cd $WORKSPACE
-tar cf wrench-deps.tar vendored/
+cd $SRCDIR/gfx/wr/
+mkdir .cargo
+cargo vendor --relative-path --sync ./Cargo.lock > .cargo/config
+mkdir vendored
+mv vendor .cargo vendored/
+tar cf wrench-deps.tar vendored
 bzip2 wrench-deps.tar
 
 mkdir -p $UPLOAD_DIR

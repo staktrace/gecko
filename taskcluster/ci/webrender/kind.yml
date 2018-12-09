@@ -68,7 +68,7 @@ jobs:
                   $HOME/checkouts/gecko/mach artifact toolchain -v $MOZ_TOOLCHAINS &&
                   export PATH=$PATH:$PWD/rustc/bin &&
                   cd $HOME/checkouts/gecko/gfx/wr &&
-                  mv $HOME/workspace/vendored/.cargo ./ &&
+                  mv $HOME/workspace/vendored/{vendor,.cargo} ./ &&
                   CARGOFLAGS="--verbose --frozen" ci-scripts/linux-release-tests.sh
         treeherder:
             platform: linux64-qr/opt
@@ -101,7 +101,7 @@ jobs:
                   $HOME/checkouts/gecko/mach artifact toolchain -v $MOZ_TOOLCHAINS &&
                   export PATH=$PATH:$PWD/rustc/bin &&
                   cd $HOME/checkouts/gecko/gfx/wr &&
-                  mv $HOME/workspace/vendored/.cargo ./ &&
+                  mv $HOME/workspace/vendored/{vendor,.cargo} ./ &&
                   CARGOFLAGS="--verbose --frozen" ci-scripts/linux-release-tests.sh
         treeherder:
             platform: linux64-qr/debug
@@ -124,7 +124,7 @@ jobs:
             - wrench-deps
         run:
             using: run-task
-            command: 'cd $GECKO_PATH && ./mach artifact toolchain -v $MOZ_TOOLCHAINS && export PATH=$PATH:$PWD/rustc/bin && mv vendored/.cargo gfx/wr && cd gfx/wr/wrench && cargo build --verbose --frozen'
+            command: 'cd $GECKO_PATH && ./mach artifact toolchain -v $MOZ_TOOLCHAINS && export PATH=$PATH:$PWD/rustc/bin && mv vendored/{vendor,.cargo} gfx/wr && cd gfx/wr/wrench && cargo build --verbose --frozen'
         treeherder:
             platform: windows10-64-qr/release
             symbol: WR(wrench)
