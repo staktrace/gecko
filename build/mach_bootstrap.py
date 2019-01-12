@@ -37,6 +37,7 @@ MACH_MODULES = [
     'devtools/shared/css/generated/mach_commands.py',
     'dom/bindings/mach_commands.py',
     'layout/tools/reftest/mach_commands.py',
+    'mobile/android/mach_commands.py',
     'python/mach_commands.py',
     'python/safety/mach_commands.py',
     'python/mach/mach/commands/commandinfo.py',
@@ -67,7 +68,6 @@ MACH_MODULES = [
     'tools/mach_commands.py',
     'tools/power/mach_commands.py',
     'tools/tryselect/mach_commands.py',
-    'mobile/android/mach_commands.py',
 ]
 
 
