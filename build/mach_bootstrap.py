@@ -36,6 +36,7 @@ MACH_MODULES = [
     'build/valgrind/mach_commands.py',
     'devtools/shared/css/generated/mach_commands.py',
     'dom/bindings/mach_commands.py',
+    'gfx/webrender_bindings/mach_commands.py',
     'layout/tools/reftest/mach_commands.py',
     'mobile/android/mach_commands.py',
     'python/mach_commands.py',
