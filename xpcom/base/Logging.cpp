@@ -214,7 +214,7 @@ class LogModuleManager {
     bool isRaw = false;
     bool isMarkers = false;
     int32_t rotate = 0;
-    const char* modules = PR_GetEnv("MOZ_LOG");
+    const char* modules = "timestamp,MouseScrollHandlerWidgets:3,WinTouchInput:3,APZInputQueue:3";
     if (!modules || !modules[0]) {
       modules = PR_GetEnv("MOZ_LOG_MODULES");
       if (modules) {
@@ -267,6 +267,9 @@ class LogModuleManager {
     }
 
     const char* logFile = PR_GetEnv("MOZ_LOG_FILE");
+    if (!logFile) {
+      logFile = "bug1511901.txt";
+    }
     if (!logFile || !logFile[0]) {
       logFile = PR_GetEnv("NSPR_LOG_FILE");
     }

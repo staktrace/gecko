@@ -563,6 +563,9 @@ bool GeckoChildProcessHost::PerformAsyncLaunch(
 
   const char* origNSPRLogName = PR_GetEnv("NSPR_LOG_FILE");
   const char* origMozLogName = PR_GetEnv("MOZ_LOG_FILE");
+  if (!origMozLogName) {
+    origMozLogName = "bug1511901.txt";
+  }
 
   if (origNSPRLogName) {
     nsAutoCString nsprLogName;

@@ -11,11 +11,15 @@
 #include "InputBlockState.h"
 #include "LayersLogging.h"
 #include "mozilla/layers/APZThreadUtils.h"
+#include "mozilla/Logging.h"
 #include "OverscrollHandoffState.h"
 #include "QueuedInput.h"
 
-#define INPQ_LOG(...)
+mozilla::LazyLogModule gInputQueueLog("APZInputQueue");
+
+//#define INPQ_LOG(...)
 // #define INPQ_LOG(...) printf_stderr("INPQ: " __VA_ARGS__)
+#define INPQ_LOG(...) MOZ_LOG(gInputQueueLog, mozilla::LogLevel::Info, (__VA_ARGS__))
 
 namespace mozilla {
 namespace layers {

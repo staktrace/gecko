@@ -336,6 +336,7 @@ static const char* sScreenManagerContractID =
     "@mozilla.org/gfx/screenmanager;1";
 
 extern mozilla::LazyLogModule gWindowsLog;
+LazyLogModule gTouchInputLog("WinTouchInput");
 
 // Global used in Show window enumerations.
 static bool gWindowsVisible = false;
@@ -4139,6 +4140,8 @@ bool nsWindow::DispatchMouseEvent(EventMessage aEventMessage, WPARAM wParam,
   }
 
   if (WinUtils::GetIsMouseFromTouch(aEventMessage)) {
+    MOZ_LOG(gTouchInputLog, LogLevel::Info,
+        ("MouseFromTouch %s at %d,%d", ToChar(aEventMessage), mpScreen.x, mpScreen.y));
     if (aEventMessage == eMouseDown) {
       Telemetry::Accumulate(Telemetry::FX_TOUCH_USED, 1);
     }
@@ -6647,9 +6650,13 @@ bool nsWindow::OnTouch(WPARAM wParam, LPARAM lParam) {
 
       // Append touch data to the appropriate event.
       if (addToEvent) {
+        MOZ_LOG(gTouchInputLog, LogLevel::Info,
+            ("Touch input type %d at %d,%d", touchInput.mType, touchPoint.x, touchPoint.y));
         touchInput.mTouches.AppendElement(touchData);
       }
       if (addToEndEvent) {
+        MOZ_LOG(gTouchInputLog, LogLevel::Info,
+            ("Touch end input type %d at %d,%d", touchInput.mType, touchPoint.x, touchPoint.y));
         touchEndInput.mTouches.AppendElement(touchData);
       }
     }
