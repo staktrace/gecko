@@ -2919,6 +2919,7 @@ impl PicturePrimitive {
             }
             PictureCompositeMode::Filter(FilterOp::Blur(blur_radius)) => {
                 let blur_std_deviation = blur_radius * device_pixel_scale.0;
+                let blur_std_deviation = (blur_std_deviation, blur_std_deviation);
                 let inflation_factor = surfaces[raster_config.surface_index.0].inflation_factor;
                 let inflation_factor = (inflation_factor * device_pixel_scale.0).ceil() as i32;
 
@@ -2981,6 +2982,7 @@ impl PicturePrimitive {
                 let blur_std_deviation = blur_radius * device_pixel_scale.0;
                 let blur_range = (blur_std_deviation * BLUR_SAMPLE_SCALE).ceil() as i32;
                 let rounded_std_dev = blur_std_deviation.round();
+                let rounded_std_dev = (rounded_std_dev, rounded_std_dev);
                 // The clipped field is the part of the picture that is visible
                 // on screen. The unclipped field is the screen-space rect of
                 // the complete picture, if no screen / clip-chain was applied

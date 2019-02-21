@@ -623,7 +623,7 @@ impl RenderTask {
 
                             // Blur it
                             let blur_render_task = RenderTask::new_blur(
-                                blur_radius_dp,
+                                (blur_radius_dp, blur_radius_dp),
                                 mask_task_id,
                                 render_tasks,
                                 RenderTargetKind::Alpha,
@@ -700,15 +700,16 @@ impl RenderTask {
     // In order to do the blur down-scaling passes without introducing errors, we need the
     // source of each down-scale pass to be a multuple of two. If need be, this inflates
     // the source size so that each down-scale pass will sample correctly.
-    pub fn adjusted_blur_source_size(original_size: DeviceIntSize, mut std_dev: f32) -> DeviceIntSize {
+    pub fn adjusted_blur_source_size(original_size: DeviceIntSize, mut std_dev: (f32, f32)) -> DeviceIntSize {
         let mut adjusted_size = original_size;
         let mut scale_factor = 1.0;
-        while std_dev > MAX_BLUR_STD_DEVIATION {
+        while std_dev.0 > MAX_BLUR_STD_DEVIATION && std_dev.1 > MAX_BLUR_STD_DEVIATION {
             if adjusted_size.width < MIN_DOWNSCALING_RT_SIZE ||
                adjusted_size.height < MIN_DOWNSCALING_RT_SIZE {
                 break;
             }
-            std_dev *= 0.5;
+            std_dev.0 *= 0.5;
+            std_dev.1 *= 0.5;
             scale_factor *= 2.0;
             adjusted_size = (original_size.to_f32() / scale_factor).ceil().to_i32();
         }
@@ -735,7 +736,7 @@ impl RenderTask {
     //           +---- This is stored as the input task to the primitive shader.
     //
     pub fn new_blur(
-        blur_std_deviation: f32,
+        blur_std_deviation: (f32, f32),
         src_task_id: RenderTaskId,
         render_tasks: &mut RenderTaskTree,
         target_kind: RenderTargetKind,
@@ -750,12 +751,14 @@ impl RenderTask {
         let mut adjusted_blur_target_size = blur_target_size;
         let mut downscaling_src_task_id = src_task_id;
         let mut scale_factor = 1.0;
-        while adjusted_blur_std_deviation > MAX_BLUR_STD_DEVIATION {
+        while adjusted_blur_std_deviation.0 > MAX_BLUR_STD_DEVIATION &&
+              adjusted_blur_std_deviation.1 > MAX_BLUR_STD_DEVIATION {
             if adjusted_blur_target_size.width < MIN_DOWNSCALING_RT_SIZE ||
                adjusted_blur_target_size.height < MIN_DOWNSCALING_RT_SIZE {
                 break;
             }
-            adjusted_blur_std_deviation *= 0.5;
+            adjusted_blur_std_deviation.0 *= 0.5;
+            adjusted_blur_std_deviation.1 *= 0.5;
             scale_factor *= 2.0;
             adjusted_blur_target_size = (blur_target_size.to_f32() / scale_factor).to_i32();
             let downscaling_task = RenderTask::new_scaling(
@@ -771,7 +774,7 @@ impl RenderTask {
             adjusted_blur_target_size,
             vec![downscaling_src_task_id],
             RenderTaskKind::VerticalBlur(BlurTask {
-                blur_std_deviation: adjusted_blur_std_deviation,
+                blur_std_deviation: adjusted_blur_std_deviation.1,
                 target_kind,
                 uv_rect_handle: GpuCacheHandle::new(),
                 uv_rect_kind,
@@ -785,7 +788,7 @@ impl RenderTask {
             adjusted_blur_target_size,
             vec![blur_task_v_id],
             RenderTaskKind::HorizontalBlur(BlurTask {
-                blur_std_deviation: adjusted_blur_std_deviation,
+                blur_std_deviation: adjusted_blur_std_deviation.0,
                 target_kind,
                 uv_rect_handle: GpuCacheHandle::new(),
                 uv_rect_kind,
