@@ -125,10 +125,7 @@ class NonDefaultRenderRootArray : public Array<T, kRenderRootCount - 1> {
   const T& operator[](size_t aIndex) const = delete;
 };
 
-RenderRoot RenderRootFromId(DocumentId id) {
-  MOZ_ASSERT(id.mHandle < kRenderRootCount);
-  return (RenderRoot)id.mHandle;
-}
+RenderRoot RenderRootFromId(DocumentId id);
 
 inline DebugFlags NewDebugFlags(uint32_t aFlags) {
   DebugFlags flags;
