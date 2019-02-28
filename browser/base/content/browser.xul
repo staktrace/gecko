@@ -724,7 +724,7 @@ xmlns="http://www.w3.org/1999/xhtml"
                 id="syncedTabsRefreshFilter"/>
     </menupopup>
 
-    <hbox id="statuspanel" inactive="true" layer="true">
+    <hbox id="statuspanel" inactive="true" renderroot="content">
       <hbox id="statuspanel-inner">
         <label id="statuspanel-label"
                role="status"
@@ -1344,7 +1344,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 
   <hbox id="fullscr-toggler" hidden="true"/>
 
-  <deck id="content-deck" flex="1">
+  <deck id="content-deck" flex="1" renderroot="content">
     <hbox flex="1" id="browser">
       <vbox id="browser-border-start" hidden="true" layer="true"/>
       <vbox id="sidebar-box" hidden="true" class="chromeclass-extrachrome">
@@ -1380,7 +1380,7 @@ xmlns="http://www.w3.org/1999/xhtml"
 #include ../../components/customizableui/content/customizeMode.inc.xul
   </deck>
 
-  <html:div id="fullscreen-warning" class="pointerlockfswarning" hidden="true">
+  <html:div id="fullscreen-warning" class="pointerlockfswarning" hidden="true" renderroot="content">
     <html:div class="pointerlockfswarning-domain-text">
       &fullscreenWarning.beforeDomain.label;
       <html:span class="pointerlockfswarning-domain"/>
@@ -1399,7 +1399,7 @@ xmlns="http://www.w3.org/1999/xhtml"
     </html:button>
   </html:div>
 
-  <html:div id="pointerlock-warning" class="pointerlockfswarning" hidden="true">
+  <html:div id="pointerlock-warning" class="pointerlockfswarning" hidden="true" renderroot="content">
     <html:div class="pointerlockfswarning-domain-text">
       &pointerlockWarning.beforeDomain.label;
       <html:span class="pointerlockfswarning-domain"/>
@@ -1410,8 +1410,7 @@ xmlns="http://www.w3.org/1999/xhtml"
     </html:div>
   </html:div>
 
-  <vbox id="browser-bottombox" layer="true">
+  <vbox id="browser-bottombox" layer="true" renderroot="content">
     <!-- gNotificationBox will be added here lazily. -->
   </vbox>
-
 </window>
