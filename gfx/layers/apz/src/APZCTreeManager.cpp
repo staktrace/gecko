@@ -458,11 +458,10 @@ APZCTreeManager::UpdateHitTestingTreeImpl(LayersId aRootLayerTreeId,
           parent = node;
           next = nullptr;
 
-          // Update the layersId if we have a new one
+          // Update the layersId or renderroot if we have a new one
           if (Maybe<LayersId> newLayersId = aLayerMetrics.GetReferentId()) {
             layersId = *newLayersId;
           }
-
           if (Maybe<wr::RenderRoot> newRenderRoot =
                   aLayerMetrics.GetReferentRenderRoot()) {
             renderRoot = *newRenderRoot;
@@ -641,7 +640,7 @@ void APZCTreeManager::SampleForWebRender(wr::TransactionWrapper& aTxn,
 
   // Now collect all the async transforms needed for the scrollthumbs.
   for (const ScrollThumbInfo& info : mScrollThumbInfo) {
-    auto it = mApzcMap.find(APZCGuid(info.mTargetGuid, aRenderRoot));
+    auto it = mApzcMap.find(info.mTargetGuid);
     if (it == mApzcMap.end()) {
       // It could be that |info| is a scrollthumb for content which didn't
       // have an APZC, for example if the content isn't layerized. Regardless,

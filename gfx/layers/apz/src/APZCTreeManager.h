@@ -218,6 +218,10 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    * another composite if there are still active animations.
    * In effect it is the webrender equivalent of (part of) the code in
    * AsyncCompositionManager.
+   * In the WebRender world a single "layer tree" might get split into multiple
+   * render roots; the aRenderRoot argument indicates which render root we are
+   * sampling in this call. The transaction should only be updated with samples
+   * from APZC instances in that render root.
    */
   void SampleForWebRender(wr::TransactionWrapper& aTxn,
                           const TimeStamp& aSampleTime,
