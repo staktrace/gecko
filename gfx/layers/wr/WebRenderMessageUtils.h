@@ -114,6 +114,12 @@ struct ParamTraits<mozilla::wr::WrImageMask>
     : public PlainOldDataSerializer<mozilla::wr::WrImageMask> {};
 
 template <>
+struct ParamTraits<mozilla::wr::RenderRoot>
+    : public ContiguousEnumSerializerInclusive<mozilla::wr::RenderRoot,
+                                               mozilla::wr::RenderRoot::Default,
+                                               mozilla::wr::kHighestRenderRoot> {};
+
+template <>
 struct ParamTraits<mozilla::wr::ImageRendering>
     : public ContiguousEnumSerializer<mozilla::wr::ImageRendering,
                                       mozilla::wr::ImageRendering::Auto,
