@@ -258,6 +258,21 @@ class WebRenderBridgeParent final : public PWebRenderBridgeParent,
   explicit WebRenderBridgeParent(const wr::PipelineId& aPipelineId);
   virtual ~WebRenderBridgeParent();
 
+  // Within WebRenderBridgeParent, we can use wr::RenderRoot::Default to
+  // refer to DefaultApi(), which can be the content API if this
+  // WebRenderBridgeParent is for a content WebRenderBridgeChild. However,
+  // different WebRenderBridgeParents use the same AsyncImagePipelineManager,
+  // for example, which doesn't have this distinction, so we need to
+  // convert out our RenderRoot.
+  wr::RenderRoot RenderRootForExternal(wr::RenderRoot aRenderRoot) {
+    if (IsRootWebRenderBridgeParent()) {
+      return aRenderRoot;
+    } else {
+      MOZ_ASSERT(aRenderRoot == wr::RenderRoot::Default);
+      return mRenderRoot;
+    }
+  }
+
   void UpdateAPZFocusState(const FocusTarget& aFocus);
   void UpdateAPZScrollData(const wr::Epoch& aEpoch,
                            WebRenderScrollData&& aData);
