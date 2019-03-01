@@ -62,7 +62,8 @@ void CanvasClientBridge::UpdateAsync(AsyncCanvasRenderer* aRenderer) {
   mAsyncHandle = asyncID;
 }
 
-void CanvasClient2D::UpdateFromTexture(TextureClient* aTexture) {
+void CanvasClient2D::UpdateFromTexture(TextureClient* aTexture,
+                                       wr::RenderRoot aRenderRoot) {
   MOZ_ASSERT(aTexture);
 
   if (!aTexture->IsSharedWithCompositor()) {
@@ -81,15 +82,16 @@ void CanvasClient2D::UpdateFromTexture(TextureClient* aTexture) {
   t->mPictureRect = nsIntRect(nsIntPoint(0, 0), aTexture->GetSize());
   t->mFrameID = mFrameID;
 
-  GetForwarder()->UseTextures(this, textures);
+  GetForwarder()->UseTextures(this, textures, Some(aRenderRoot));
   aTexture->SyncWithObject(GetForwarder()->GetSyncObject());
 }
 
 void CanvasClient2D::Update(gfx::IntSize aSize,
-                            ShareableCanvasRenderer* aCanvasRenderer) {
+                            ShareableCanvasRenderer* aCanvasRenderer,
+                            wr::RenderRoot aRenderRoot) {
   mBufferProviderTexture = nullptr;
 
-  AutoRemoveTexture autoRemove(this);
+  AutoRemoveTexture autoRemove(this, aRenderRoot);
   if (mBackBuffer &&
       (mBackBuffer->IsReadLocked() || mBackBuffer->GetSize() != aSize)) {
     autoRemove.mTexture = mBackBuffer;
@@ -149,7 +151,7 @@ void CanvasClient2D::Update(gfx::IntSize aSize,
     t->mTextureClient = mBackBuffer;
     t->mPictureRect = nsIntRect(nsIntPoint(0, 0), mBackBuffer->GetSize());
     t->mFrameID = mFrameID;
-    GetForwarder()->UseTextures(this, textures);
+    GetForwarder()->UseTextures(this, textures, Some(aRenderRoot));
     mBackBuffer->SyncWithObject(GetForwarder()->GetSyncObject());
   }
 
@@ -355,8 +357,9 @@ static already_AddRefed<SharedSurfaceTextureClient> CloneSurface(
   return dest.forget();
 }
 
-void CanvasClientSharedSurface::Update(
-    gfx::IntSize aSize, ShareableCanvasRenderer* aCanvasRenderer) {
+void CanvasClientSharedSurface::Update(gfx::IntSize aSize,
+                                       ShareableCanvasRenderer* aCanvasRenderer,
+                                       wr::RenderRoot aRenderRoot) {
   Renderer renderer;
   renderer.construct<ShareableCanvasRenderer*>(aCanvasRenderer);
   UpdateRenderer(aSize, renderer);
@@ -473,7 +476,7 @@ void CanvasClientSharedSurface::UpdateRenderer(gfx::IntSize aSize,
   mNewFront = newFront;
 }
 
-void CanvasClientSharedSurface::Updated() {
+void CanvasClientSharedSurface::Updated(wr::RenderRoot aRenderRoot) {
   if (!mNewFront) {
     return;
   }
@@ -493,7 +496,7 @@ void CanvasClientSharedSurface::Updated() {
   t->mTextureClient = mFront;
   t->mPictureRect = nsIntRect(nsIntPoint(0, 0), mFront->GetSize());
   t->mFrameID = mFrameID;
-  forwarder->UseTextures(this, textures);
+  forwarder->UseTextures(this, textures, Some(aRenderRoot));
 }
 
 void CanvasClientSharedSurface::OnDetach() { ClearSurfaces(); }

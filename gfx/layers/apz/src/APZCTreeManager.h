@@ -311,13 +311,8 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    * the given |aGuid| are cleared.
    */
   void UpdateZoomConstraints(
-      const ScrollableLayerGuid& aGuid,
+      const APZCGuid& aGuid,
       const Maybe<ZoomConstraints>& aConstraints) override;
-
-  /**
-   * Cancels any currently running animation.
-   */
-  void CancelAnimation(const ScrollableLayerGuid& aGuid);
 
   /**
    * Adjusts the root APZC to compensate for a shift in the surface. See the
@@ -540,10 +535,13 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
   // Assert that the current thread is the updater thread for this APZCTM.
   void AssertOnUpdaterThread();
 
-  // Returns a pointer to the WebRenderAPI for the root layers id this
-  // APZCTreeManager is for. This might be null (for example, if WebRender is
-  // not enabled).
-  already_AddRefed<wr::WebRenderAPI> GetWebRenderAPI() const;
+  // XXX document
+  already_AddRefed<wr::WebRenderAPI> GetWebRenderAPI(
+      wr::RenderRoot aRenderRoot) const;
+  // XXX Returns a pointer to the root WebRenderAPI that owns the given point?
+  // This might be null (for example, if WebRender is not enabled).
+  already_AddRefed<wr::WebRenderAPI> GetWebRenderAPIAtPoint(
+      const ScreenPoint& aPoint) const;
 
  protected:
   // Protected destructor, to discourage deletion outside of Release():

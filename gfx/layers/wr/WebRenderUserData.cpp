@@ -128,7 +128,8 @@ void WebRenderImageData::ClearImageKey() {
     if (mOwnsKey) {
       mManager->AddImageKeyForDiscard(mKey.value());
       if (mTextureOfImage) {
-        WrBridge()->ReleaseTextureOfImage(mKey.value());
+        WrBridge()->ReleaseTextureOfImage(mKey.value(),
+                                          mManager->GetRenderRoot());
         mTextureOfImage = nullptr;
       }
     }
@@ -177,7 +178,8 @@ Maybe<wr::ImageKey> WebRenderImageData::UpdateImageKey(
   ImageClientSingle* imageClient = mImageClient->AsImageClientSingle();
   uint32_t oldCounter = imageClient->GetLastUpdateGenerationCounter();
 
-  bool ret = imageClient->UpdateImage(aContainer, /* unused */ 0);
+  bool ret = imageClient->UpdateImage(aContainer, /* unused */ 0,
+                                      Some(mManager->GetRenderRoot()));
   RefPtr<TextureClient> currentTexture = imageClient->GetForwardedTexture();
   if (!ret || !currentTexture) {
     // Delete old key
@@ -235,7 +237,8 @@ void WebRenderImageData::CreateAsyncImageWebRenderCommands(
   if (mPipelineId.isSome() && mContainer != aContainer) {
     // In this case, we need to remove the existed pipeline and create new one
     // because the ImageContainer is changed.
-    WrBridge()->RemovePipelineIdForCompositable(mPipelineId.ref());
+    WrBridge()->RemovePipelineIdForCompositable(mPipelineId.ref(),
+                                                mManager->GetRenderRoot());
     mPipelineId.reset();
   }
 
@@ -244,7 +247,8 @@ void WebRenderImageData::CreateAsyncImageWebRenderCommands(
     mPipelineId =
         Some(WrBridge()->GetCompositorBridgeChild()->GetNextPipelineId());
     WrBridge()->AddPipelineIdForAsyncCompositable(
-        mPipelineId.ref(), aContainer->GetAsyncContainerHandle());
+        mPipelineId.ref(), aContainer->GetAsyncContainerHandle(),
+        mManager->GetRenderRoot());
     mContainer = aContainer;
   }
   MOZ_ASSERT(!mImageClient);
@@ -263,7 +267,8 @@ void WebRenderImageData::CreateAsyncImageWebRenderCommands(
 
   WrBridge()->AddWebRenderParentCommand(
       OpUpdateAsyncImagePipeline(mPipelineId.value(), aSCBounds, aSCTransform,
-                                 aScaleToSize, aFilter, aMixBlendMode));
+                                 aScaleToSize, aFilter, aMixBlendMode),
+      mManager->GetRenderRoot());
 }
 
 void WebRenderImageData::CreateImageClientIfNeeded() {

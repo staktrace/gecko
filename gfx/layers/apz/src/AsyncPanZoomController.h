@@ -44,6 +44,7 @@ namespace layers {
 class AsyncDragMetrics;
 class APZCTreeManager;
 struct ScrollableLayerGuid;
+struct APZCGuid;
 class CompositorController;
 class MetricsSharingController;
 class GestureEventListener;

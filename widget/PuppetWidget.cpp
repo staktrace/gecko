@@ -508,8 +508,7 @@ nsresult PuppetWidget::ClearNativeTouchSequence(nsIObserver* aObserver) {
 }
 
 void PuppetWidget::SetConfirmedTargetAPZC(
-    uint64_t aInputBlockId,
-    const nsTArray<ScrollableLayerGuid>& aTargets) const {
+    uint64_t aInputBlockId, const nsTArray<APZCGuid>& aTargets) const {
   if (mTabChild) {
     mTabChild->SetTargetAPZC(aInputBlockId, aTargets);
   }

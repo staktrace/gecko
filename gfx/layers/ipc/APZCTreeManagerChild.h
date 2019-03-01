@@ -30,17 +30,17 @@ class APZCTreeManagerChild : public IAPZCTreeManager,
 
   void SetKeyboardMap(const KeyboardMap& aKeyboardMap) override;
 
-  void ZoomToRect(const ScrollableLayerGuid& aGuid, const CSSRect& aRect,
+  void ZoomToRect(const APZCGuid& aGuid, const CSSRect& aRect,
                   const uint32_t aFlags = DEFAULT_BEHAVIOR) override;
 
   void ContentReceivedInputBlock(uint64_t aInputBlockId,
                                  bool aPreventDefault) override;
 
   void SetTargetAPZC(uint64_t aInputBlockId,
-                     const nsTArray<ScrollableLayerGuid>& aTargets) override;
+                     const nsTArray<APZCGuid>& aTargets) override;
 
   void UpdateZoomConstraints(
-      const ScrollableLayerGuid& aGuid,
+      const APZCGuid& aGuid,
       const Maybe<ZoomConstraints>& aConstraints) override;
 
   void SetDPI(float aDpiValue) override;
@@ -49,13 +49,13 @@ class APZCTreeManagerChild : public IAPZCTreeManager,
       uint64_t aInputBlockId,
       const nsTArray<TouchBehaviorFlags>& aValues) override;
 
-  void StartScrollbarDrag(const ScrollableLayerGuid& aGuid,
+  void StartScrollbarDrag(const APZCGuid& aGuid,
                           const AsyncDragMetrics& aDragMetrics) override;
 
-  bool StartAutoscroll(const ScrollableLayerGuid& aGuid,
+  bool StartAutoscroll(const APZCGuid& aGuid,
                        const ScreenPoint& aAnchorLocation) override;
 
-  void StopAutoscroll(const ScrollableLayerGuid& aGuid) override;
+  void StopAutoscroll(const APZCGuid& aGuid) override;
 
   void SetLongTapEnabled(bool aTapGestureEnabled) override;
 

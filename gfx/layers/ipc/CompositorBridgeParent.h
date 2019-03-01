@@ -130,12 +130,12 @@ class CompositorBridgeParentBase : public PCompositorBridgeParent,
   virtual void SetTestAsyncZoom(const LayersId& aLayersId,
                                 const ScrollableLayerGuid::ViewID& aScrollId,
                                 const LayerToParentLayerScale& aZoom) = 0;
-  virtual void FlushApzRepaints(const LayersId& aLayersId) = 0;
+  virtual void FlushApzRepaints(const APZNodeId& aLayersId) = 0;
   virtual void GetAPZTestData(const LayersId& aLayersId,
                               APZTestData* aOutData) {}
-  virtual void SetConfirmedTargetAPZC(
-      const LayersId& aLayersId, const uint64_t& aInputBlockId,
-      const nsTArray<ScrollableLayerGuid>& aTargets) = 0;
+  virtual void SetConfirmedTargetAPZC(const LayersId& aLayersId,
+                                      const uint64_t& aInputBlockId,
+                                      const nsTArray<APZCGuid>& aTargets) = 0;
   virtual void UpdatePaintTime(LayerTransactionParent* aLayerTree,
                                const TimeDuration& aPaintTime) {}
   virtual void RegisterPayload(
@@ -364,12 +364,12 @@ class CompositorBridgeParent final : public CompositorBridgeParentBase,
   void SetTestAsyncZoom(const LayersId& aLayersId,
                         const ScrollableLayerGuid::ViewID& aScrollId,
                         const LayerToParentLayerScale& aZoom) override;
-  void FlushApzRepaints(const LayersId& aLayersId) override;
+  void FlushApzRepaints(const APZNodeId& aLayersId) override;
   void GetAPZTestData(const LayersId& aLayersId,
                       APZTestData* aOutData) override;
-  void SetConfirmedTargetAPZC(
-      const LayersId& aLayersId, const uint64_t& aInputBlockId,
-      const nsTArray<ScrollableLayerGuid>& aTargets) override;
+  void SetConfirmedTargetAPZC(const LayersId& aLayersId,
+                              const uint64_t& aInputBlockId,
+                              const nsTArray<APZCGuid>& aTargets) override;
   AsyncCompositionManager* GetCompositionManager(
       LayerTransactionParent* aLayerTree) override {
     return mCompositionManager;
@@ -392,7 +392,8 @@ class CompositorBridgeParent final : public CompositorBridgeParentBase,
                               TimeStamp& aCompositeStart,
                               TimeStamp& aRenderStart, TimeStamp& aCompositeEnd,
                               wr::RendererStats* aStats = nullptr);
-  void NotifyDidSceneBuild(RefPtr<wr::WebRenderPipelineInfo> aInfo);
+  void NotifyDidSceneBuild(wr::RenderRoot aRenderRoot,
+                           RefPtr<wr::WebRenderPipelineInfo> aInfo);
   RefPtr<AsyncImagePipelineManager> GetAsyncImagePipelineManager() const;
 
   PCompositorWidgetParent* AllocPCompositorWidgetParent(
@@ -418,7 +419,8 @@ class CompositorBridgeParent final : public CompositorBridgeParentBase,
   void AsyncRender();
 
   // Can be called from any thread
-  void ScheduleRenderOnCompositorThread() override;
+  void ScheduleRenderOnCompositorThread(
+      Maybe<wr::RenderRoot> aRenderRoot = Nothing()) override;
   void SchedulePauseOnCompositorThread();
   void InvalidateOnCompositorThread();
   /**
@@ -428,7 +430,7 @@ class CompositorBridgeParent final : public CompositorBridgeParentBase,
   bool ScheduleResumeOnCompositorThread();
   bool ScheduleResumeOnCompositorThread(int x, int y, int width, int height);
 
-  void ScheduleComposition();
+  void ScheduleComposition(Maybe<wr::RenderRoot> aRenderRoot = Nothing());
   void NotifyShadowTreeTransaction(LayersId aId, bool aIsFirstPaint,
                                    const FocusTarget& aFocusTarget,
                                    bool aScheduleComposite,

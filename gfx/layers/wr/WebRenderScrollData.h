@@ -18,6 +18,8 @@
 #include "mozilla/layers/LayerAttributes.h"
 #include "mozilla/layers/LayersMessageUtils.h"
 #include "mozilla/layers/FocusTarget.h"
+#include "mozilla/layers/WebRenderMessageUtils.h"
+#include "mozilla/webrender/WebRenderTypes.h"
 #include "mozilla/Maybe.h"
 #include "nsTArrayForwardDeclare.h"
 
@@ -46,7 +48,8 @@ class WebRenderLayerScrollData {
   void Initialize(WebRenderScrollData& aOwner, nsDisplayItem* aItem,
                   int32_t aDescendantCount,
                   const ActiveScrolledRoot* aStopAtAsr,
-                  const Maybe<gfx::Matrix4x4>& aAncestorTransform);
+                  const Maybe<gfx::Matrix4x4>& aAncestorTransform,
+                  wr::RenderRoot aRenderRoot);
 
   int32_t GetDescendantCount() const;
   size_t GetScrollMetadataCount() const;
@@ -86,6 +89,13 @@ class WebRenderLayerScrollData {
   void SetReferentId(LayersId aReferentId) { mReferentId = Some(aReferentId); }
   Maybe<LayersId> GetReferentId() const { return mReferentId; }
 
+  void SetReferentRenderRoot(wr::RenderRoot aReferentRenderRoot) {
+    mReferentRenderRoot = Some(aReferentRenderRoot);
+  }
+  Maybe<wr::RenderRoot> GetReferentRenderRoot() const {
+    return mReferentRenderRoot;
+  }
+
   void SetScrollbarData(const ScrollbarData& aData) { mScrollbarData = aData; }
   const ScrollbarData& GetScrollbarData() const { return mScrollbarData; }
   void SetScrollbarAnimationId(const uint64_t& aId) {
@@ -101,6 +111,8 @@ class WebRenderLayerScrollData {
   ScrollableLayerGuid::ViewID GetFixedPositionScrollContainerId() const {
     return mFixedPosScrollContainerId;
   }
+
+  wr::RenderRoot GetRenderRoot() { return mRenderRoot; }
 
   void SetZoomAnimationId(const uint64_t& aId) { mZoomAnimationId = Some(aId); }
   Maybe<uint64_t> GetZoomAnimationId() const { return mZoomAnimationId; }
@@ -130,10 +142,12 @@ class WebRenderLayerScrollData {
   bool mTransformIsPerspective;
   LayerIntRegion mVisibleRegion;
   Maybe<LayersId> mReferentId;
+  Maybe<wr::RenderRoot> mReferentRenderRoot;
   EventRegionsOverride mEventRegionsOverride;
   ScrollbarData mScrollbarData;
   Maybe<uint64_t> mScrollbarAnimationId;
   ScrollableLayerGuid::ViewID mFixedPosScrollContainerId;
+  wr::RenderRoot mRenderRoot;
   Maybe<uint64_t> mZoomAnimationId;
 };
 
@@ -246,10 +260,12 @@ struct ParamTraits<mozilla::layers::WebRenderLayerScrollData> {
     WriteParam(aMsg, aParam.mTransformIsPerspective);
     WriteParam(aMsg, aParam.mVisibleRegion);
     WriteParam(aMsg, aParam.mReferentId);
+    WriteParam(aMsg, aParam.mReferentRenderRoot);
     WriteParam(aMsg, aParam.mEventRegionsOverride);
     WriteParam(aMsg, aParam.mScrollbarData);
     WriteParam(aMsg, aParam.mScrollbarAnimationId);
     WriteParam(aMsg, aParam.mFixedPosScrollContainerId);
+    WriteParam(aMsg, aParam.mRenderRoot);
     WriteParam(aMsg, aParam.mZoomAnimationId);
   }
 
@@ -262,10 +278,12 @@ struct ParamTraits<mozilla::layers::WebRenderLayerScrollData> {
            ReadParam(aMsg, aIter, &aResult->mTransformIsPerspective) &&
            ReadParam(aMsg, aIter, &aResult->mVisibleRegion) &&
            ReadParam(aMsg, aIter, &aResult->mReferentId) &&
+           ReadParam(aMsg, aIter, &aResult->mReferentRenderRoot) &&
            ReadParam(aMsg, aIter, &aResult->mEventRegionsOverride) &&
            ReadParam(aMsg, aIter, &aResult->mScrollbarData) &&
            ReadParam(aMsg, aIter, &aResult->mScrollbarAnimationId) &&
            ReadParam(aMsg, aIter, &aResult->mFixedPosScrollContainerId) &&
+           ReadParam(aMsg, aIter, &aResult->mRenderRoot) &&
            ReadParam(aMsg, aIter, &aResult->mZoomAnimationId);
   }
 };

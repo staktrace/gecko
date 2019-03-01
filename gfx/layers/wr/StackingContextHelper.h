@@ -22,11 +22,13 @@ struct ActiveScrolledRoot;
 
 namespace layers {
 
+class WebRenderCommandBuilder;
+
 /**
  * This is a helper class that pushes/pops a stacking context, and manages
  * some of the coordinate space transformations needed.
  */
-class MOZ_RAII StackingContextHelper {
+class StackingContextHelper {
  public:
   StackingContextHelper(const StackingContextHelper& aParentSC,
                         const ActiveScrolledRoot* aAsr,
@@ -48,6 +50,11 @@ class MOZ_RAII StackingContextHelper {
   // Export the inherited scale
   gfx::Size GetInheritedScale() const { return mScale; }
 
+
+  const gfx::Matrix& GetInheritedTransform() const {
+    return mInheritedTransform;
+  }
+
   const gfx::Matrix& GetSnappingSurfaceTransform() const {
     return mSnappingSurfaceTransform;
   }
@@ -58,10 +65,13 @@ class MOZ_RAII StackingContextHelper {
   bool AffectsClipPositioning() const { return mAffectsClipPositioning; }
   Maybe<wr::WrSpatialId> ReferenceFrameId() const { return mReferenceFrameId; }
 
+  const LayoutDevicePoint& GetOrigin() const { return mOrigin; }
+
  private:
   wr::DisplayListBuilder* mBuilder;
   gfx::Size mScale;
   gfx::Matrix mInheritedTransform;
+  LayoutDevicePoint mOrigin;
 
   // The "snapping surface" defines the space that we want to snap in.
   // You can think of it as the nearest physical surface.

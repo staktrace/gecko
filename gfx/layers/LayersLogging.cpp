@@ -258,6 +258,14 @@ void AppendToString(std::stringstream& aStream, const ScrollableLayerGuid& s,
           << sfx;
 }
 
+void AppendToString(std::stringstream& aStream, const APZCGuid& s,
+                    const char* pfx, const char* sfx) {
+  aStream << pfx << "{ ";
+  AppendToString(aStream, s.mScrollableLayerGuid, "s=");
+  aStream << nsPrintfCString(", r=%d }", (int)s.mRenderRoot).get()
+          << sfx;
+}
+
 void AppendToString(std::stringstream& aStream, const ZoomConstraints& z,
                     const char* pfx, const char* sfx) {
   aStream << pfx

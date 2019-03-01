@@ -35,6 +35,7 @@
 #include "nsXULAppAPI.h"       // for XRE_GetIOMessageLoop
 #include "mozilla/Unused.h"
 #include "mozilla/StaticPtr.h"
+#include "gfxUtils.h"
 
 using namespace std;
 
@@ -142,7 +143,9 @@ CrossProcessCompositorBridgeParent::AllocPAPZCTreeManagerParent(
     RefPtr<APZCTreeManager> temp = new APZCTreeManager(dummyId);
     RefPtr<APZUpdater> tempUpdater = new APZUpdater(temp, false);
     tempUpdater->ClearTree(dummyId);
-    return new APZCTreeManagerParent(aLayersId, temp, tempUpdater);
+    return new APZCTreeManagerParent(
+        APZNodeId(aLayersId, gfxUtils::GetContentRenderRoot()), temp,
+        tempUpdater);
   }
 
   state.mParent->AllocateAPZCTreeManagerParent(lock, aLayersId, state);
@@ -225,12 +228,12 @@ CrossProcessCompositorBridgeParent::AllocPWebRenderBridgeParent(
     }
   }
 
-  RefPtr<wr::WebRenderAPI> api;
+  InfallibleTArray<RefPtr<wr::WebRenderAPI>> apis;
   if (root) {
-    api = root->GetWebRenderAPI();
+    root->GetWebRenderAPIs(apis);
   }
 
-  if (!root || !api) {
+  if (!root || apis.IsEmpty()) {
     // This could happen when this function is called after
     // CompositorBridgeParent destruction. This was observed during Tab move
     // between different windows.
@@ -244,11 +247,10 @@ CrossProcessCompositorBridgeParent::AllocPWebRenderBridgeParent(
     return parent;
   }
 
-  api = api->Clone();
   RefPtr<AsyncImagePipelineManager> holder = root->AsyncImageManager();
   RefPtr<CompositorAnimationStorage> animStorage = cbp->GetAnimationStorage();
   WebRenderBridgeParent* parent = new WebRenderBridgeParent(
-      this, aPipelineId, nullptr, root->CompositorScheduler(), std::move(api),
+      this, aPipelineId, nullptr, root->CompositorScheduler(), std::move(apis),
       std::move(holder), std::move(animStorage), cbp->GetVsyncInterval());
   parent->AddRef();  // IPDL reference
 
@@ -511,10 +513,10 @@ void CrossProcessCompositorBridgeParent::SetTestAsyncZoom(
 }
 
 void CrossProcessCompositorBridgeParent::FlushApzRepaints(
-    const LayersId& aLayersId) {
+    const APZNodeId& aLayersId) {
   MOZ_ASSERT(aLayersId.IsValid());
   const CompositorBridgeParent::LayerTreeState* state =
-      CompositorBridgeParent::GetIndirectShadowTree(aLayersId);
+      CompositorBridgeParent::GetIndirectShadowTree(aLayersId.mLayersId);
   if (!state || !state->mParent) {
     return;
   }
@@ -536,7 +538,7 @@ void CrossProcessCompositorBridgeParent::GetAPZTestData(
 
 void CrossProcessCompositorBridgeParent::SetConfirmedTargetAPZC(
     const LayersId& aLayersId, const uint64_t& aInputBlockId,
-    const nsTArray<ScrollableLayerGuid>& aTargets) {
+    const nsTArray<APZCGuid>& aTargets) {
   MOZ_ASSERT(aLayersId.IsValid());
   const CompositorBridgeParent::LayerTreeState* state =
       CompositorBridgeParent::GetIndirectShadowTree(aLayersId);

@@ -36,6 +36,8 @@ typedef uintptr_t usize;
 
 typedef wr::WrWindowId WindowId;
 typedef wr::WrPipelineId PipelineId;
+typedef wr::WrDocumentId DocumentId;
+typedef wr::WrRemovedPipeline RemovedPipeline;
 typedef wr::WrImageKey ImageKey;
 typedef wr::WrFontKey FontKey;
 typedef wr::WrFontInstanceKey FontInstanceKey;
@@ -122,6 +124,11 @@ class NonDefaultRenderRootArray : public Array<T, kRenderRootCount - 1> {
   T& operator[](size_t aIndex) = delete;
   const T& operator[](size_t aIndex) const = delete;
 };
+
+RenderRoot RenderRootFromId(DocumentId id) {
+  MOZ_ASSERT(id.mHandle < kRenderRootCount);
+  return (RenderRoot)id.mHandle;
+}
 
 inline DebugFlags NewDebugFlags(uint32_t aFlags) {
   DebugFlags flags;

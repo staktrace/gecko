@@ -782,7 +782,7 @@ mozilla::ipc::IPCResult LayerTransactionParent::RecvSetAsyncZoom(
 }
 
 mozilla::ipc::IPCResult LayerTransactionParent::RecvFlushApzRepaints() {
-  mCompositorBridge->FlushApzRepaints(GetId());
+  mCompositorBridge->FlushApzRepaints(APZNodeId(GetId()));
   return IPC_OK();
 }
 
@@ -799,7 +799,7 @@ mozilla::ipc::IPCResult LayerTransactionParent::RecvRequestProperty(
 }
 
 mozilla::ipc::IPCResult LayerTransactionParent::RecvSetConfirmedTargetAPZC(
-    const uint64_t& aBlockId, nsTArray<ScrollableLayerGuid>&& aTargets) {
+    const uint64_t& aBlockId, nsTArray<APZCGuid>&& aTargets) {
   mCompositorBridge->SetConfirmedTargetAPZC(GetId(), aBlockId, aTargets);
   return IPC_OK();
 }

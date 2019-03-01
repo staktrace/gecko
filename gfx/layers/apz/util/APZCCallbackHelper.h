@@ -36,7 +36,7 @@ class DisplayportSetListener : public nsAPostRefreshObserver {
  public:
   DisplayportSetListener(nsIWidget* aWidget, nsIPresShell* aPresShell,
                          const uint64_t& aInputBlockId,
-                         const nsTArray<ScrollableLayerGuid>& aTargets);
+                         const nsTArray<APZCGuid>& aTargets);
   virtual ~DisplayportSetListener();
   bool Register();
   void DidRefresh() override;
@@ -45,7 +45,7 @@ class DisplayportSetListener : public nsAPostRefreshObserver {
   RefPtr<nsIWidget> mWidget;
   RefPtr<nsIPresShell> mPresShell;
   uint64_t mInputBlockId;
-  nsTArray<ScrollableLayerGuid> mTargets;
+  nsTArray<APZCGuid> mTargets;
 };
 
 /* This class contains some helper methods that facilitate implementing the

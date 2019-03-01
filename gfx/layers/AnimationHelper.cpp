@@ -25,6 +25,7 @@ void CompositorAnimationStorage::Clear() {
 
   mAnimatedValues.Clear();
   mAnimations.Clear();
+  mAnimationRenderRoots.Clear();
 }
 
 void CompositorAnimationStorage::ClearById(const uint64_t& aId) {
@@ -32,6 +33,7 @@ void CompositorAnimationStorage::ClearById(const uint64_t& aId) {
 
   mAnimatedValues.Remove(aId);
   mAnimations.Remove(aId);
+  mAnimationRenderRoots.Remove(aId);
 }
 
 AnimatedValue* CompositorAnimationStorage::GetAnimatedValue(
@@ -133,10 +135,12 @@ AnimationArray* CompositorAnimationStorage::GetAnimations(
 }
 
 void CompositorAnimationStorage::SetAnimations(uint64_t aId,
-                                               const AnimationArray& aValue) {
+                                               const AnimationArray& aValue,
+                                               wr::RenderRoot aRenderRoot) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   AnimationArray* value = new AnimationArray(aValue);
   mAnimations.Put(aId, value);
+  mAnimationRenderRoots.Put(aId, aRenderRoot);
 }
 
 AnimationHelper::SampleResult AnimationHelper::SampleAnimationForEachNode(

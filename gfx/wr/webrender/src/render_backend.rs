@@ -301,13 +301,15 @@ impl DataStores {
 }
 
 struct Document {
+    // The id of this document
+    id: DocumentId,
     // The latest built scene, usable to build frames.
     // received from the scene builder thread.
     scene: Scene,
 
     // Temporary list of removed pipelines received from the scene builder
     // thread and forwarded to the renderer.
-    removed_pipelines: Vec<PipelineId>,
+    removed_pipelines: Vec<(PipelineId, DocumentId)>,
 
     view: DocumentView,
 
@@ -361,6 +363,7 @@ impl Document {
         default_device_pixel_ratio: f32,
     ) -> Self {
         Document {
+            id,
             scene: Scene::new(),
             removed_pipelines: Vec::new(),
             view: DocumentView {
@@ -571,7 +574,8 @@ impl Document {
     pub fn updated_pipeline_info(&mut self) -> PipelineInfo {
         let removed_pipelines = self.removed_pipelines.take_and_preallocate();
         PipelineInfo {
-            epochs: self.scene.pipeline_epochs.clone(),
+            epochs: self.scene.pipeline_epochs.iter()
+                .map(|(&pipeline_id, &epoch)| ((pipeline_id, self.id), epoch)).collect(),
             removed_pipelines,
         }
     }
@@ -839,7 +843,7 @@ impl RenderBackend {
             SceneMsg::RemovePipeline(pipeline_id) => {
                 profile_scope!("RemovePipeline");
 
-                txn.removed_pipelines.push(pipeline_id);
+                txn.removed_pipelines.push((pipeline_id, document_id));
             }
         }
     }
@@ -921,7 +925,7 @@ impl RenderBackend {
                     }
                     SceneBuilderResult::ClearNamespace(id) => {
                         self.resource_cache.clear_namespace(id);
-                        self.documents.retain(|doc_id, _doc| doc_id.0 != id);
+                        self.documents.retain(|doc_id, _doc| doc_id.namespace_id != id);
                     }
                     SceneBuilderResult::Stopped => {
                         panic!("We haven't sent a Stop yet, how did we get a Stopped back?");
@@ -1014,7 +1018,7 @@ impl RenderBackend {
             }
             ApiMsg::CloneApiByClient(namespace_id) => {
                 assert!(self.namespace_alloc_by_client);
-                debug_assert!(!self.documents.iter().any(|(did, _doc)| did.0 == namespace_id));
+                debug_assert!(!self.documents.iter().any(|(did, _doc)| did.namespace_id == namespace_id));
             }
             ApiMsg::AddDocument(document_id, initial_size, layer) => {
                 let document = Document::new(
@@ -1023,7 +1027,8 @@ impl RenderBackend {
                     layer,
                     self.default_device_pixel_ratio,
                 );
-                self.documents.insert(document_id, document);
+                let old = self.documents.insert(document_id, document);
+                debug_assert!(old.is_none());
             }
             ApiMsg::DeleteDocument(document_id) => {
                 self.documents.remove(&document_id);
@@ -1107,7 +1112,7 @@ impl RenderBackend {
                             // notify the active recorder
                             if let Some(ref mut r) = self.recorder {
                                 let pipeline_id = doc.scene.root_pipeline_id.unwrap();
-                                let epoch =  doc.scene.pipeline_epochs[&pipeline_id];
+                                let epoch =  doc.scene.pipeline_epochs[pipeline_id];
                                 let pipeline = &doc.scene.pipelines[&pipeline_id];
                                 let scene_msg = SceneMsg::SetDisplayList {
                                     list_descriptor: pipeline.display_list.descriptor().clone(),
@@ -1631,7 +1636,7 @@ impl RenderBackend {
         for (&id, doc) in &mut self.documents {
             debug!("\tdocument {:?}", id);
             if config.bits.contains(CaptureBits::SCENE) {
-                let file_name = format!("scene-{}-{}", (id.0).0, id.1);
+                let file_name = format!("scene-{}-{}", id.namespace_id.0, id.id);
                 config.serialize(&doc.scene, file_name);
             }
             if config.bits.contains(CaptureBits::FRAME) {
@@ -1644,15 +1649,15 @@ impl RenderBackend {
                 //TODO: write down doc's pipeline info?
                 // it has `pipeline_epoch_map`,
                 // which may capture necessary details for some cases.
-                let file_name = format!("frame-{}-{}", (id.0).0, id.1);
+                let file_name = format!("frame-{}-{}", id.namespace_id.0, id.id);
                 config.serialize(&rendered_document.frame, file_name);
-                let file_name = format!("clip-scroll-{}-{}", (id.0).0, id.1);
+                let file_name = format!("clip-scroll-{}-{}", id.namespace_id.0, id.id);
                 config.serialize_tree(&doc.clip_scroll_tree, file_name);
-                let file_name = format!("builder-{}-{}", (id.0).0, id.1);
+                let file_name = format!("builder-{}-{}", id.namespace_id.0, id.id);
                 config.serialize(doc.frame_builder.as_ref().unwrap(), file_name);
             }
 
-            let data_stores_name = format!("data-stores-{}-{}", (id.0).0, id.1);
+            let data_stores_name = format!("data-stores-{}-{}", id.namespace_id.0, id.id);
             config.serialize(&doc.data_stores, data_stores_name);
         }
 
@@ -1733,15 +1738,15 @@ impl RenderBackend {
 
         for (id, view) in backend.documents {
             debug!("\tdocument {:?}", id);
-            let scene_name = format!("scene-{}-{}", (id.0).0, id.1);
+            let scene_name = format!("scene-{}-{}", id.namespace_id.0, id.id);
             let scene = CaptureConfig::deserialize::<Scene, _>(root, &scene_name)
                 .expect(&format!("Unable to open {}.ron", scene_name));
 
-            let interners_name = format!("interners-{}-{}", (id.0).0, id.1);
+            let interners_name = format!("interners-{}-{}", id.namespace_id.0, id.id);
             let interners = CaptureConfig::deserialize::<Interners, _>(root, &interners_name)
                 .expect(&format!("Unable to open {}.ron", interners_name));
 
-            let data_stores_name = format!("data-stores-{}-{}", (id.0).0, id.1);
+            let data_stores_name = format!("data-stores-{}-{}", id.namespace_id.0, id.id);
             let data_stores = CaptureConfig::deserialize::<DataStores, _>(root, &data_stores_name)
                 .expect(&format!("Unable to open {}.ron", data_stores_name));
 
@@ -1764,7 +1769,7 @@ impl RenderBackend {
                 render_task_counters: RenderTaskTreeCounters::new(),
             };
 
-            let frame_name = format!("frame-{}-{}", (id.0).0, id.1);
+            let frame_name = format!("frame-{}-{}", id.namespace_id.0, id.id);
             let frame = CaptureConfig::deserialize::<Frame, _>(root, frame_name);
             let build_frame = match frame {
                 Some(frame) => {

@@ -2060,11 +2060,6 @@ impl Renderer {
         }
     }
 
-    /// Returns the Epoch of the current frame in a pipeline.
-    pub fn current_epoch(&self, pipeline_id: PipelineId) -> Option<Epoch> {
-        self.pipeline_info.epochs.get(&pipeline_id).cloned()
-    }
-
     pub fn flush_pipeline_info(&mut self) -> PipelineInfo {
         mem::replace(&mut self.pipeline_info, PipelineInfo::default())
     }
@@ -2084,8 +2079,8 @@ impl Renderer {
         while let Ok(msg) = self.result_rx.try_recv() {
             match msg {
                 ResultMsg::PublishPipelineInfo(mut pipeline_info) => {
-                    for (pipeline_id, epoch) in pipeline_info.epochs {
-                        self.pipeline_info.epochs.insert(pipeline_id, epoch);
+                    for ((pipeline_id, document_id), epoch) in pipeline_info.epochs {
+                        self.pipeline_info.epochs.insert((pipeline_id, document_id), epoch);
                     }
                     self.pipeline_info.removed_pipelines.extend(pipeline_info.removed_pipelines.drain(..));
                 }
@@ -4538,11 +4533,11 @@ impl Renderer {
         let y0: f32 = 30.0;
         let mut y = y0;
         let mut text_width = 0.0;
-        for (pipeline, epoch) in  &self.pipeline_info.epochs {
+        for ((pipeline, document_id), epoch) in  &self.pipeline_info.epochs {
             y += dy;
             let w = debug_renderer.add_text(
                 x0, y,
-                &format!("{:?}: {:?}", pipeline, epoch),
+                &format!("({:?}, {:?}): {:?}", pipeline, document_id, epoch),
                 ColorU::new(255, 255, 0, 255),
                 None,
             ).size.width;
@@ -4829,11 +4824,11 @@ pub trait SceneBuilderHooks {
     /// This is called after each scene swap occurs. The PipelineInfo contains
     /// the updated epochs and pipelines removed in the new scene compared to
     /// the old scene.
-    fn post_scene_swap(&self, info: PipelineInfo, sceneswap_time: u64);
+    fn post_scene_swap(&self, document_id: DocumentId, info: PipelineInfo, sceneswap_time: u64);
     /// This is called after a resource update operation on the scene builder
     /// thread, in the case where resource updates were applied without a scene
     /// build.
-    fn post_resource_update(&self);
+    fn post_resource_update(&self, document_id: DocumentId);
     /// This is called after a scene build completes without any changes being
     /// made. We guarantee that each pre_scene_build call will be matched with
     /// exactly one of post_scene_swap, post_resource_update or
@@ -5052,8 +5047,8 @@ impl OutputImageHandler for () {
 
 #[derive(Default)]
 pub struct PipelineInfo {
-    pub epochs: FastHashMap<PipelineId, Epoch>,
-    pub removed_pipelines: Vec<PipelineId>,
+    pub epochs: FastHashMap<(PipelineId, DocumentId), Epoch>,
+    pub removed_pipelines: Vec<(PipelineId, DocumentId)>,
 }
 
 impl Renderer {

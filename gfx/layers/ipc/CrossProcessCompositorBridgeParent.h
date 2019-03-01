@@ -121,12 +121,12 @@ class CrossProcessCompositorBridgeParent final
   void SetTestAsyncZoom(const LayersId& aLayersId,
                         const ScrollableLayerGuid::ViewID& aScrollId,
                         const LayerToParentLayerScale& aZoom) override;
-  void FlushApzRepaints(const LayersId& aLayersId) override;
+  void FlushApzRepaints(const APZNodeId& aLayersId) override;
   void GetAPZTestData(const LayersId& aLayersId,
                       APZTestData* aOutData) override;
-  void SetConfirmedTargetAPZC(
-      const LayersId& aLayersId, const uint64_t& aInputBlockId,
-      const nsTArray<ScrollableLayerGuid>& aTargets) override;
+  void SetConfirmedTargetAPZC(const LayersId& aLayersId,
+                              const uint64_t& aInputBlockId,
+                              const nsTArray<APZCGuid>& aTargets) override;
 
   AsyncCompositionManager* GetCompositionManager(
       LayerTransactionParent* aParent) override;
