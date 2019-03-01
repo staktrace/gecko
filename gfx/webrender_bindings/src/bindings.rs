@@ -848,7 +848,8 @@ extern "C" {
     // These callbacks are invoked from the render backend thread (aka the APZ
     // sampler thread)
     fn apz_register_sampler(window_id: WrWindowId);
-    fn apz_sample_transforms(window_id: WrWindowId, transaction: &mut Transaction);
+    fn apz_sample_transforms(window_id: WrWindowId, transaction: &mut Transaction,
+                             document_id: WrDocumentId);
     fn apz_deregister_sampler(window_id: WrWindowId);
 }
 
@@ -930,9 +931,9 @@ impl AsyncPropertySampler for SamplerCallback {
         unsafe { apz_register_sampler(self.window_id) }
     }
 
-    fn sample(&self) -> Vec<FrameMsg> {
+    fn sample(&self, document_id: DocumentId) -> Vec<FrameMsg> {
         let mut transaction = Transaction::new();
-        unsafe { apz_sample_transforms(self.window_id, &mut transaction) };
+        unsafe { apz_sample_transforms(self.window_id, &mut transaction, document_id) };
         // TODO: also omta_sample_transforms(...)
         transaction.get_frame_ops()
     }

@@ -332,9 +332,10 @@ void APZCTreeManager::NotifyLayerTreeRemoved(LayersId aLayersId,
 }
 
 AsyncPanZoomController* APZCTreeManager::NewAPZCInstance(
-    LayersId aLayersId, GeckoContentController* aController) {
+    LayersId aLayersId, GeckoContentController* aController,
+    wr::RenderRoot aRenderRoot) {
   return new AsyncPanZoomController(
-      aLayersId, this, mInputQueue, aController,
+      aLayersId, this, mInputQueue, aController, aRenderRoot,
       AsyncPanZoomController::USE_GESTURE_DETECTOR);
 }
 
@@ -398,6 +399,7 @@ APZCTreeManager::UpdateHitTestingTreeImpl(LayersId aRootLayerTreeId,
     HitTestingTreeNode* parent = nullptr;
     HitTestingTreeNode* next = nullptr;
     LayersId layersId = aRootLayerTreeId;
+    wr::RenderRoot renderRoot = wr::RenderRoot::Default;
     ancestorTransforms.push(AncestorTransform());
     state.mParentHasPerspective.push(false);
 
@@ -415,7 +417,7 @@ APZCTreeManager::UpdateHitTestingTreeImpl(LayersId aRootLayerTreeId,
 
           HitTestingTreeNode* node = PrepareNodeForLayer(
               lock, aLayerMetrics, aLayerMetrics.Metrics(), layersId,
-              ancestorTransforms.top(), parent, next, state);
+              ancestorTransforms.top(), parent, next, state, renderRoot);
           MOZ_ASSERT(node);
           AsyncPanZoomController* apzc = node->GetApzc();
           aLayerMetrics.SetApzc(apzc);
@@ -461,6 +463,11 @@ APZCTreeManager::UpdateHitTestingTreeImpl(LayersId aRootLayerTreeId,
           // Update the layersId if we have a new one
           if (Maybe<LayersId> newLayersId = aLayerMetrics.GetReferentId()) {
             layersId = *newLayersId;
+          }
+
+          if (Maybe<wr::RenderRoot> newRenderRoot =
+                  aLayerMetrics.GetReferentRenderRoot()) {
+            renderRoot = *newRenderRoot;
           }
 
           indents.push(gfx::TreeAutoIndent(mApzcTreeLog));
@@ -592,14 +599,17 @@ void APZCTreeManager::UpdateHitTestingTree(
 }
 
 void APZCTreeManager::SampleForWebRender(wr::TransactionWrapper& aTxn,
-                                         const TimeStamp& aSampleTime) {
+                                         const TimeStamp& aSampleTime,
+                                         wr::RenderRoot aRenderRoot) {
   AssertOnSamplerThread();
   MutexAutoLock lock(mMapLock);
 
   nsTArray<wr::WrTransformProperty> transforms;
 
+  auto& apzcMap = mApzcMap;
+
   // Sample async transforms on scrollable layers.
-  for (const auto& mapping : mApzcMap) {
+  for (const auto& mapping : apzcMap) {
     AsyncPanZoomController* apzc = mapping.second;
 
     // Apply any additional async scrolling for testing purposes (used for
@@ -633,7 +643,7 @@ void APZCTreeManager::SampleForWebRender(wr::TransactionWrapper& aTxn,
 
   // Now collect all the async transforms needed for the scrollthumbs.
   for (const ScrollThumbInfo& info : mScrollThumbInfo) {
-    auto it = mApzcMap.find(info.mTargetGuid);
+    auto it = mApzcMap.find(APZCGuid(info.mTargetGuid, aRenderRoot));
     if (it == mApzcMap.end()) {
       // It could be that |info| is a scrollthumb for content which didn't
       // have an APZC, for example if the content isn't layerized. Regardless,
@@ -847,7 +857,8 @@ HitTestingTreeNode* APZCTreeManager::PrepareNodeForLayer(
     const RecursiveMutexAutoLock& aProofOfTreeLock, const ScrollNode& aLayer,
     const FrameMetrics& aMetrics, LayersId aLayersId,
     const AncestorTransform& aAncestorTransform, HitTestingTreeNode* aParent,
-    HitTestingTreeNode* aNextSibling, TreeBuildingState& aState) {
+    HitTestingTreeNode* aNextSibling, TreeBuildingState& aState,
+    wr::RenderRoot aRenderRoot) {
   bool needsApzc = true;
   if (!aMetrics.IsScrollable()) {
     needsApzc = false;
@@ -968,7 +979,7 @@ HitTestingTreeNode* APZCTreeManager::PrepareNodeForLayer(
     // a destroyed APZC and so we need to throw that out and make a new one.
     bool newApzc = (apzc == nullptr || apzc->IsDestroyed());
     if (newApzc) {
-      apzc = NewAPZCInstance(aLayersId, geckoContentController);
+      apzc = NewAPZCInstance(aLayersId, geckoContentController, aRenderRoot);
       apzc->SetCompositorController(aState.mCompositorController.get());
       if (crossProcessSharingController) {
         apzc->SetMetricsSharingController(crossProcessSharingController);

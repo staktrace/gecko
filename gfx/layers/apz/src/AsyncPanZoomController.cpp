@@ -787,8 +787,10 @@ class SmoothScrollAnimation : public AsyncPanZoomAnimation {
 AsyncPanZoomController::AsyncPanZoomController(
     LayersId aLayersId, APZCTreeManager* aTreeManager,
     const RefPtr<InputQueue>& aInputQueue,
-    GeckoContentController* aGeckoContentController, GestureBehavior aGestures)
+    GeckoContentController* aGeckoContentController, wr::RenderRoot aRenderRoot,
+    GestureBehavior aGestures)
     : mLayersId(aLayersId),
+      mRenderRoot(aRenderRoot),
       mGeckoContentController(aGeckoContentController),
       mRefPtrMonitor("RefPtrMonitor"),
       // mTreeManager must be initialized before GetFrameTime() is called

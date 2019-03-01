@@ -222,7 +222,8 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    * AsyncCompositionManager.
    */
   void SampleForWebRender(wr::TransactionWrapper& aTxn,
-                          const TimeStamp& aSampleTime);
+                          const TimeStamp& aSampleTime,
+                          wr::RenderRoot aRenderRoot);
 
   /**
    * General handler for incoming input events. Manipulates the frame metrics
@@ -563,7 +564,8 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
 
   // Protected hooks for gtests subclass
   virtual AsyncPanZoomController* NewAPZCInstance(
-      LayersId aLayersId, GeckoContentController* aController);
+      LayersId aLayersId, GeckoContentController* aController,
+      wr::RenderRoot aRenderRoot);
 
  public:
   // Public hooks for gtests subclass
@@ -713,7 +715,8 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
       const RecursiveMutexAutoLock& aProofOfTreeLock, const ScrollNode& aLayer,
       const FrameMetrics& aMetrics, LayersId aLayersId,
       const AncestorTransform& aAncestorTransform, HitTestingTreeNode* aParent,
-      HitTestingTreeNode* aNextSibling, TreeBuildingState& aState);
+      HitTestingTreeNode* aNextSibling, TreeBuildingState& aState,
+      wr::RenderRoot aRenderRoot);
 
   template <class ScrollNode>
   void PrintAPZCInfo(const ScrollNode& aLayer,
