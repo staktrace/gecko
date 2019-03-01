@@ -786,13 +786,13 @@ static EventRegionsOverride GetEventRegionsOverride(HitTestingTreeNode* aParent,
   return result;
 }
 
-void APZCTreeManager::StartScrollbarDrag(const ScrollableLayerGuid& aGuid,
+void APZCTreeManager::StartScrollbarDrag(const APZCGuid& aGuid,
                                          const AsyncDragMetrics& aDragMetrics) {
   APZThreadUtils::AssertOnControllerThread();
 
-  RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aGuid);
+  RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aGuid.mScrollableLayerGuid);
   if (!apzc) {
-    NotifyScrollbarDragRejected(aGuid);
+    NotifyScrollbarDragRejected(aGuid.mScrollableLayerGuid);
     return;
   }
 
@@ -800,18 +800,18 @@ void APZCTreeManager::StartScrollbarDrag(const ScrollableLayerGuid& aGuid,
   mInputQueue->ConfirmDragBlock(inputBlockId, apzc, aDragMetrics);
 }
 
-bool APZCTreeManager::StartAutoscroll(const ScrollableLayerGuid& aGuid,
+bool APZCTreeManager::StartAutoscroll(const APZCGuid& aGuid,
                                       const ScreenPoint& aAnchorLocation) {
   APZThreadUtils::AssertOnControllerThread();
 
-  RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aGuid);
+  RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aGuid.mScrollableLayerGuid);
   if (!apzc) {
     if (XRE_IsGPUProcess()) {
       // If we're in the compositor process, the "return false" will be
       // ignored because the query comes over the PAPZCTreeManager protocol
       // via an async message. In this case, send an explicit rejection
       // message to content.
-      NotifyAutoscrollRejected(aGuid);
+      NotifyAutoscrollRejected(aGuid.mScrollableLayerGuid);
     }
     return false;
   }
@@ -820,10 +820,10 @@ bool APZCTreeManager::StartAutoscroll(const ScrollableLayerGuid& aGuid,
   return true;
 }
 
-void APZCTreeManager::StopAutoscroll(const ScrollableLayerGuid& aGuid) {
+void APZCTreeManager::StopAutoscroll(const APZCGuid& aGuid) {
   APZThreadUtils::AssertOnControllerThread();
 
-  if (RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aGuid)) {
+  if (RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aGuid.mScrollableLayerGuid)) {
     apzc->StopAutoscroll();
   }
 }
@@ -2061,14 +2061,14 @@ void APZCTreeManager::SetKeyboardMap(const KeyboardMap& aKeyboardMap) {
   mKeyboardMap = aKeyboardMap;
 }
 
-void APZCTreeManager::ZoomToRect(const ScrollableLayerGuid& aGuid,
+void APZCTreeManager::ZoomToRect(const APZCGuid& aGuid,
                                  const CSSRect& aRect, const uint32_t aFlags) {
   // We could probably move this to run on the updater thread if needed, but
   // either way we should restrict it to a single thread. For now let's use the
   // controller thread.
   APZThreadUtils::AssertOnControllerThread();
 
-  RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aGuid);
+  RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aGuid.mScrollableLayerGuid);
   if (apzc) {
     apzc->ZoomToRect(aRect, aFlags);
   }
@@ -2082,15 +2082,15 @@ void APZCTreeManager::ContentReceivedInputBlock(uint64_t aInputBlockId,
 }
 
 void APZCTreeManager::SetTargetAPZC(
-    uint64_t aInputBlockId, const nsTArray<ScrollableLayerGuid>& aTargets) {
+    uint64_t aInputBlockId, const nsTArray<APZCGuid>& aTargets) {
   APZThreadUtils::AssertOnControllerThread();
 
   RefPtr<AsyncPanZoomController> target = nullptr;
   if (aTargets.Length() > 0) {
-    target = GetTargetAPZC(aTargets[0]);
+    target = GetTargetAPZC(aTargets[0].mScrollableLayerGuid);
   }
   for (size_t i = 1; i < aTargets.Length(); i++) {
-    RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aTargets[i]);
+    RefPtr<AsyncPanZoomController> apzc = GetTargetAPZC(aTargets[i].mScrollableLayerGuid);
     target = GetMultitouchTarget(target, apzc);
   }
   mInputQueue->SetConfirmedTargetApzc(aInputBlockId, target);

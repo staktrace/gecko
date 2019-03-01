@@ -276,7 +276,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    * up. |aRect| must be given in CSS pixels, relative to the document.
    * |aFlags| is a combination of the ZoomToRectBehavior enum values.
    */
-  void ZoomToRect(const ScrollableLayerGuid& aGuid, const CSSRect& aRect,
+  void ZoomToRect(const APZCGuid& aGuid, const CSSRect& aRect,
                   const uint32_t aFlags = DEFAULT_BEHAVIOR) override;
 
   /**
@@ -308,7 +308,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    *       arrive.
    */
   void SetTargetAPZC(uint64_t aInputBlockId,
-                     const nsTArray<ScrollableLayerGuid>& aTargets) override;
+                     const nsTArray<APZCGuid>& aTargets) override;
 
   /**
    * Updates any zoom constraints contained in the <meta name="viewport"> tag.
@@ -462,13 +462,13 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
   ParentLayerPoint DispatchFling(AsyncPanZoomController* aApzc,
                                  const FlingHandoffState& aHandoffState);
 
-  void StartScrollbarDrag(const ScrollableLayerGuid& aGuid,
+  void StartScrollbarDrag(const APZCGuid& aGuid,
                           const AsyncDragMetrics& aDragMetrics) override;
 
-  bool StartAutoscroll(const ScrollableLayerGuid& aGuid,
+  bool StartAutoscroll(const APZCGuid& aGuid,
                        const ScreenPoint& aAnchorLocation) override;
 
-  void StopAutoscroll(const ScrollableLayerGuid& aGuid) override;
+  void StopAutoscroll(const APZCGuid& aGuid) override;
 
   /*
    * Build the chain of APZCs that will handle overscroll for a pan starting at
