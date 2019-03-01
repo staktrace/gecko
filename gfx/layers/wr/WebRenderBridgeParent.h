@@ -304,10 +304,11 @@ class WebRenderBridgeParent final : public PWebRenderBridgeParent,
                       bool aObserveLayersUpdate);
 
   void UpdateAPZFocusState(const FocusTarget& aFocus);
-  void UpdateAPZScrollData(const wr::Epoch& aEpoch,
-                           WebRenderScrollData&& aData);
+  void UpdateAPZScrollData(const wr::Epoch& aEpoch, WebRenderScrollData&& aData,
+                           wr::RenderRoot aRenderRoot);
   void UpdateAPZScrollOffsets(ScrollUpdatesMap&& aUpdates,
-                              uint32_t aPaintSequenceNumber);
+                              uint32_t aPaintSequenceNumber,
+                              wr::RenderRoot aRenderRoot);
 
   bool UpdateResources(const nsTArray<OpUpdateResource>& aResourceUpdates,
                        const nsTArray<RefCountedShmem>& aSmallShmems,

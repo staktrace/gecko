@@ -820,28 +820,33 @@ void WebRenderBridgeParent::UpdateAPZFocusState(const FocusTarget& aFocus) {
 }
 
 void WebRenderBridgeParent::UpdateAPZScrollData(const wr::Epoch& aEpoch,
-                                                WebRenderScrollData&& aData) {
+                                                WebRenderScrollData&& aData,
+                                                wr::RenderRoot aRenderRoot) {
   CompositorBridgeParent* cbp = GetRootCompositorBridgeParent();
   if (!cbp) {
     return;
   }
   LayersId rootLayersId = cbp->RootLayerTreeId();
   if (RefPtr<APZUpdater> apz = cbp->GetAPZUpdater()) {
-    apz->UpdateScrollDataAndTreeState(rootLayersId, GetLayersId(), aEpoch,
-                                      std::move(aData));
+    apz->UpdateScrollDataAndTreeState(
+        rootLayersId,
+        APZNodeId(GetLayersId(), RenderRootForExternal(aRenderRoot)), aEpoch,
+        std::move(aData));
   }
 }
 
 void WebRenderBridgeParent::UpdateAPZScrollOffsets(
-    ScrollUpdatesMap&& aUpdates, uint32_t aPaintSequenceNumber) {
+    ScrollUpdatesMap&& aUpdates, uint32_t aPaintSequenceNumber,
+    wr::RenderRoot aRenderRoot) {
   CompositorBridgeParent* cbp = GetRootCompositorBridgeParent();
   if (!cbp) {
     return;
   }
   LayersId rootLayersId = cbp->RootLayerTreeId();
   if (RefPtr<APZUpdater> apz = cbp->GetAPZUpdater()) {
-    apz->UpdateScrollOffsets(rootLayersId, GetLayersId(), std::move(aUpdates),
-                             aPaintSequenceNumber);
+    apz->UpdateScrollOffsets(rootLayersId,
+                             APZNodeId(GetLayersId(), RenderRootForExternal(aRenderRoot)),
+                             std::move(aUpdates), aPaintSequenceNumber);
   }
 }
 

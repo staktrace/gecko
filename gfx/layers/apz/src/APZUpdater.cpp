@@ -175,7 +175,7 @@ void APZUpdater::UpdateHitTestingTree(LayersId aRootLayerTreeId, Layer* aRoot,
 }
 
 void APZUpdater::UpdateScrollDataAndTreeState(
-    LayersId aRootLayerTreeId, LayersId aOriginatingLayersId,
+    LayersId aRootLayerTreeId, APZNodeId aOriginatingLayersId,
     const wr::Epoch& aEpoch, WebRenderScrollData&& aScrollData) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   RefPtr<APZUpdater> self = this;
@@ -187,7 +187,7 @@ void APZUpdater::UpdateScrollDataAndTreeState(
   RunOnUpdaterThread(
       aOriginatingLayersId,
       NS_NewRunnableFunction("APZUpdater::UpdateEpochRequirement", [=]() {
-        if (aRootLayerTreeId == aOriginatingLayersId) {
+        if (APZNodeId(aRootLayerTreeId) == aOriginatingLayersId) {
           self->mEpochData[aOriginatingLayersId].mIsRoot = true;
         }
         self->mEpochData[aOriginatingLayersId].mRequired = aEpoch;
@@ -203,20 +203,23 @@ void APZUpdater::UpdateScrollDataAndTreeState(
                                          aOriginatingLayersId.mRenderRoot);
 
             self->mScrollData[aOriginatingLayersId] = aScrollData;
-            auto root = self->mScrollData.find(aRootLayerTreeId);
+            auto root = self->mScrollData.find(APZNodeId(aRootLayerTreeId));
             if (root == self->mScrollData.end()) {
               return;
             }
             self->mApz->UpdateHitTestingTree(
                 aRootLayerTreeId,
-                WebRenderScrollDataWrapper(*self, &(root->second)),
-                aScrollData.IsFirstPaint(), aOriginatingLayersId,
+                WebRenderScrollDataWrapper(*self,
+                                           APZNodeId(aRootLayerTreeId),
+                                           &(root->second)),
+                aScrollData.IsFirstPaint(),
+                aOriginatingLayersId.mLayersId,
                 aScrollData.GetPaintSequenceNumber());
           }));
 }
 
 void APZUpdater::UpdateScrollOffsets(LayersId aRootLayerTreeId,
-                                     LayersId aOriginatingLayersId,
+                                     APZNodeId aOriginatingLayersId,
                                      ScrollUpdatesMap&& aUpdates,
                                      uint32_t aPaintSequenceNumber) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
@@ -228,14 +231,17 @@ void APZUpdater::UpdateScrollOffsets(LayersId aRootLayerTreeId,
           [=, updates = std::move(aUpdates)]() {
             self->mScrollData[aOriginatingLayersId].ApplyUpdates(
                 updates, aPaintSequenceNumber);
-            auto root = self->mScrollData.find(aRootLayerTreeId);
+            auto root = self->mScrollData.find(APZNodeId(aRootLayerTreeId));
             if (root == self->mScrollData.end()) {
               return;
             }
             self->mApz->UpdateHitTestingTree(
                 aRootLayerTreeId,
-                WebRenderScrollDataWrapper(*self, &(root->second)),
-                /*isFirstPaint*/ false, aOriginatingLayersId,
+                WebRenderScrollDataWrapper(*self,
+                                           APZNodeId(aRootLayerTreeId),
+                                           &(root->second)),
+                /*isFirstPaint*/ false,
+                aOriginatingLayersId.mLayersId,
                 aPaintSequenceNumber);
           }));
 }
@@ -316,7 +322,7 @@ void APZUpdater::SetTestAsyncZoom(APZNodeId aLayersId,
       }));
 }
 
-const WebRenderScrollData* APZUpdater::GetScrollData(LayersId aLayersId) const {
+const WebRenderScrollData* APZUpdater::GetScrollData(APZNodeId aLayersId) const {
   AssertOnUpdaterThread();
   auto it = mScrollData.find(aLayersId);
   return (it == mScrollData.end() ? nullptr : &(it->second));

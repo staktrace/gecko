@@ -12,6 +12,7 @@
 
 #include "base/platform_thread.h"  // for PlatformThreadId
 #include "LayersTypes.h"
+#include "APZTypes.h"
 #include "mozilla/layers/APZTestData.h"
 #include "mozilla/layers/WebRenderScrollData.h"
 #include "mozilla/StaticMutex.h"
@@ -101,7 +102,7 @@ class APZUpdater {
                         const LayerToParentLayerScale& aZoom);
 
   // This can only be called on the updater thread.
-  const WebRenderScrollData* GetScrollData(LayersId aLayersId) const;
+  const WebRenderScrollData* GetScrollData(APZNodeId aLayersId) const;
 
   /**
    * This can be used to assert that the current thread is the
@@ -155,7 +156,7 @@ class APZUpdater {
 
   // Map from layers id to WebRenderScrollData. This can only be touched on
   // the updater thread.
-  std::unordered_map<LayersId, WebRenderScrollData, LayersId::HashFn>
+  std::unordered_map<APZNodeId, WebRenderScrollData, APZNodeId::HashFn>
       mScrollData;
 
   // Stores epoch state for a particular layers id. This structure is only
