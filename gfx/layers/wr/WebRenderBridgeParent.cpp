@@ -290,6 +290,7 @@ WebRenderBridgeParent::WebRenderBridgeParent(
       mParentLayersObserverEpoch{0},
       mWrEpoch{0},
       mIdNamespace(aApi->GetNamespace()),
+      mRenderRoot(wr::RenderRoot::Default),
       mPaused(false),
       mDestroyed(false),
       mReceivedDisplayList(false),
@@ -311,6 +312,7 @@ WebRenderBridgeParent::WebRenderBridgeParent(const wr::PipelineId& aPipelineId)
       mParentLayersObserverEpoch{0},
       mWrEpoch{0},
       mIdNamespace{0},
+      mRenderRoot(wr::RenderRoot::Default),
       mPaused(false),
       mDestroyed(true),
       mReceivedDisplayList(false),
@@ -325,6 +327,7 @@ WebRenderBridgeParent::WebRenderBridgeParent(const wr::PipelineId& aPipelineId)
 WebRenderBridgeParent::~WebRenderBridgeParent() {}
 
 mozilla::ipc::IPCResult WebRenderBridgeParent::RecvEnsureConnected(
+    const wr::RenderRoot& aRenderRoot,
     TextureFactoryIdentifier* aTextureFactoryIdentifier,
     MaybeIdNamespace* aMaybeIdNamespace) {
   if (mDestroyed) {
@@ -334,7 +337,9 @@ mozilla::ipc::IPCResult WebRenderBridgeParent::RecvEnsureConnected(
     return IPC_OK();
   }
 
+  MOZ_ASSERT(mRenderRoot == wr::RenderRoot::Default);
   MOZ_ASSERT(mIdNamespace.mHandle != 0);
+  mRenderRoot = aRenderRoot;
   *aTextureFactoryIdentifier = GetTextureFactoryIdentifier();
   *aMaybeIdNamespace = Some(mIdNamespace);
 

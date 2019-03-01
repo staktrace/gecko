@@ -24,6 +24,7 @@ using mozilla::wr::BuiltDisplayListDescriptor from "mozilla/webrender/webrender_
 using mozilla::wr::IdNamespace from "mozilla/webrender/WebRenderTypes.h";
 using mozilla::wr::MaybeIdNamespace from "mozilla/webrender/WebRenderTypes.h";
 using mozilla::wr::ExternalImageKeyPair from "mozilla/webrender/WebRenderTypes.h";
+using mozilla::wr::RenderRoot from "mozilla/webrender/WebRenderTypes.h";
 using mozilla::layers::WebRenderScrollData from "mozilla/layers/WebRenderScrollData.h";
 using mozilla::layers::FocusTarget from "mozilla/layers/FocusTarget.h";
 using mozilla::layers::LayersObserverEpoch from "mozilla/layers/LayersTypes.h";
@@ -38,7 +39,7 @@ sync protocol PWebRenderBridge
   manager PCompositorBridge;
 
 parent:
-  sync EnsureConnected()
+  sync EnsureConnected(RenderRoot aRenderRoot)
     returns (TextureFactoryIdentifier textureFactoryIdentifier, MaybeIdNamespace maybeIdNamespace);
 
   async NewCompositable(CompositableHandle handle, TextureInfo info);

@@ -79,6 +79,7 @@ class WebRenderBridgeParent final : public PWebRenderBridgeParent,
   }
 
   mozilla::ipc::IPCResult RecvEnsureConnected(
+      const wr::RenderRoot& aRenderRoot,
       TextureFactoryIdentifier* aTextureFactoryIdentifier,
       MaybeIdNamespace* aMaybeIdNamespace) override;
 
@@ -412,6 +413,7 @@ class WebRenderBridgeParent final : public PWebRenderBridgeParent,
   VsyncId mSkippedCompositeId;
   TimeStamp mMostRecentComposite;
 
+  wr::RenderRoot mRenderRoot;
   bool mPaused;
   bool mDestroyed;
   bool mReceivedDisplayList;

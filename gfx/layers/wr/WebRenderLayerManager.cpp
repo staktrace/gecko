@@ -67,8 +67,13 @@ bool WebRenderLayerManager::Initialize(
 
   TextureFactoryIdentifier textureFactoryIdentifier;
   wr::MaybeIdNamespace idNamespace;
+  wr::RenderRoot renderRoot =
+      (mWidget->GetOwningTabChild() && gfxPrefs::WebRenderSplitRenderRoots())
+          ? wr::RenderRoot::Content
+          : wr::RenderRoot::Default;
   // Sync ipc
-  bridge->SendEnsureConnected(&textureFactoryIdentifier, &idNamespace);
+  bridge->SendEnsureConnected(renderRoot, &textureFactoryIdentifier,
+                              &idNamespace);
   if (textureFactoryIdentifier.mParentBackend == LayersBackend::LAYERS_NONE ||
       idNamespace.isNothing()) {
     gfxCriticalNote << "Failed to connect WebRenderBridgeChild.";
