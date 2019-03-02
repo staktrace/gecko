@@ -58,8 +58,7 @@ void FocusState::ReceiveFocusChangingEvent() {
 
 void FocusState::Update(LayersId aRootLayerTreeId,
                         LayersId aOriginatingLayersId,
-                        const FocusTarget& aState,
-                        wr::RenderRoot aRenderRoot) {
+                        const FocusTarget& aState) {
   // This runs on the updater thread, it's not worth passing around extra raw
   // pointers just to assert it.
 
@@ -70,9 +69,8 @@ void FocusState::Update(LayersId aRootLayerTreeId,
          aState.mSequenceNumber);
   mReceivedUpdate = true;
 
-  auto& focusTree = mFocusTrees[aRenderRoot];
   // Update the focus tree with the latest target
-  focusTree[aOriginatingLayersId] = aState;
+  mFocusTree[aOriginatingLayersId] = aState;
 
   // Reset our internal state so we can recalculate it
   mFocusHasKeyEventListeners = false;
@@ -84,8 +82,8 @@ void FocusState::Update(LayersId aRootLayerTreeId,
   // to traverse the focus tree to find the current leaf which is the global
   // focus target we can use for async keyboard scrolling
   while (true) {
-    auto currentNode = focusTree.find(mFocusLayersId);
-    if (currentNode == focusTree.end()) {
+    auto currentNode = mFocusTree.find(mFocusLayersId);
+    if (currentNode == mFocusTree.end()) {
       FS_LOG("Setting target to nil (cannot find lt=%" PRIu64 ")\n",
              mFocusLayersId);
       return;
@@ -177,12 +175,12 @@ void FocusState::Update(LayersId aRootLayerTreeId,
   }
 }
 
-void FocusState::RemoveFocusTarget(LayersId aLayersId, wr::RenderRoot aRenderRoot) {
+void FocusState::RemoveFocusTarget(LayersId aLayersId) {
   // This runs on the updater thread, it's not worth passing around extra raw
   // pointers just to assert it.
   MutexAutoLock lock(mMutex);
 
-  mFocusTrees[aRenderRoot].erase(aLayersId);
+  mFocusTree.erase(aLayersId);
 }
 
 Maybe<ScrollableLayerGuid> FocusState::GetHorizontalTarget() const {

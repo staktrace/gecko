@@ -398,22 +398,6 @@ class AsyncPanZoomController {
   bool Matches(const ScrollableLayerGuid& aGuid);
 
   /**
-   * Populates the provided object (if non-null) with the scrollable guid of
-   * this apzc.
-   */
-  void GetAPZCGuid(APZCGuid* aGuidOut) const;
-
-  /**
-   * Returns the scrollable guid of this apzc.
-   */
-  APZCGuid GetAPZCGuid() const;
-
-  /**
-   * Returns true if this APZC instance is for the layer identified by the guid.
-   */
-  bool Matches(const APZCGuid& aGuid);
-
-  /**
    * Returns true if the tree manager of this APZC is the same as the one
    * passed in.
    */

@@ -150,8 +150,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    * This function must be called on the updater thread.
    */
   void NotifyLayerTreeAdopted(LayersId aLayersId,
-                              const RefPtr<APZCTreeManager>& aOldTreeManager,
-                              wr::RenderRoot aRenderRoot);
+                              const RefPtr<APZCTreeManager>& aOldTreeManager);
 
   /**
    * Notifies this APZCTreeManager that a layer tree being managed by the
@@ -160,7 +159,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    * also getting destroyed.
    * This function must be called on the updater thread.
    */
-  void NotifyLayerTreeRemoved(LayersId aLayersId, wr::RenderRoot aRenderRoot);
+  void NotifyLayerTreeRemoved(LayersId aLayersId);
 
   /**
    * Rebuild the focus state based on the focus target from the layer tree
@@ -173,8 +172,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    */
   void UpdateFocusState(LayersId aRootLayerTreeId,
                         LayersId aOriginatingLayersId,
-                        const FocusTarget& aFocusTarget,
-                        wr::RenderRoot aRenderRoot);
+                        const FocusTarget& aFocusTarget);
 
   /**
    * Rebuild the hit-testing tree based on the layer update that just came up.
@@ -274,7 +272,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    * up. |aRect| must be given in CSS pixels, relative to the document.
    * |aFlags| is a combination of the ZoomToRectBehavior enum values.
    */
-  void ZoomToRect(const APZCGuid& aGuid, const CSSRect& aRect,
+  void ZoomToRect(const ScrollableLayerGuid& aGuid, const CSSRect& aRect,
                   const uint32_t aFlags = DEFAULT_BEHAVIOR) override;
 
   /**
@@ -306,7 +304,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    *       arrive.
    */
   void SetTargetAPZC(uint64_t aInputBlockId,
-                     const nsTArray<APZCGuid>& aTargets) override;
+                     const nsTArray<ScrollableLayerGuid>& aTargets) override;
 
   /**
    * Updates any zoom constraints contained in the <meta name="viewport"> tag.
@@ -357,8 +355,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    * drag metrics. Initializes aOutThumbNode with the node, if there is one.
    */
   void FindScrollThumbNode(const AsyncDragMetrics& aDragMetrics,
-                           HitTestingTreeNodeAutoLock& aOutThumbNode,
-                           wr::RenderRoot aRenderRoot);
+                           HitTestingTreeNodeAutoLock& aOutThumbNode);
 
   /**
    * Sets allowed touch behavior values for current touch-session for specific
@@ -461,13 +458,13 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
   ParentLayerPoint DispatchFling(AsyncPanZoomController* aApzc,
                                  const FlingHandoffState& aHandoffState);
 
-  void StartScrollbarDrag(const APZCGuid& aGuid,
+  void StartScrollbarDrag(const ScrollableLayerGuid& aGuid,
                           const AsyncDragMetrics& aDragMetrics) override;
 
-  bool StartAutoscroll(const APZCGuid& aGuid,
+  bool StartAutoscroll(const ScrollableLayerGuid& aGuid,
                        const ScreenPoint& aAnchorLocation) override;
 
-  void StopAutoscroll(const APZCGuid& aGuid) override;
+  void StopAutoscroll(const ScrollableLayerGuid& aGuid) override;
 
   /*
    * Build the chain of APZCs that will handle overscroll for a pan starting at
@@ -539,11 +536,11 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
   // Assert that the current thread is the updater thread for this APZCTM.
   void AssertOnUpdaterThread();
 
-  // Returns a pointer to the WebRenderAPI for the root layers id this
-  // APZCTreeManager is for. This might be null (for example, if WebRender is
-  // not enabled).
+  // XXX document
   already_AddRefed<wr::WebRenderAPI> GetWebRenderAPI(
       wr::RenderRoot aRenderRoot) const;
+  // XXX Returns a pointer to the root WebRenderAPI that owns the given point?
+  // This might be null (for example, if WebRender is not enabled).
   already_AddRefed<wr::WebRenderAPI> GetWebRenderAPIAtPoint(
       const ScreenPoint& aPoint) const;
 
@@ -583,8 +580,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
       const ScreenPoint& aPoint, gfx::CompositorHitTestInfo* aOutHitResult,
       HitTestingTreeNodeAutoLock* aOutScrollbarNode = nullptr);
   already_AddRefed<AsyncPanZoomController> GetTargetAPZC(
-      const LayersId& aLayersId, const ScrollableLayerGuid::ViewID& aScrollId,
-      wr::RenderRoot aRenderRoot);
+      const LayersId& aLayersId, const ScrollableLayerGuid::ViewID& aScrollId);
   ScreenToParentLayerMatrix4x4 GetScreenToApzcTransform(
       const AsyncPanZoomController* aApzc) const;
   ParentLayerToScreenMatrix4x4 GetApzcToGeckoTransform(
@@ -605,7 +601,8 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
                                      ScreenCoord aDeltaY);
 
  private:
-  typedef bool (*GuidComparator)(const APZCGuid&, const APZCGuid&);
+  typedef bool (*GuidComparator)(const ScrollableLayerGuid&,
+                                 const ScrollableLayerGuid&);
 
   /* Helpers */
   template <class ScrollNode>
@@ -616,14 +613,14 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
 
   void AttachNodeToTree(HitTestingTreeNode* aNode, HitTestingTreeNode* aParent,
                         HitTestingTreeNode* aNextSibling);
-  already_AddRefed<AsyncPanZoomController> GetTargetAPZC(const APZCGuid& aGuid);
+  already_AddRefed<AsyncPanZoomController> GetTargetAPZC(
+      const ScrollableLayerGuid& aGuid);
   already_AddRefed<HitTestingTreeNode> GetTargetNode(
-      const APZCGuid& aGuid, GuidComparator aComparator) const;
+      const ScrollableLayerGuid& aGuid, GuidComparator aComparator) const;
   HitTestingTreeNode* FindTargetNode(HitTestingTreeNode* aNode,
-                                     const APZCGuid& aGuid,
+                                     const ScrollableLayerGuid& aGuid,
                                      GuidComparator aComparator);
-  AsyncPanZoomController* GetTargetApzcForNode(HitTestingTreeNode* aNode,
-                                               wr::RenderRoot aRenderRoot);
+  AsyncPanZoomController* GetTargetApzcForNode(HitTestingTreeNode* aNode);
   AsyncPanZoomController* GetAPZCAtPoint(
       HitTestingTreeNode* aNode, const ScreenPoint& aHitTestPoint,
       gfx::CompositorHitTestInfo* aOutHitResult,
@@ -708,8 +705,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
 
   already_AddRefed<HitTestingTreeNode> RecycleOrCreateNode(
       const RecursiveMutexAutoLock& aProofOfTreeLock, TreeBuildingState& aState,
-      AsyncPanZoomController* aApzc, LayersId aLayersId,
-      wr::RenderRoot aRenderRoot);
+      AsyncPanZoomController* aApzc, LayersId aLayersId);
   template <class ScrollNode>
   HitTestingTreeNode* PrepareNodeForLayer(
       const RecursiveMutexAutoLock& aProofOfTreeLock, const ScrollNode& aLayer,
@@ -775,16 +771,16 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    */
   bool mUsingAsyncZoomContainer;
 
-  /** A lock that protects mApzcMaps and mScrollThumbInfo. */
+  /** A lock that protects mApzcMap and mScrollThumbInfo. */
   mutable mozilla::Mutex mMapLock;
   /**
    * A map for quick access to get APZC instances by guid, without having to
    * acquire the tree lock. mMapLock must be acquired while accessing or
-   * modifying mApzcMaps.
+   * modifying mApzcMap.
    */
-  std::unordered_map<APZCGuid, RefPtr<AsyncPanZoomController>,
-                     APZCGuid::HashIgnoringPresShellFn,
-                     APZCGuid::EqualIgnoringPresShellFn>
+  std::unordered_map<ScrollableLayerGuid, RefPtr<AsyncPanZoomController>,
+                     ScrollableLayerGuid::HashIgnoringPresShellFn,
+                     ScrollableLayerGuid::EqualIgnoringPresShellFn>
       mApzcMap;
   /**
    * A helper structure to store all the information needed to compute the

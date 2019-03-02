@@ -155,13 +155,10 @@ void APZUpdater::UpdateFocusState(LayersId aRootLayerTreeId,
                                   const FocusTarget& aFocusTarget) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   RunOnUpdaterThread(aOriginatingLayersId,
-                     NewRunnableMethod<LayersId, LayersId, FocusTarget, wr::RenderRoot>(
+                     NewRunnableMethod<LayersId, LayersId, FocusTarget>(
                          "APZUpdater::UpdateFocusState", mApz,
-                         &APZCTreeManager::UpdateFocusState,
-                         aRootLayerTreeId,
-                         aOriginatingLayersId.mLayersId,
-                         aFocusTarget,
-                         aOriginatingLayersId.mRenderRoot));
+                         &APZCTreeManager::UpdateFocusState, aRootLayerTreeId,
+                         aOriginatingLayersId.mLayersId, aFocusTarget));
 }
 
 void APZUpdater::UpdateHitTestingTree(LayersId aRootLayerTreeId, Layer* aRoot,
@@ -199,8 +196,7 @@ void APZUpdater::UpdateScrollDataAndTreeState(
           [=, aScrollData = std::move(aScrollData)]() {
             self->mApz->UpdateFocusState(aRootLayerTreeId,
                                          aOriginatingLayersId.mLayersId,
-                                         aScrollData.GetFocusTarget(),
-                                         aOriginatingLayersId.mRenderRoot);
+                                         aScrollData.GetFocusTarget());
 
             self->mScrollData[aOriginatingLayersId] = aScrollData;
             auto root = self->mScrollData.find(APZNodeId(aRootLayerTreeId));
@@ -250,10 +246,10 @@ void APZUpdater::NotifyLayerTreeAdopted(APZNodeId aLayersId,
                                         const RefPtr<APZUpdater>& aOldUpdater) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   RunOnUpdaterThread(aLayersId,
-                     NewRunnableMethod<LayersId, RefPtr<APZCTreeManager>, wr::RenderRoot>(
+                     NewRunnableMethod<LayersId, RefPtr<APZCTreeManager>>(
                          "APZUpdater::NotifyLayerTreeAdopted", mApz,
                          &APZCTreeManager::NotifyLayerTreeAdopted, aLayersId.mLayersId,
-                         aOldUpdater ? aOldUpdater->mApz : nullptr, aLayersId.mRenderRoot));
+                         aOldUpdater ? aOldUpdater->mApz : nullptr));
 }
 
 void APZUpdater::NotifyLayerTreeRemoved(APZNodeId aLayersId) {
@@ -264,8 +260,7 @@ void APZUpdater::NotifyLayerTreeRemoved(APZNodeId aLayersId) {
       NS_NewRunnableFunction("APZUpdater::NotifyLayerTreeRemoved", [=]() {
         self->mEpochData.erase(aLayersId);
         self->mScrollData.erase(aLayersId);
-        self->mApz->NotifyLayerTreeRemoved(aLayersId.mLayersId,
-                                           aLayersId.mRenderRoot);
+        self->mApz->NotifyLayerTreeRemoved(aLayersId.mLayersId);
       }));
 }
 
@@ -296,7 +291,7 @@ void APZUpdater::SetTestAsyncScrollOffset(
       aLayersId,
       NS_NewRunnableFunction("APZUpdater::SetTestAsyncScrollOffset", [=]() {
         RefPtr<AsyncPanZoomController> apzc =
-            apz->GetTargetAPZC(aLayersId.mLayersId, aScrollId, aLayersId.mRenderRoot);
+            apz->GetTargetAPZC(aLayersId.mLayersId, aScrollId);
         if (apzc) {
           apzc->SetTestAsyncScrollOffset(aOffset);
         } else {
@@ -313,7 +308,7 @@ void APZUpdater::SetTestAsyncZoom(APZNodeId aLayersId,
   RunOnUpdaterThread(
       aLayersId, NS_NewRunnableFunction("APZUpdater::SetTestAsyncZoom", [=]() {
         RefPtr<AsyncPanZoomController> apzc =
-            apz->GetTargetAPZC(aLayersId.mLayersId, aScrollId, aLayersId.mRenderRoot);
+            apz->GetTargetAPZC(aLayersId.mLayersId, aScrollId);
         if (apzc) {
           apzc->SetTestAsyncZoom(aZoom);
         } else {
