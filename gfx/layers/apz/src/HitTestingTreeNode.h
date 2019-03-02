@@ -64,7 +64,7 @@ class HitTestingTreeNode {
 
  public:
   HitTestingTreeNode(AsyncPanZoomController* aApzc, bool aIsPrimaryHolder,
-                     LayersId aLayersId);
+                     LayersId aLayersId, wr::RenderRoot aRenderRoot);
   void RecycleWith(const RecursiveMutexAutoLock& aProofOfTreeLock,
                    AsyncPanZoomController* aApzc, LayersId aLayersId);
   // Clears the tree pointers on the node, thereby breaking RefPtr cycles. This
@@ -98,6 +98,7 @@ class HitTestingTreeNode {
   AsyncPanZoomController* GetNearestContainingApzc() const;
   bool IsPrimaryHolder() const;
   LayersId GetLayersId() const;
+  wr::RenderRoot GetRenderRoot() const;
 
   /* Hit test related methods */
 
@@ -163,6 +164,7 @@ class HitTestingTreeNode {
   int mLockCount;
 
   LayersId mLayersId;
+  wr::RenderRoot mRenderRoot;
 
   // This is only set if WebRender is enabled, and only for HTTNs
   // where IsScrollThumbNode() returns true. It holds the animation id that we

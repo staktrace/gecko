@@ -24,11 +24,13 @@ using gfx::CompositorHitTestTouchActionMask;
 
 HitTestingTreeNode::HitTestingTreeNode(AsyncPanZoomController* aApzc,
                                        bool aIsPrimaryHolder,
-                                       LayersId aLayersId)
+                                       LayersId aLayersId,
+                                       wr::RenderRoot aRenderRoot)
     : mApzc(aApzc),
       mIsPrimaryApzcHolder(aIsPrimaryHolder),
       mLockCount(0),
       mLayersId(aLayersId),
+      mRenderRoot(aRenderRoot),
       mFixedPosTarget(ScrollableLayerGuid::NULL_SCROLL_ID),
       mIsBackfaceHidden(false),
       mIsAsyncZoomContainer(false),
@@ -205,6 +207,8 @@ bool HitTestingTreeNode::IsPrimaryHolder() const {
 }
 
 LayersId HitTestingTreeNode::GetLayersId() const { return mLayersId; }
+
+wr::RenderRoot HitTestingTreeNode::GetRenderRoot() const { return mRenderRoot; }
 
 void HitTestingTreeNode::SetHitTestData(
     const EventRegions& aRegions, const LayerIntRegion& aVisibleRegion,

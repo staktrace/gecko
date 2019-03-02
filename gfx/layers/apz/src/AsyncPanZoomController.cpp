@@ -980,7 +980,7 @@ nsEventStatus AsyncPanZoomController::HandleDragEvent(
   }
 
   HitTestingTreeNodeAutoLock node;
-  GetApzcTreeManager()->FindScrollThumbNode(aDragMetrics, node);
+  GetApzcTreeManager()->FindScrollThumbNode(aDragMetrics, node, mRenderRoot);
   if (!node) {
     APZC_LOG("%p unable to find scrollthumb node with viewid %" PRIu64 "\n",
              this, aDragMetrics.mViewId);
@@ -4965,6 +4965,10 @@ bool AsyncPanZoomController::Matches(const ScrollableLayerGuid& aGuid) {
   return aGuid == GetGuid();
 }
 
+bool AsyncPanZoomController::Matches(const APZCGuid& aGuid) {
+  return aGuid == GetAPZCGuid();
+}
+
 bool AsyncPanZoomController::HasTreeManager(
     const APZCTreeManager* aTreeManager) const {
   return GetApzcTreeManager() == aTreeManager;
@@ -4979,6 +4983,17 @@ void AsyncPanZoomController::GetGuid(ScrollableLayerGuid* aGuidOut) const {
 ScrollableLayerGuid AsyncPanZoomController::GetGuid() const {
   return ScrollableLayerGuid(mLayersId, Metrics().GetPresShellId(),
                              Metrics().GetScrollId());
+}
+
+void AsyncPanZoomController::GetAPZCGuid(APZCGuid* aGuidOut) const {
+  if (aGuidOut) {
+    *aGuidOut = GetAPZCGuid();
+  }
+}
+
+APZCGuid AsyncPanZoomController::GetAPZCGuid() const {
+  return APZCGuid(mLayersId, Metrics().GetPresShellId(),
+                  Metrics().GetScrollId(), mRenderRoot);
 }
 
 void AsyncPanZoomController::UpdateSharedCompositorFrameMetrics() {

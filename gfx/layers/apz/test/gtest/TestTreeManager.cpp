@@ -66,7 +66,7 @@ TEST_F(APZCTreeManagerTester, Bug1194876) {
   manager->UpdateHitTestingTree(LayersId{0}, root, false, LayersId{0}, 0);
 
   uint64_t blockId;
-  nsTArray<ScrollableLayerGuid> targets;
+  nsTArray<APZCGuid> targets;
 
   // First touch goes down, APZCTM will hit layers[1] because it is on top of
   // layers[0], but we tell it the real target APZC is layers[0].
@@ -76,7 +76,7 @@ TEST_F(APZCTreeManagerTester, Bug1194876) {
       SingleTouchData(0, ParentLayerPoint(25, 50), ScreenSize(0, 0), 0, 0));
   manager->ReceiveInputEvent(mti, nullptr, &blockId);
   manager->ContentReceivedInputBlock(blockId, false);
-  targets.AppendElement(ApzcOf(layers[0])->GetGuid());
+  targets.AppendElement(ApzcOf(layers[0])->GetAPZCGuid());
   manager->SetTargetAPZC(blockId, targets);
 
   // Around here, the above touch will get processed by ApzcOf(layers[0])
@@ -88,7 +88,7 @@ TEST_F(APZCTreeManagerTester, Bug1194876) {
       SingleTouchData(1, ParentLayerPoint(75, 50), ScreenSize(0, 0), 0, 0));
   manager->ReceiveInputEvent(mti, nullptr, &blockId);
   manager->ContentReceivedInputBlock(blockId, false);
-  targets.AppendElement(ApzcOf(layers[0])->GetGuid());
+  targets.AppendElement(ApzcOf(layers[0])->GetAPZCGuid());
   manager->SetTargetAPZC(blockId, targets);
 
   // Around here, the above multi-touch will get processed by ApzcOf(layers[1]).

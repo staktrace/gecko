@@ -238,8 +238,8 @@ TEST_F(APZEventRegionsTester, HitRegionImmediateResponse) {
   // Now let's do that again, but simulate a main-thread response
   uint64_t inputBlockId = 0;
   Tap(manager, ScreenIntPoint(10, 110), tapDuration, nullptr, &inputBlockId);
-  nsTArray<ScrollableLayerGuid> targets;
-  targets.AppendElement(left->GetGuid());
+  nsTArray<APZCGuid> targets;
+  targets.AppendElement(left->GetAPZCGuid());
   manager->SetTargetAPZC(inputBlockId, targets);
   while (mcc->RunThroughDelayedTasks())
     ;  // this runs the tap event
@@ -307,7 +307,7 @@ TEST_F(APZEventRegionsTester, Bug1117712) {
                               apzc2->GetGuid(), _))
       .Times(1);
 
-  nsTArray<ScrollableLayerGuid> targets;
-  targets.AppendElement(apzc2->GetGuid());
+  nsTArray<APZCGuid> targets;
+  targets.AppendElement(apzc2->GetAPZCGuid());
   manager->SetTargetAPZC(inputBlockId, targets);
 }

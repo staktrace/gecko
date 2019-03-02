@@ -96,12 +96,12 @@ class FocusState final {
                                  belongs to
    */
   void Update(LayersId aRootLayerTreeId, LayersId aOriginatingLayersId,
-              const FocusTarget& aTarget);
+              const FocusTarget& aTarget, wr::RenderRoot aRenderRoot);
 
   /**
    * Removes a focus target by its layer tree ID.
    */
-  void RemoveFocusTarget(LayersId aLayersId);
+  void RemoveFocusTarget(LayersId aLayersId, wr::RenderRoot aRenderRoot);
 
   /**
    * Gets the scrollable layer that should be horizontally scrolled for a key
@@ -118,6 +118,11 @@ class FocusState final {
    * The same as GetHorizontalTarget() but for vertical scrolling.
    */
   Maybe<ScrollableLayerGuid> GetVerticalTarget() const;
+
+  /**
+   * The most recently set render root.
+   */
+  wr::RenderRoot GetRenderRoot() const { return mRenderRoot; }
 
   /**
    * Gets whether it is safe to not increment the focus sequence number for an
@@ -141,7 +146,8 @@ class FocusState final {
   mutable Mutex mMutex;
 
   // The set of focus targets received indexed by their layer tree ID
-  std::unordered_map<LayersId, FocusTarget, LayersId::HashFn> mFocusTree;
+  wr::RenderRootArray<std::unordered_map<LayersId, FocusTarget, LayersId::HashFn>>
+      mFocusTrees;
 
   // The focus sequence number of the last potentially focus changing event
   // processed by APZ. This number starts at one and increases monotonically.
@@ -162,6 +168,9 @@ class FocusState final {
   // The layer tree ID which contains the scrollable frame of the focused
   // element
   LayersId mFocusLayersId;
+
+  // The render root of the focused element
+  wr::RenderRoot mRenderRoot;
 
   // The scrollable layer corresponding to the scrollable frame that is used to
   // scroll the focused element. This depends on the direction the user is
