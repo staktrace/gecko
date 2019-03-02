@@ -15,22 +15,18 @@ namespace mozilla {
 
 namespace layers {
 
-struct APZNodeId {
+struct APZNodeId { // rename to WRRootId/UpdateId/APZWebRenderRootId/APZWRRId/UpdateQueueSelector? - might need splitting into two (single root/multiroot)
   LayersId mLayersId;
   wr::RenderRoot mRenderRoot;
 
   APZNodeId() = default;
 
-  explicit APZNodeId(LayersId aLayersId)
-    : mLayersId(aLayersId),
-      mRenderRoot(wr::RenderRoot::Default) {}
+  static APZNodeId NonWebRender(LayersId aLayersId) {
+    return APZNodeId(aLayersId, wr::RenderRoot::Default);
+  }
 
   APZNodeId(LayersId aLayersId, wr::RenderRoot aRenderRoot)
     : mLayersId(aLayersId),
-      mRenderRoot(aRenderRoot) {}
-
-  APZNodeId(uint64_t aLayersId, wr::RenderRoot aRenderRoot)
-    : mLayersId(LayersId{aLayersId}),
       mRenderRoot(aRenderRoot) {}
 
   APZNodeId(wr::PipelineId aLayersId, wr::DocumentId aRenderRootId)
@@ -58,10 +54,11 @@ struct APZNodeId {
   };
 };
 
-struct APZCGuid {
+struct APZCGuid { // rename to SLGuidAndRenderRoot
   ScrollableLayerGuid mScrollableLayerGuid;
   wr::RenderRoot mRenderRoot;
 
+  // needed for IPDL, but shouldn't be used otherwise!
   APZCGuid()
       : mRenderRoot(wr::RenderRoot::Default) {}
 
@@ -75,66 +72,9 @@ struct APZCGuid {
       : mScrollableLayerGuid(other),
         mRenderRoot(aRenderRoot) {}
 
-  APZCGuid(const APZCGuid& other)
-      : mScrollableLayerGuid(other.mScrollableLayerGuid),
-        mRenderRoot(other.mRenderRoot) {}
-
-  ~APZCGuid() {}
-
   APZNodeId GetAPZNodeId() const {
     return APZNodeId(mScrollableLayerGuid.mLayersId, mRenderRoot);
   }
-
-  bool operator==(const APZCGuid& other) const {
-    return mScrollableLayerGuid == other.mScrollableLayerGuid &&
-           mRenderRoot == other.mRenderRoot;
-  }
-
-  bool operator!=(const APZCGuid& other) const {
-    return !(*this == other);
-  }
-
-  bool operator<(const APZCGuid& other) const {
-    if (mScrollableLayerGuid < other.mScrollableLayerGuid) {
-      return true;
-    }
-    if (mScrollableLayerGuid == other.mScrollableLayerGuid) {
-      return mRenderRoot < other.mRenderRoot;
-    }
-    return false;
-  }
-
-  // Helper structs to use as hash/equality functions in std::unordered_map.
-  // e.g. std::unordered_map<APZCGuid,
-  //                    ValueType,
-  //                    APZCGuid::HashFn> myMap;
-  // std::unordered_map<APZCGuid,
-  //                    ValueType,
-  //                    APZCGuid::HashIgnoringPresShellFn,
-  //                    APZCGuid::EqualIgnoringPresShellFn> myMap;
-
-  struct HashFn {
-    std::size_t operator()(const APZCGuid& aGuid) const {
-      return AddToHash(ScrollableLayerGuid::HashFn{}(aGuid.mScrollableLayerGuid),
-                       uint8_t(aGuid.mRenderRoot));
-    }
-  };
-
-  struct HashIgnoringPresShellFn {
-    std::size_t operator()(const APZCGuid& aGuid) const {
-      return AddToHash(ScrollableLayerGuid::HashIgnoringPresShellFn{}(aGuid.mScrollableLayerGuid),
-                       uint8_t(aGuid.mRenderRoot));
-    }
-  };
-
-  struct EqualIgnoringPresShellFn {
-    bool operator()(const APZCGuid& lhs,
-                    const APZCGuid& rhs) const {
-      return ScrollableLayerGuid::EqualIgnoringPresShellFn{}(lhs.mScrollableLayerGuid,
-                                                             rhs.mScrollableLayerGuid) &&
-             lhs.mRenderRoot == rhs.mRenderRoot;
-    }
-  };
 };
 
 template <int LogLevel>

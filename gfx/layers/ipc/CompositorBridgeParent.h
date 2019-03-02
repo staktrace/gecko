@@ -125,13 +125,13 @@ class CompositorBridgeParentBase : public PCompositorBridgeParent,
   virtual void ApplyAsyncProperties(LayerTransactionParent* aLayerTree,
                                     TransformsToSkip aSkip) = 0;
   virtual void SetTestAsyncScrollOffset(
-      const LayersId& aLayersId, const ScrollableLayerGuid::ViewID& aScrollId,
+      const APZNodeId& aLayersId, const ScrollableLayerGuid::ViewID& aScrollId,
       const CSSPoint& aPoint) = 0;
-  virtual void SetTestAsyncZoom(const LayersId& aLayersId,
+  virtual void SetTestAsyncZoom(const APZNodeId& aLayersId,
                                 const ScrollableLayerGuid::ViewID& aScrollId,
                                 const LayerToParentLayerScale& aZoom) = 0;
   virtual void FlushApzRepaints(const APZNodeId& aLayersId) = 0;
-  virtual void GetAPZTestData(const LayersId& aLayersId,
+  virtual void GetAPZTestData(const APZNodeId& aLayersId,
                               APZTestData* aOutData) {}
   virtual void SetConfirmedTargetAPZC(const LayersId& aLayersId,
                                       const uint64_t& aInputBlockId,
@@ -358,14 +358,14 @@ class CompositorBridgeParent final : public CompositorBridgeParentBase,
   void ApplyAsyncProperties(LayerTransactionParent* aLayerTree,
                             TransformsToSkip aSkip) override;
   CompositorAnimationStorage* GetAnimationStorage();
-  void SetTestAsyncScrollOffset(const LayersId& aLayersId,
+  void SetTestAsyncScrollOffset(const APZNodeId& aLayersId,
                                 const ScrollableLayerGuid::ViewID& aScrollId,
                                 const CSSPoint& aPoint) override;
-  void SetTestAsyncZoom(const LayersId& aLayersId,
+  void SetTestAsyncZoom(const APZNodeId& aLayersId,
                         const ScrollableLayerGuid::ViewID& aScrollId,
                         const LayerToParentLayerScale& aZoom) override;
   void FlushApzRepaints(const APZNodeId& aLayersId) override;
-  void GetAPZTestData(const LayersId& aLayersId,
+  void GetAPZTestData(const APZNodeId& aLayersId,
                       APZTestData* aOutData) override;
   void SetConfirmedTargetAPZC(const LayersId& aLayersId,
                               const uint64_t& aInputBlockId,
@@ -586,7 +586,7 @@ class CompositorBridgeParent final : public CompositorBridgeParentBase,
   // CrossProcessCompositorBridgeParent.
   void AllocateAPZCTreeManagerParent(
       const MonitorAutoLock& aProofOfLayerTreeStateLock,
-      const LayersId& aLayersId, LayerTreeState& aLayerTreeStateToUpdate);
+      const APZNodeId& aLayersId, LayerTreeState& aLayerTreeStateToUpdate);
 
   PAPZParent* AllocPAPZParent(const LayersId& aLayersId) override;
   bool DeallocPAPZParent(PAPZParent* aActor) override;

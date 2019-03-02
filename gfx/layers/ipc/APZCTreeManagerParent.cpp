@@ -55,7 +55,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvZoomToRect(
   }
 
   mUpdater->RunOnControllerThread(
-      mLayersId, NewRunnableMethod<APZCGuid, CSSRect, uint32_t>(
+      aGuid.GetAPZNodeId(), NewRunnableMethod<APZCGuid, CSSRect, uint32_t>(
                      "layers::IAPZCTreeManager::ZoomToRect", mTreeManager,
                      &IAPZCTreeManager::ZoomToRect, aGuid, aRect, aFlags));
   return IPC_OK();
@@ -82,6 +82,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetTargetAPZC(
       return IPC_FAIL_NO_REASON(this);
     }
   }
+  // XXX: this is wrong, needs to pull all the renderroots for the node id
   mUpdater->RunOnControllerThread(
       mLayersId,
       NewRunnableMethod<uint64_t,
@@ -140,7 +141,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvStartScrollbarDrag(
   }
 
   mUpdater->RunOnControllerThread(
-      mLayersId,
+      aGuid.GetAPZNodeId(),
       NewRunnableMethod<APZCGuid, AsyncDragMetrics>(
           "layers::IAPZCTreeManager::StartScrollbarDrag", mTreeManager,
           &IAPZCTreeManager::StartScrollbarDrag, aGuid, aDragMetrics));

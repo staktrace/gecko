@@ -73,7 +73,7 @@ class APZUpdater {
    * This function will store the new scroll data and update the focus state and
    * hit-testing tree.
    */
-  void UpdateScrollDataAndTreeState(LayersId aRootLayerTreeId,
+  void UpdateScrollDataAndTreeState(APZNodeId aRootLayerTreeId,
                                     APZNodeId aOriginatingLayersId,
                                     const wr::Epoch& aEpoch,
                                     WebRenderScrollData&& aScrollData);
@@ -83,7 +83,7 @@ class APZUpdater {
    * side). This function will update the stored scroll offsets and the
    * hit-testing tree.
    */
-  void UpdateScrollOffsets(LayersId aRootLayerTreeId,
+  void UpdateScrollOffsets(APZNodeId aRootLayerTreeId,
                            APZNodeId aOriginatingLayersId,
                            ScrollUpdatesMap&& aUpdates,
                            uint32_t aPaintSequenceNumber);

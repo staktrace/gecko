@@ -148,7 +148,7 @@ CrossProcessCompositorBridgeParent::AllocPAPZCTreeManagerParent(
         tempUpdater);
   }
 
-  state.mParent->AllocateAPZCTreeManagerParent(lock, aLayersId, state);
+  state.mParent->AllocateAPZCTreeManagerParent(lock, APZNodeId(aLayersId, gfxUtils::GetContentRenderRoot()), state);
   return state.mApzcTreeManagerParent;
 }
 bool CrossProcessCompositorBridgeParent::DeallocPAPZCTreeManagerParent(
@@ -485,11 +485,11 @@ void CrossProcessCompositorBridgeParent::ApplyAsyncProperties(
 }
 
 void CrossProcessCompositorBridgeParent::SetTestAsyncScrollOffset(
-    const LayersId& aLayersId, const ScrollableLayerGuid::ViewID& aScrollId,
+    const APZNodeId& aLayersId, const ScrollableLayerGuid::ViewID& aScrollId,
     const CSSPoint& aPoint) {
   MOZ_ASSERT(aLayersId.IsValid());
   const CompositorBridgeParent::LayerTreeState* state =
-      CompositorBridgeParent::GetIndirectShadowTree(aLayersId);
+      CompositorBridgeParent::GetIndirectShadowTree(aLayersId.mLayersId);
   if (!state) {
     return;
   }
@@ -499,11 +499,11 @@ void CrossProcessCompositorBridgeParent::SetTestAsyncScrollOffset(
 }
 
 void CrossProcessCompositorBridgeParent::SetTestAsyncZoom(
-    const LayersId& aLayersId, const ScrollableLayerGuid::ViewID& aScrollId,
+    const APZNodeId& aLayersId, const ScrollableLayerGuid::ViewID& aScrollId,
     const LayerToParentLayerScale& aZoom) {
   MOZ_ASSERT(aLayersId.IsValid());
   const CompositorBridgeParent::LayerTreeState* state =
-      CompositorBridgeParent::GetIndirectShadowTree(aLayersId);
+      CompositorBridgeParent::GetIndirectShadowTree(aLayersId.mLayersId);
   if (!state) {
     return;
   }
@@ -525,10 +525,10 @@ void CrossProcessCompositorBridgeParent::FlushApzRepaints(
 }
 
 void CrossProcessCompositorBridgeParent::GetAPZTestData(
-    const LayersId& aLayersId, APZTestData* aOutData) {
+    const APZNodeId& aLayersId, APZTestData* aOutData) {
   MOZ_ASSERT(aLayersId.IsValid());
   const CompositorBridgeParent::LayerTreeState* state =
-      CompositorBridgeParent::GetIndirectShadowTree(aLayersId);
+      CompositorBridgeParent::GetIndirectShadowTree(aLayersId.mLayersId);
   if (!state || !state->mParent) {
     return;
   }

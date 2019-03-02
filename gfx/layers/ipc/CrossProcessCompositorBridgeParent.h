@@ -115,14 +115,14 @@ class CrossProcessCompositorBridgeParent final
   void LeaveTestMode(const LayersId& aId) override;
   void ApplyAsyncProperties(LayerTransactionParent* aLayerTree,
                             TransformsToSkip aSkip) override;
-  void SetTestAsyncScrollOffset(const LayersId& aLayersId,
+  void SetTestAsyncScrollOffset(const APZNodeId& aLayersId,
                                 const ScrollableLayerGuid::ViewID& aScrollId,
                                 const CSSPoint& aPoint) override;
-  void SetTestAsyncZoom(const LayersId& aLayersId,
+  void SetTestAsyncZoom(const APZNodeId& aLayersId,
                         const ScrollableLayerGuid::ViewID& aScrollId,
                         const LayerToParentLayerScale& aZoom) override;
   void FlushApzRepaints(const APZNodeId& aLayersId) override;
-  void GetAPZTestData(const LayersId& aLayersId,
+  void GetAPZTestData(const APZNodeId& aLayersId,
                       APZTestData* aOutData) override;
   void SetConfirmedTargetAPZC(const LayersId& aLayersId,
                               const uint64_t& aInputBlockId,

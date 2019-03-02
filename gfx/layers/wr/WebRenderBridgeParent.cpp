@@ -829,7 +829,7 @@ void WebRenderBridgeParent::UpdateAPZScrollData(const wr::Epoch& aEpoch,
   LayersId rootLayersId = cbp->RootLayerTreeId();
   if (RefPtr<APZUpdater> apz = cbp->GetAPZUpdater()) {
     apz->UpdateScrollDataAndTreeState(
-        rootLayersId,
+        APZNodeId(rootLayersId, wr::RenderRoot::Default),
         APZNodeId(GetLayersId(), RenderRootForExternal(aRenderRoot)), aEpoch,
         std::move(aData));
   }
@@ -844,7 +844,7 @@ void WebRenderBridgeParent::UpdateAPZScrollOffsets(
   }
   LayersId rootLayersId = cbp->RootLayerTreeId();
   if (RefPtr<APZUpdater> apz = cbp->GetAPZUpdater()) {
-    apz->UpdateScrollOffsets(rootLayersId,
+    apz->UpdateScrollOffsets(APZNodeId(rootLayersId, wr::RenderRoot::Default),
                              APZNodeId(GetLayersId(), RenderRootForExternal(aRenderRoot)),
                              std::move(aUpdates), aPaintSequenceNumber);
   }
@@ -1699,7 +1699,7 @@ mozilla::ipc::IPCResult WebRenderBridgeParent::RecvSetAsyncScrollOffset(
   if (mDestroyed) {
     return IPC_OK();
   }
-  mCompositorBridge->SetTestAsyncScrollOffset(GetLayersId(), aScrollId,
+  mCompositorBridge->SetTestAsyncScrollOffset(APZNodeId(GetLayersId(), mRenderRoot), aScrollId,
                                               CSSPoint(aX, aY));
   return IPC_OK();
 }
@@ -1709,7 +1709,7 @@ mozilla::ipc::IPCResult WebRenderBridgeParent::RecvSetAsyncZoom(
   if (mDestroyed) {
     return IPC_OK();
   }
-  mCompositorBridge->SetTestAsyncZoom(GetLayersId(), aScrollId,
+  mCompositorBridge->SetTestAsyncZoom(APZNodeId(GetLayersId(), mRenderRoot), aScrollId,
                                       LayerToParentLayerScale(aZoom));
   return IPC_OK();
 }
@@ -1724,7 +1724,7 @@ mozilla::ipc::IPCResult WebRenderBridgeParent::RecvFlushApzRepaints() {
 
 mozilla::ipc::IPCResult WebRenderBridgeParent::RecvGetAPZTestData(
     APZTestData* aOutData) {
-  mCompositorBridge->GetAPZTestData(GetLayersId(), aOutData);
+  mCompositorBridge->GetAPZTestData(APZNodeId(GetLayersId(), mRenderRoot), aOutData);
   return IPC_OK();
 }
 

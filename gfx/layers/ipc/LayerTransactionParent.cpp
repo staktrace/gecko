@@ -765,7 +765,7 @@ mozilla::ipc::IPCResult LayerTransactionParent::RecvSetAsyncScrollOffset(
     return IPC_FAIL_NO_REASON(this);
   }
 
-  mCompositorBridge->SetTestAsyncScrollOffset(GetId(), aScrollID,
+  mCompositorBridge->SetTestAsyncScrollOffset(APZNodeId::NonWebRender(GetId()), aScrollID,
                                               CSSPoint(aX, aY));
   return IPC_OK();
 }
@@ -776,19 +776,19 @@ mozilla::ipc::IPCResult LayerTransactionParent::RecvSetAsyncZoom(
     return IPC_FAIL_NO_REASON(this);
   }
 
-  mCompositorBridge->SetTestAsyncZoom(GetId(), aScrollID,
+  mCompositorBridge->SetTestAsyncZoom(APZNodeId::NonWebRender(GetId()), aScrollID,
                                       LayerToParentLayerScale(aValue));
   return IPC_OK();
 }
 
 mozilla::ipc::IPCResult LayerTransactionParent::RecvFlushApzRepaints() {
-  mCompositorBridge->FlushApzRepaints(APZNodeId(GetId()));
+  mCompositorBridge->FlushApzRepaints(APZNodeId::NonWebRender(GetId()));
   return IPC_OK();
 }
 
 mozilla::ipc::IPCResult LayerTransactionParent::RecvGetAPZTestData(
     APZTestData* aOutData) {
-  mCompositorBridge->GetAPZTestData(GetId(), aOutData);
+  mCompositorBridge->GetAPZTestData(APZNodeId::NonWebRender(GetId()), aOutData);
   return IPC_OK();
 }
 
