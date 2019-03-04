@@ -19,13 +19,13 @@
 #include "mozilla/layers/APZTestData.h"       // for APZTestData
 #include "mozilla/layers/IAPZCTreeManager.h"  // for IAPZCTreeManager
 #include "mozilla/layers/LayersTypes.h"
-#include "mozilla/layers/KeyboardMap.h"  // for KeyboardMap
-#include "mozilla/layers/TouchCounter.h" // for TouchCounter
-#include "mozilla/RecursiveMutex.h"      // for RecursiveMutex
-#include "mozilla/RefPtr.h"              // for RefPtr
-#include "mozilla/TimeStamp.h"           // for mozilla::TimeStamp
-#include "mozilla/UniquePtr.h"           // for UniquePtr
-#include "nsCOMPtr.h"                    // for already_AddRefed
+#include "mozilla/layers/KeyboardMap.h"   // for KeyboardMap
+#include "mozilla/layers/TouchCounter.h"  // for TouchCounter
+#include "mozilla/RecursiveMutex.h"       // for RecursiveMutex
+#include "mozilla/RefPtr.h"               // for RefPtr
+#include "mozilla/TimeStamp.h"            // for mozilla::TimeStamp
+#include "mozilla/UniquePtr.h"            // for UniquePtr
+#include "nsCOMPtr.h"                     // for already_AddRefed
 
 #if defined(MOZ_WIDGET_ANDROID)
 #  include "mozilla/layers/AndroidDynamicToolbarAnimator.h"
@@ -501,6 +501,13 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
   bool GetAPZTestData(LayersId aLayersId, APZTestData* aOutData);
 
   /**
+   * Iterates over the hit testing tree, collects LayersIds and associated
+   * transforms from layer coordinate space to root coordinate space, and
+   * sends these over to the main thread of the chrome process.
+   */
+  void CollectTransformsForChromeMainThread(LayersId aRootLayerTreeId);
+
+  /**
    * Compute the updated shadow transform for a scroll thumb layer that
    * reflects async scrolling of the associated scroll frame.
    *
@@ -631,6 +638,8 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
       const ScreenPoint& aHitTestPoint,
       gfx::CompositorHitTestInfo* aOutHitResult, LayersId* aOutLayersId,
       HitTestingTreeNode** aOutScrollbarNode);
+  HitTestingTreeNode* FindRootHitTestingTreeNodeForLayersId(
+      LayersId aLayersId) const;
   AsyncPanZoomController* FindRootApzcForLayersId(LayersId aLayersId) const;
   AsyncPanZoomController* FindRootContentApzcForLayersId(
       LayersId aLayersId) const;

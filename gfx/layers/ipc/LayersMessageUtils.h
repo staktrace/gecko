@@ -22,6 +22,7 @@
 #include "mozilla/layers/KeyboardMap.h"
 #include "mozilla/layers/LayerAttributes.h"
 #include "mozilla/layers/LayersTypes.h"
+#include "mozilla/layers/MatrixMessage.h"
 #include "mozilla/layers/RefCountedShmem.h"
 #include "mozilla/layers/RepaintRequest.h"
 #include "VsyncSource.h"
@@ -59,6 +60,22 @@ struct ParamTraits<mozilla::VsyncEvent> {
                    paramType* result) {
     return ReadParam(msg, iter, &result->mId) &&
            ReadParam(msg, iter, &result->mTime);
+  }
+};
+
+template <>
+struct ParamTraits<mozilla::layers::MatrixMessage> {
+  typedef mozilla::layers::MatrixMessage paramType;
+
+  static void Write(Message* aMsg, const paramType& aParam) {
+    WriteParam(aMsg, aParam.mMatrix);
+    WriteParam(aMsg, aParam.mLayersId);
+  }
+
+  static bool Read(const Message* aMsg, PickleIterator* aIter,
+                   paramType* aResult) {
+    return (ReadParam(aMsg, aIter, &aResult->mMatrix) &&
+            ReadParam(aMsg, aIter, &aResult->mLayersId));
   }
 };
 
