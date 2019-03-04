@@ -354,21 +354,32 @@ void APZUpdater::RunOnUpdaterThread(APZNodeId aLayersId,
     bool sendWakeMessage = true;
     {  // scope lock
       MutexAutoLock lock(mQueueLock);
+      wr::RenderRootSet alreadyWoken;
+      UpdaterQueueSelector selector(aLayersId);
       for (const auto& queuedTask : mUpdaterQueue) {
-        if (queuedTask.mLayersId == aLayersId) {
+        if (queuedTask.mSelector.mLayersId == selector.mLayersId) {
           // If there's already a task in the queue with this layers id, then
           // we must have previously sent a WakeSceneBuilder message (when
           // adding the first task with this layers id to the queue). Either
           // that hasn't been fully processed yet, or the layers id is blocked
           // waiting for an epoch - in either case there's no point in sending
           // another WakeSceneBuilder message.
-          sendWakeMessage = false;
+          alreadyWoken += (queuedTask.mSelector.mRenderRoots & selector.mRenderRoots);
           break;
         }
       }
-      mUpdaterQueue.push_back(QueuedTask{aLayersId, task});
+      if (alreadyWoken == selector.mRenderRoots) {
+        // All the render roots in the new message were present in previously
+        // queued messages. So all of those queues have already been "woken"
+        // via calls to WakeSceneBuilder, and don't need to be woken again.
+        sendWakeMessage = false;
+      }
+      mUpdaterQueue.push_back(QueuedTask{selector, task});
     }
     if (sendWakeMessage) {
+      // All the RenderRoots share a single scene builder thread, so we can
+      // just send the message to the default RenderRoot's API instead of
+      // sending one for each unwoken RenderRoot.
       RefPtr<wr::WebRenderAPI> api = mApz->GetWebRenderAPI(wr::RenderRoot::Default);
       if (api) {
         api->WakeSceneBuilder();
@@ -464,8 +475,16 @@ void APZUpdater::ProcessQueue() {
     // a layers id gets unblocked while we're processing the queue, then it
     // might result in tasks getting executed out of order.
 
-    auto it = mEpochData.find(task.mLayersId);
-    if (it != mEpochData.end() && it->second.IsBlocked()) {
+    bool blocked = false;
+    for (wr::RenderRoot root : task.mSelector.mRenderRoots) {
+      APZNodeId selector = APZNodeId(task.mSelector.mLayersId, root);
+      auto it = mEpochData.find(selector);
+      if (it != mEpochData.end() && it->second.IsBlocked()) {
+        blocked = true;
+        break;
+      }
+    }
+    if (blocked) {
       // If this task is blocked, put it into the blockedTasks queue that
       // we will replace mUpdaterQueue with
       blockedTasks.push_back(task);

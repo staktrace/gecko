@@ -15,7 +15,7 @@ namespace mozilla {
 
 namespace layers {
 
-struct APZNodeId { // rename to WRRootId/UpdateId/APZWebRenderRootId/APZWRRId/UpdateQueueSelector? - might need splitting into two (single root/multiroot)
+struct APZNodeId { // rename to WRRootId/UpdateId/APZWebRenderRootId/APZWRRId?
   LayersId mLayersId;
   wr::RenderRoot mRenderRoot;
 
@@ -52,6 +52,19 @@ struct APZNodeId { // rename to WRRootId/UpdateId/APZWebRenderRootId/APZWRRId/Up
       return HashGeneric((uint64_t)aKey.mLayersId, (uint8_t)aKey.mRenderRoot);
     }
   };
+};
+
+struct UpdaterQueueSelector {
+  LayersId mLayersId;
+  wr::RenderRootSet mRenderRoots;
+
+  UpdaterQueueSelector() = default;
+
+  UpdaterQueueSelector(LayersId aLayersId, wr::RenderRoot aRenderRoot)
+    : mLayersId(aLayersId), mRenderRoots(aRenderRoot) {}
+
+  explicit UpdaterQueueSelector(const APZNodeId& aNodeId)
+    : mLayersId(aNodeId.mLayersId), mRenderRoots(aNodeId.mRenderRoot) {}
 };
 
 struct APZCGuid { // rename to SLGuidAndRenderRoot

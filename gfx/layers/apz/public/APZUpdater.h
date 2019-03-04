@@ -208,11 +208,14 @@ class APZUpdater {
   // care about the contents.
   Maybe<PlatformThreadId> mUpdaterThreadId;
 
-  // Helper struct that pairs each queued runnable with the layers id that it
-  // is associated with. This allows us to easily implement the conceptual
-  // separation of mUpdaterQueue into independent queues per layers id.
+  // Helper struct that pairs each queued runnable with the layers id and render
+  // roots that it is associated with. This allows us to easily implement the
+  // conceptual separation of mUpdaterQueue into independent queues per (layers
+  // id, render root) pair. Note that when the UpdaterQueueSelector has multiple
+  // render roots, the task blocks on *all* of the queues for the (layers
+  // id, render root) pairs.
   struct QueuedTask {
-    APZNodeId mLayersId;
+    UpdaterQueueSelector mSelector;
     RefPtr<Runnable> mRunnable;
   };
 

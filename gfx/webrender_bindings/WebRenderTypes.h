@@ -9,6 +9,7 @@
 
 #include "ImageTypes.h"
 #include "mozilla/webrender/webrender_ffi.h"
+#include "mozilla/EnumSet.h"
 #include "mozilla/Maybe.h"
 #include "mozilla/gfx/Matrix.h"
 #include "mozilla/gfx/Types.h"
@@ -76,6 +77,8 @@ MOZ_DEFINE_ENUM_CLASS_WITH_BASE(RenderRoot, uint8_t, (
   // area of the browser (visually situated below the "chrome" area).
   Content
 ));
+
+typedef EnumSet<RenderRoot, uint8_t> RenderRootSet;
 
 // For simple iteration of all render roots
 const Array<RenderRoot, kRenderRootCount> kRenderRoots(
