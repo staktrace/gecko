@@ -49,9 +49,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetKeyboardMap(
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvZoomToRect(
     const APZCGuid& aGuid, const CSSRect& aRect,
     const uint32_t& aFlags) {
-  if (aGuid.mScrollableLayerGuid.mLayersId != mLayersId.mLayersId) {
-    // Guard against bad data from hijacked child processes
-    NS_ERROR("Unexpected layers id in RecvZoomToRect; dropping message...");
+  if (!IsGuidValid(aGuid)) {
     return IPC_FAIL_NO_REASON(this);
   }
 
@@ -79,10 +77,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetTargetAPZC(
     const uint64_t& aInputBlockId, nsTArray<APZCGuid>&& aTargets) {
   UpdaterQueueSelector selector(mLayersId.mLayersId);
   for (size_t i = 0; i < aTargets.Length(); i++) {
-    if (aTargets[i].mScrollableLayerGuid.mLayersId != mLayersId.mLayersId) {
-      // Guard against bad data from hijacked child processes
-      NS_ERROR(
-          "Unexpected layers id in RecvSetTargetAPZC; dropping message...");
+    if (!IsGuidValid(aTargets[i])) {
       return IPC_FAIL_NO_REASON(this);
     }
     selector.mRenderRoots += aTargets[i].mRenderRoot;
@@ -100,11 +95,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetTargetAPZC(
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvUpdateZoomConstraints(
     const APZCGuid& aGuid,
     const MaybeZoomConstraints& aConstraints) {
-  if (aGuid.mScrollableLayerGuid.mLayersId != mLayersId.mLayersId) {
-    // Guard against bad data from hijacked child processes
-    NS_ERROR(
-        "Unexpected layers id in RecvUpdateZoomConstraints; dropping "
-        "message...");
+  if (!IsGuidValid(aGuid)) {
     return IPC_FAIL_NO_REASON(this);
   }
 
@@ -137,10 +128,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetAllowedTouchBehavior(
 
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvStartScrollbarDrag(
     const APZCGuid& aGuid, const AsyncDragMetrics& aDragMetrics) {
-  if (aGuid.mScrollableLayerGuid.mLayersId != mLayersId.mLayersId) {
-    // Guard against bad data from hijacked child processes
-    NS_ERROR(
-        "Unexpected layers id in RecvStartScrollbarDrag; dropping message...");
+  if (!IsGuidValid(aGuid)) {
     return IPC_FAIL_NO_REASON(this);
   }
 
@@ -193,6 +181,23 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetLongTapEnabled(
           &IAPZCTreeManager::SetLongTapEnabled, aLongTapEnabled));
 
   return IPC_OK();
+}
+
+bool APZCTreeManagerParent::IsGuidValid(const APZCGuid& aGuid) {
+  if (aGuid.mScrollableLayerGuid.mLayersId != mLayersId.mLayersId) {
+    NS_ERROR("Unexpected layers id");
+    return false;
+  }
+  if (mLayersId.mRenderRoot == wr::RenderRoot::Content) {
+    // If this APZCTreeManagerParent is for a content process IPDL bridge, then
+    // all the render root references that come over the bridge must be for
+    // the content render root.
+    if (aGuid.mRenderRoot != wr::RenderRoot::Content) {
+      NS_ERROR("Unexpected render root");
+      return false;
+    }
+  }
+  return true;
 }
 
 }  // namespace layers

@@ -65,6 +65,8 @@ class APZCTreeManagerParent : public PAPZCTreeManagerParent {
   void ActorDestroy(ActorDestroyReason aWhy) override {}
 
  private:
+  bool IsGuidValid(const APZCGuid& aGuid);
+
   APZNodeId mLayersId;
   RefPtr<APZCTreeManager> mTreeManager;
   RefPtr<APZUpdater> mUpdater;
