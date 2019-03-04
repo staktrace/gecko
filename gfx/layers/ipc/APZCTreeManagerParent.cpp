@@ -38,7 +38,8 @@ void APZCTreeManagerParent::ChildAdopted(
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetKeyboardMap(
     const KeyboardMap& aKeyboardMap) {
   mUpdater->RunOnControllerThread(
-      mLayersId, NewRunnableMethod<KeyboardMap>(
+      UpdaterQueueSelector(mLayersId),
+      NewRunnableMethod<KeyboardMap>(
                      "layers::IAPZCTreeManager::SetKeyboardMap", mTreeManager,
                      &IAPZCTreeManager::SetKeyboardMap, aKeyboardMap));
 
@@ -55,7 +56,8 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvZoomToRect(
   }
 
   mUpdater->RunOnControllerThread(
-      aGuid.GetAPZNodeId(), NewRunnableMethod<APZCGuid, CSSRect, uint32_t>(
+      UpdaterQueueSelector(aGuid.GetAPZNodeId()),
+      NewRunnableMethod<APZCGuid, CSSRect, uint32_t>(
                      "layers::IAPZCTreeManager::ZoomToRect", mTreeManager,
                      &IAPZCTreeManager::ZoomToRect, aGuid, aRect, aFlags));
   return IPC_OK();
@@ -64,7 +66,8 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvZoomToRect(
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvContentReceivedInputBlock(
     const uint64_t& aInputBlockId, const bool& aPreventDefault) {
   mUpdater->RunOnControllerThread(
-      mLayersId, NewRunnableMethod<uint64_t, bool>(
+      UpdaterQueueSelector(mLayersId),
+      NewRunnableMethod<uint64_t, bool>(
                      "layers::IAPZCTreeManager::ContentReceivedInputBlock",
                      mTreeManager, &IAPZCTreeManager::ContentReceivedInputBlock,
                      aInputBlockId, aPreventDefault));
@@ -74,6 +77,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvContentReceivedInputBlock(
 
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetTargetAPZC(
     const uint64_t& aInputBlockId, nsTArray<APZCGuid>&& aTargets) {
+  UpdaterQueueSelector selector(mLayersId.mLayersId);
   for (size_t i = 0; i < aTargets.Length(); i++) {
     if (aTargets[i].mScrollableLayerGuid.mLayersId != mLayersId.mLayersId) {
       // Guard against bad data from hijacked child processes
@@ -81,10 +85,10 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetTargetAPZC(
           "Unexpected layers id in RecvSetTargetAPZC; dropping message...");
       return IPC_FAIL_NO_REASON(this);
     }
+    selector.mRenderRoots += aTargets[i].mRenderRoot;
   }
-  // XXX: this is wrong, needs to pull all the renderroots for the node id
   mUpdater->RunOnControllerThread(
-      mLayersId,
+      selector,
       NewRunnableMethod<uint64_t,
                         StoreCopyPassByRRef<nsTArray<APZCGuid>>>(
           "layers::IAPZCTreeManager::SetTargetAPZC", mTreeManager,
@@ -112,7 +116,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvUpdateZoomConstraints(
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetDPI(
     const float& aDpiValue) {
   mUpdater->RunOnControllerThread(
-      mLayersId,
+      UpdaterQueueSelector(mLayersId),
       NewRunnableMethod<float>("layers::IAPZCTreeManager::SetDPI", mTreeManager,
                                &IAPZCTreeManager::SetDPI, aDpiValue));
   return IPC_OK();
@@ -121,7 +125,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetDPI(
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetAllowedTouchBehavior(
     const uint64_t& aInputBlockId, nsTArray<TouchBehaviorFlags>&& aValues) {
   mUpdater->RunOnControllerThread(
-      mLayersId,
+      UpdaterQueueSelector(mLayersId),
       NewRunnableMethod<uint64_t,
                         StoreCopyPassByRRef<nsTArray<TouchBehaviorFlags>>>(
           "layers::IAPZCTreeManager::SetAllowedTouchBehavior", mTreeManager,
@@ -141,7 +145,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvStartScrollbarDrag(
   }
 
   mUpdater->RunOnControllerThread(
-      aGuid.GetAPZNodeId(),
+      UpdaterQueueSelector(aGuid.GetAPZNodeId()),
       NewRunnableMethod<APZCGuid, AsyncDragMetrics>(
           "layers::IAPZCTreeManager::StartScrollbarDrag", mTreeManager,
           &IAPZCTreeManager::StartScrollbarDrag, aGuid, aDragMetrics));
@@ -159,7 +163,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvStartAutoscroll(
   // sending the child process's layers id).
 
   mUpdater->RunOnControllerThread(
-      mLayersId,
+      UpdaterQueueSelector(mLayersId),
       NewRunnableMethod<APZCGuid, ScreenPoint>(
           "layers::IAPZCTreeManager::StartAutoscroll", mTreeManager,
           &IAPZCTreeManager::StartAutoscroll, aGuid, aAnchorLocation));
@@ -172,7 +176,8 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvStopAutoscroll(
   // See RecvStartAutoscroll() for why we don't check the layers id.
 
   mUpdater->RunOnControllerThread(
-      mLayersId, NewRunnableMethod<APZCGuid>(
+      UpdaterQueueSelector(mLayersId),
+      NewRunnableMethod<APZCGuid>(
                      "layers::IAPZCTreeManager::StopAutoscroll", mTreeManager,
                      &IAPZCTreeManager::StopAutoscroll, aGuid));
 
@@ -182,7 +187,7 @@ mozilla::ipc::IPCResult APZCTreeManagerParent::RecvStopAutoscroll(
 mozilla::ipc::IPCResult APZCTreeManagerParent::RecvSetLongTapEnabled(
     const bool& aLongTapEnabled) {
   mUpdater->RunOnControllerThread(
-      mLayersId,
+      UpdaterQueueSelector(mLayersId),
       NewRunnableMethod<bool>(
           "layers::IAPZCTreeManager::SetLongTapEnabled", mTreeManager,
           &IAPZCTreeManager::SetLongTapEnabled, aLongTapEnabled));

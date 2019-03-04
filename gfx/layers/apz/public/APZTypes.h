@@ -60,6 +60,9 @@ struct UpdaterQueueSelector {
 
   UpdaterQueueSelector() = default;
 
+  explicit UpdaterQueueSelector(LayersId aLayersId)
+    : mLayersId(aLayersId) {}
+
   UpdaterQueueSelector(LayersId aLayersId, wr::RenderRoot aRenderRoot)
     : mLayersId(aLayersId), mRenderRoots(aRenderRoot) {}
 

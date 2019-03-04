@@ -1378,7 +1378,7 @@ void CompositorBridgeParent::FlushApzRepaints(const APZNodeId& aLayersId) {
   MOZ_ASSERT(mApzUpdater);
   MOZ_ASSERT(aLayersId.IsValid());
   mApzUpdater->RunOnControllerThread(
-      aLayersId,
+      UpdaterQueueSelector(aLayersId),
       NS_NewRunnableFunction(
           "layers::CompositorBridgeParent::FlushApzRepaints",
           [=]() { APZCTreeManager::FlushApzRepaints(aLayersId.mLayersId); }));
@@ -1405,12 +1405,11 @@ void CompositorBridgeParent::SetConfirmedTargetAPZC(
       NewRunnableMethod<uint64_t, StoreCopyPassByConstLRef<nsTArray<APZCGuid>>>(
           "layers::CompositorBridgeParent::SetConfirmedTargetAPZC",
           mApzcTreeManager.get(), setTargetApzcFunc, aInputBlockId, aTargets);
-  wr::RenderRoot renderRoot = wr::RenderRoot::Default;
-  if (!aTargets.IsEmpty()) {
-    renderRoot = aTargets[0].mRenderRoot;
+  UpdaterQueueSelector selector(aLayersId);
+  for (size_t i = 0; i < aTargets.Length(); i++) {
+    selector.mRenderRoots += aTargets[i].mRenderRoot;
   }
-  mApzUpdater->RunOnControllerThread(APZNodeId(aLayersId, renderRoot),
-                                     task.forget());
+  mApzUpdater->RunOnControllerThread(selector, task.forget());
 }
 
 void CompositorBridgeParent::InitializeLayerManager(

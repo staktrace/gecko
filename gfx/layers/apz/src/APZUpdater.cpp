@@ -133,7 +133,7 @@ void APZUpdater::SetWebRenderWindowId(const wr::WindowId& aWindowId) {
 void APZUpdater::ClearTree(LayersId aRootLayersId) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   RefPtr<APZUpdater> self = this;
-  RunOnUpdaterThread(APZNodeId(aRootLayersId, wr::RenderRoot::Default),
+  RunOnUpdaterThread(UpdaterQueueSelector(aRootLayersId, wr::RenderRoot::Default),
                      NS_NewRunnableFunction("APZUpdater::ClearTree", [=]() {
                        self->mApz->ClearTree();
 
@@ -154,7 +154,7 @@ void APZUpdater::UpdateFocusState(LayersId aRootLayerTreeId,
                                   APZNodeId aOriginatingLayersId,
                                   const FocusTarget& aFocusTarget) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
-  RunOnUpdaterThread(aOriginatingLayersId,
+  RunOnUpdaterThread(UpdaterQueueSelector(aOriginatingLayersId),
                      NewRunnableMethod<LayersId, LayersId, FocusTarget>(
                          "APZUpdater::UpdateFocusState", mApz,
                          &APZCTreeManager::UpdateFocusState, aRootLayerTreeId,
@@ -182,7 +182,7 @@ void APZUpdater::UpdateScrollDataAndTreeState(
   // UpdateHitTestingTree call below needs to wait until the epoch requirement
   // is satisfied, which is why it is a separate task in the queue.
   RunOnUpdaterThread(
-      aOriginatingLayersId,
+      UpdaterQueueSelector(aOriginatingLayersId),
       NS_NewRunnableFunction("APZUpdater::UpdateEpochRequirement", [=]() {
         if (aRootLayerTreeId == aOriginatingLayersId) {
           self->mEpochData[aOriginatingLayersId].mIsRoot = true;
@@ -190,7 +190,7 @@ void APZUpdater::UpdateScrollDataAndTreeState(
         self->mEpochData[aOriginatingLayersId].mRequired = aEpoch;
       }));
   RunOnUpdaterThread(
-      aOriginatingLayersId,
+      UpdaterQueueSelector(aOriginatingLayersId),
       NS_NewRunnableFunction(
           "APZUpdater::UpdateHitTestingTree",
           [=, aScrollData = std::move(aScrollData)]() {
@@ -221,7 +221,7 @@ void APZUpdater::UpdateScrollOffsets(APZNodeId aRootLayerTreeId,
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   RefPtr<APZUpdater> self = this;
   RunOnUpdaterThread(
-      aOriginatingLayersId,
+      UpdaterQueueSelector(aOriginatingLayersId),
       NS_NewRunnableFunction(
           "APZUpdater::UpdateScrollOffsets",
           [=, updates = std::move(aUpdates)]() {
@@ -245,7 +245,7 @@ void APZUpdater::UpdateScrollOffsets(APZNodeId aRootLayerTreeId,
 void APZUpdater::NotifyLayerTreeAdopted(APZNodeId aLayersId,
                                         const RefPtr<APZUpdater>& aOldUpdater) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
-  RunOnUpdaterThread(aLayersId,
+  RunOnUpdaterThread(UpdaterQueueSelector(aLayersId),
                      NewRunnableMethod<LayersId, RefPtr<APZCTreeManager>>(
                          "APZUpdater::NotifyLayerTreeAdopted", mApz,
                          &APZCTreeManager::NotifyLayerTreeAdopted, aLayersId.mLayersId,
@@ -256,7 +256,7 @@ void APZUpdater::NotifyLayerTreeRemoved(APZNodeId aLayersId) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   RefPtr<APZUpdater> self = this;
   RunOnUpdaterThread(
-      aLayersId,
+      UpdaterQueueSelector(aLayersId),
       NS_NewRunnableFunction("APZUpdater::NotifyLayerTreeRemoved", [=]() {
         self->mEpochData.erase(aLayersId);
         self->mScrollData.erase(aLayersId);
@@ -271,7 +271,8 @@ bool APZUpdater::GetAPZTestData(APZNodeId aLayersId, APZTestData* aOutData) {
   bool ret = false;
   SynchronousTask waiter("APZUpdater::GetAPZTestData");
   RunOnUpdaterThread(
-      aLayersId, NS_NewRunnableFunction("APZUpdater::GetAPZTestData", [&]() {
+      UpdaterQueueSelector(aLayersId),
+      NS_NewRunnableFunction("APZUpdater::GetAPZTestData", [&]() {
         AutoCompleteTask notifier(&waiter);
         ret = apz->GetAPZTestData(aLayersId.mLayersId, aOutData);
       }));
@@ -288,7 +289,7 @@ void APZUpdater::SetTestAsyncScrollOffset(
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   RefPtr<APZCTreeManager> apz = mApz;
   RunOnUpdaterThread(
-      aLayersId,
+      UpdaterQueueSelector(aLayersId),
       NS_NewRunnableFunction("APZUpdater::SetTestAsyncScrollOffset", [=]() {
         RefPtr<AsyncPanZoomController> apzc =
             apz->GetTargetAPZC(aLayersId.mLayersId, aScrollId);
@@ -306,7 +307,8 @@ void APZUpdater::SetTestAsyncZoom(APZNodeId aLayersId,
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
   RefPtr<APZCTreeManager> apz = mApz;
   RunOnUpdaterThread(
-      aLayersId, NS_NewRunnableFunction("APZUpdater::SetTestAsyncZoom", [=]() {
+      UpdaterQueueSelector(aLayersId),
+      NS_NewRunnableFunction("APZUpdater::SetTestAsyncZoom", [=]() {
         RefPtr<AsyncPanZoomController> apzc =
             apz->GetTargetAPZC(aLayersId.mLayersId, aScrollId);
         if (apzc) {
@@ -329,7 +331,7 @@ void APZUpdater::AssertOnUpdaterThread() const {
   }
 }
 
-void APZUpdater::RunOnUpdaterThread(APZNodeId aLayersId,
+void APZUpdater::RunOnUpdaterThread(UpdaterQueueSelector aSelector,
                                     already_AddRefed<Runnable> aTask) {
   RefPtr<Runnable> task = aTask;
 
@@ -355,26 +357,25 @@ void APZUpdater::RunOnUpdaterThread(APZNodeId aLayersId,
     {  // scope lock
       MutexAutoLock lock(mQueueLock);
       wr::RenderRootSet alreadyWoken;
-      UpdaterQueueSelector selector(aLayersId);
       for (const auto& queuedTask : mUpdaterQueue) {
-        if (queuedTask.mSelector.mLayersId == selector.mLayersId) {
+        if (queuedTask.mSelector.mLayersId == aSelector.mLayersId) {
           // If there's already a task in the queue with this layers id, then
           // we must have previously sent a WakeSceneBuilder message (when
           // adding the first task with this layers id to the queue). Either
           // that hasn't been fully processed yet, or the layers id is blocked
           // waiting for an epoch - in either case there's no point in sending
           // another WakeSceneBuilder message.
-          alreadyWoken += (queuedTask.mSelector.mRenderRoots & selector.mRenderRoots);
+          alreadyWoken += (queuedTask.mSelector.mRenderRoots & aSelector.mRenderRoots);
           break;
         }
       }
-      if (alreadyWoken == selector.mRenderRoots) {
+      if (alreadyWoken == aSelector.mRenderRoots) {
         // All the render roots in the new message were present in previously
         // queued messages. So all of those queues have already been "woken"
         // via calls to WakeSceneBuilder, and don't need to be woken again.
         sendWakeMessage = false;
       }
-      mUpdaterQueue.push_back(QueuedTask{selector, task});
+      mUpdaterQueue.push_back(QueuedTask{aSelector, task});
     }
     if (sendWakeMessage) {
       // All the RenderRoots share a single scene builder thread, so we can
@@ -415,13 +416,13 @@ bool APZUpdater::IsUpdaterThread() const {
   return CompositorThreadHolder::IsInCompositorThread();
 }
 
-void APZUpdater::RunOnControllerThread(APZNodeId aLayersId,
+void APZUpdater::RunOnControllerThread(UpdaterQueueSelector aSelector,
                                        already_AddRefed<Runnable> aTask) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
 
   RefPtr<Runnable> task = aTask;
 
-  RunOnUpdaterThread(aLayersId,
+  RunOnUpdaterThread(aSelector,
                      NewRunnableFunction("APZUpdater::RunOnControllerThread",
                                          &APZThreadUtils::RunOnControllerThread,
                                          std::move(task)));

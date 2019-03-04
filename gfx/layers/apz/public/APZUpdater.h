@@ -120,7 +120,7 @@ class APZUpdater {
    * task queue, so that if one layer tree is blocked waiting for a scene build
    * then tasks for the other layer trees can still be processed.
    */
-  void RunOnUpdaterThread(APZNodeId aLayersId, already_AddRefed<Runnable> aTask);
+  void RunOnUpdaterThread(UpdaterQueueSelector aSelector, already_AddRefed<Runnable> aTask);
 
   /**
    * Returns true if currently on the APZUpdater's "updater thread".
@@ -138,7 +138,7 @@ class APZUpdater {
    * requesting this task to be run; in most cases this will probably just be
    * the root layers id of the compositor.
    */
-  void RunOnControllerThread(APZNodeId aLayersId,
+  void RunOnControllerThread(UpdaterQueueSelector aSelector,
                              already_AddRefed<Runnable> aTask);
 
  protected:

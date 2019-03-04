@@ -2106,7 +2106,7 @@ void APZCTreeManager::UpdateZoomConstraints(
     // enabled, since the call will go over PAPZCTreeManager and arrive on the
     // compositor thread in the GPU process.
     GetUpdater()->RunOnUpdaterThread(
-        aGuid.GetAPZNodeId(),
+        UpdaterQueueSelector(aGuid.GetAPZNodeId()),
         NewRunnableMethod<APZCGuid, Maybe<ZoomConstraints>>(
             "APZCTreeManager::UpdateZoomConstraints", this,
             &APZCTreeManager::UpdateZoomConstraints, aGuid, aConstraints));
