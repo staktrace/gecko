@@ -28,7 +28,7 @@ class WebRenderCommandBuilder;
  * This is a helper class that pushes/pops a stacking context, and manages
  * some of the coordinate space transformations needed.
  */
-class StackingContextHelper {
+class MOZ_RAII StackingContextHelper {
  public:
   StackingContextHelper(const StackingContextHelper& aParentSC,
                         const ActiveScrolledRoot* aAsr,

@@ -343,6 +343,10 @@ mozilla::ipc::IPCResult WebRenderBridgeParent::RecvEnsureConnected(
   MOZ_ASSERT(mRenderRoot == wr::RenderRoot::Default);
   MOZ_ASSERT(mIdNamespace.mHandle != 0);
   mRenderRoot = aRenderRoot;
+  // XXX: isn't mRenderRoot == wr::RenderRoot::Content if and only if
+  // (!IsRootWebRenderBridgeParent() && gfxPrefs::WebRenderSplitRenderRoots())?
+  // If so, can we stop sending over IPDL and just set it directly? That will
+  // be more secure in the face of malicious content processes
   *aTextureFactoryIdentifier = GetTextureFactoryIdentifier();
   *aMaybeIdNamespace = Some(mIdNamespace);
 

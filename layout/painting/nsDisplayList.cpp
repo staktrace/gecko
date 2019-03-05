@@ -6444,6 +6444,10 @@ void nsDisplayRenderRoot::InvalidateCachedChildInfo(
 bool nsDisplayRenderRoot::UpdateScrollData(
     mozilla::layers::WebRenderScrollData* aData,
     mozilla::layers::WebRenderLayerScrollData* aLayerData) {
+  // Ideally we'd return false if this nsDisplayRenderRoot isn't actually
+  // establishing a render root boundary (i.e. if mRenderRoot ==
+  // aBuilder.GetRenderRoot()). But we don't have aBuilder here so we can't do
+  // that. Returning true unconditionally is suboptimal but still correct.
   if (aData) {
     if (mRenderRoot != aLayerData->GetRenderRoot()) {
       aLayerData->SetReferentRenderRoot(mRenderRoot);
@@ -6468,6 +6472,9 @@ bool nsDisplayRenderRoot::CreateWebRenderCommands(
       wr::IpcResourceUpdateQueue& resources = aResources.SubQueue(mRenderRoot);
 
       wr::StackingContextParams params;
+      // XXX how does the next line work? We're setting a clip chain from the
+      // "parent" renderroot on the SC params for the "child" renderroot. I
+      // suspect this is broken. Maybe just leave the clip empty?
       params.clip =
           wr::WrStackingContextClip::ClipChain(aBuilder.CurrentClipChainId());
       StackingContextHelper sc(

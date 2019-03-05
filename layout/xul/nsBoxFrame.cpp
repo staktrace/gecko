@@ -1043,6 +1043,10 @@ nsresult nsBoxFrame::AttributeChanged(int32_t aNameSpaceID, nsAtom* aAttribute,
 void nsBoxFrame::BuildDisplayList(nsDisplayListBuilder* aBuilder,
                                   const nsDisplayListSet& aLists) {
   bool forceLayer = false;
+  // XXX unclear to me why we check the renderroot here in nsBoxFrame
+  // specifically and not other XUL elements or in a more generic place.
+  // Is it the case that all XUL elements with renderroot attributes generate
+  // nsBoxFrames?
   wr::RenderRoot renderRoot = gfxUtils::GetRenderRootForFrame(this)
       .valueOr(wr::RenderRoot::Default);
 
