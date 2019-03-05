@@ -54,13 +54,13 @@ class WebRenderScrollDataCollection {
 
   void AppendNode(const wr::DisplayListBuilder& aBuilder,
                   WebRenderLayerManager* aManager, nsDisplayItem* aItem,
-                  const wr::RenderRootArray<size_t>& aLayerCounts,
+                  size_t aLayerCountBeforeRecursing,
                   const ActiveScrolledRoot* aStopAtAsr,
                   const Maybe<gfx::Matrix4x4>& aAncestorTransform);
 
   void AppendNode(wr::RenderRoot aRenderRoot, WebRenderLayerManager* aManager,
                   nsDisplayItem* aItem,
-                  const wr::RenderRootArray<size_t>& aLayerCounts,
+                  size_t aLayerCountBeforeRecursing,
                   const ActiveScrolledRoot* aStopAtAsr,
                   const Maybe<gfx::Matrix4x4>& aAncestorTransform);
 

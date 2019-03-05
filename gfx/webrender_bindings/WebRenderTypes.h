@@ -94,7 +94,7 @@ class RenderRootArray : public Array<T, kRenderRootCount> {
  public:
   RenderRootArray() {}
 
-  RenderRootArray(T aDefault) {
+  explicit RenderRootArray(T aDefault) {
     for (auto renderRoot : kRenderRoots) {
       (*this)[renderRoot] = aDefault;
     }

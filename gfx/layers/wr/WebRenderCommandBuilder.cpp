@@ -1042,26 +1042,28 @@ void WebRenderScrollDataCollection::AppendRoot(
 
 void WebRenderScrollDataCollection::AppendNode(
     const wr::DisplayListBuilder& aBuilder, WebRenderLayerManager* aManager,
-    nsDisplayItem* aItem, const wr::RenderRootArray<size_t>& aLayerCounts,
+    nsDisplayItem* aItem, size_t aLayerCountBeforeRecursing,
     const ActiveScrolledRoot* aStopAtAsr,
     const Maybe<gfx::Matrix4x4>& aAncestorTransform) {
   wr::RenderRoot renderRoot = aBuilder.GetRenderRoot();
   mSeenRenderRoot[renderRoot] = true;
-  AppendNode(renderRoot, aManager, aItem, aLayerCounts, aStopAtAsr,
+  AppendNode(renderRoot, aManager, aItem, aLayerCountBeforeRecursing, aStopAtAsr,
              aAncestorTransform);
 }
 
 void WebRenderScrollDataCollection::AppendNode(
     wr::RenderRoot aRenderRoot, WebRenderLayerManager* aManager,
-    nsDisplayItem* aItem, const wr::RenderRootArray<size_t>& aLayerCounts,
+    nsDisplayItem* aItem, size_t aLayerCountBeforeRecursing,
     const ActiveScrolledRoot* aStopAtAsr,
     const Maybe<gfx::Matrix4x4>& aAncestorTransform) {
-  int descendents =
-      mInternalScrollDatas[aRenderRoot].size() - aLayerCounts[aRenderRoot];
+  // XXX inline this into the other AppendNode, it's never called independently.
+  // And rename to AppendScrollData.
+  int descendants =
+      mInternalScrollDatas[aRenderRoot].size() - aLayerCountBeforeRecursing;
 
   mInternalScrollDatas[aRenderRoot].emplace_back();
   mInternalScrollDatas[aRenderRoot].back().Initialize(
-      aManager->GetScrollData(aRenderRoot), aItem, descendents, aStopAtAsr,
+      aManager->GetScrollData(aRenderRoot), aItem, descendants, aStopAtAsr,
       aAncestorTransform, aRenderRoot);
 }
 
