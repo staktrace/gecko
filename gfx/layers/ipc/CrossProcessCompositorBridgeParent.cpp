@@ -229,11 +229,12 @@ CrossProcessCompositorBridgeParent::AllocPWebRenderBridgeParent(
   }
 
   InfallibleTArray<RefPtr<wr::WebRenderAPI>> apis;
+  bool cloneSuccess = false;
   if (root) {
-    root->GetWebRenderAPIs(apis);
+    cloneSuccess = root->CloneWebRenderAPIs(apis);
   }
 
-  if (!root || apis.IsEmpty()) {
+  if (!cloneSuccess) {
     // This could happen when this function is called after
     // CompositorBridgeParent destruction. This was observed during Tab move
     // between different windows.

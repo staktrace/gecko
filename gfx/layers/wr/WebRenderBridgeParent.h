@@ -68,10 +68,15 @@ class WebRenderBridgeParent final : public PWebRenderBridgeParent,
 
   wr::PipelineId PipelineId() { return mPipelineId; }
 
-  void GetWebRenderAPIs(nsTArray<RefPtr<wr::WebRenderAPI>>& aOutAPIs) {
+  bool CloneWebRenderAPIs(nsTArray<RefPtr<wr::WebRenderAPI>>& aOutAPIs) {
     for (auto& api : mApis) {
-      aOutAPIs.AppendElement(api->Clone());
+      RefPtr<wr::WebRenderAPI> clone = api->Clone();
+      if (!clone) {
+        return false;
+      }
+      aOutAPIs.AppendElement(clone);
     }
+    return true;
   }
   already_AddRefed<wr::WebRenderAPI> GetWebRenderAPIAtPoint(
       const gfx::IntPoint& aPoint);

@@ -1703,7 +1703,8 @@ mozilla::ipc::IPCResult CompositorBridgeParent::RecvAdoptChild(
   if (childWrBridge) {
     MOZ_ASSERT(mWrBridge);
     nsTArray<RefPtr<wr::WebRenderAPI>> apis;
-    mWrBridge->GetWebRenderAPIs(apis);
+    DebugOnly<bool> cloneSuccess = mWrBridge->CloneWebRenderAPIs(apis);
+    MOZ_ASSERT(cloneSuccess);
     wr::Epoch newEpoch = childWrBridge->UpdateWebRender(
         mWrBridge->CompositorScheduler(), std::move(apis),
         mWrBridge->AsyncImageManager(), GetAnimationStorage(),
