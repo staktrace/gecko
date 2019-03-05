@@ -1545,11 +1545,12 @@ void WebRenderCommandBuilder::BuildWebRenderCommands(
       mBuilderDumpIndex =
           aBuilder.Dump(mDumpIndent + 1, Some(mBuilderDumpIndex), Nothing());
     }
+    MOZ_ASSERT(mRootStackingContexts == nullptr);
+    AutoRestore<wr::RenderRootArray<Maybe<StackingContextHelper>>*> rootScs(mRootStackingContexts);
     mRootStackingContexts = &pageRootScs;
     CreateWebRenderCommandsFromDisplayList(
         aDisplayList, nullptr, aDisplayListBuilder,
         *pageRootScs[wr::RenderRoot::Default], aBuilder, aResourceUpdates);
-    mRootStackingContexts = nullptr;
   }
 
   auto callback =
@@ -1597,7 +1598,7 @@ void WebRenderCommandBuilder::CreateWebRenderCommandsFromDisplayList(
     nsDisplayListBuilder* aDisplayListBuilder, const StackingContextHelper& aSc,
     wr::DisplayListBuilder& aBuilder, wr::IpcResourceUpdateQueue& aResources,
     nsDisplayItem* aOuterItem) {
-  ClipManager* previousClipManager = mCurrentClipManager;
+  AutoRestore<ClipManager*> prevClipManager(mCurrentClipManager);
   mCurrentClipManager = &mClipManagers[aBuilder.GetRenderRoot()];
   if (mDoGrouping) {
     MOZ_RELEASE_ASSERT(
@@ -1817,7 +1818,6 @@ void WebRenderCommandBuilder::CreateWebRenderCommandsFromDisplayList(
 
   mDumpIndent--;
   mCurrentClipManager->EndList(aSc);
-  mCurrentClipManager = previousClipManager;
 }
 
 void WebRenderCommandBuilder::PushOverrideForASR(
