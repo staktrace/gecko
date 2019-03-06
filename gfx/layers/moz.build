@@ -244,6 +244,7 @@ EXPORTS.mozilla.layers += [
     'wr/AsyncImagePipelineManager.h',
     'wr/ClipManager.h',
     'wr/IpcResourceUpdateQueue.h',
+    'wr/RenderRootBoundary.h',
     'wr/RenderRootStateManager.h',
     'wr/RenderRootTypes.h',
     'wr/StackingContextHelper.h',

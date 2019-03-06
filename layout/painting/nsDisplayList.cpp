@@ -6448,9 +6448,12 @@ bool nsDisplayRenderRoot::UpdateScrollData(
   // establishing a render root boundary (i.e. if mRenderRoot ==
   // aBuilder.GetRenderRoot()). But we don't have aBuilder here so we can't do
   // that. Returning true unconditionally is suboptimal but still correct.
-  if (aData) {
-    if (mRenderRoot != aLayerData->GetRenderRoot()) {
-      aLayerData->SetReferentRenderRoot(mRenderRoot);
+  if (aLayerData) {
+    if (mBoundary) {
+      // Scroll data entries that are referents should never have direct
+      // descendants. Instead they will refer to a different subtree
+      MOZ_ASSERT(aLayerData->GetDescendantCount() == 0);
+      aLayerData->SetReferentRenderRoot(*mBoundary);
     }
   }
   return true;
@@ -6467,6 +6470,15 @@ bool nsDisplayRenderRoot::CreateWebRenderCommands(
       nsDisplayWrapList::CreateWebRenderCommands(aBuilder, aResources, aSc,
                                                  aManager, aDisplayListBuilder);
     } else {
+      RefPtr<WebRenderRenderRootData> userData =
+        aManager->CommandBuilder()
+          .CreateOrRecycleWebRenderUserData<WebRenderRenderRootData>(
+              this, aBuilder.GetRenderRoot());
+      mBoundary = Some(userData->EnsureHasBoundary(mRenderRoot));
+
+      WebRenderCommandBuilder::ScrollDataBoundaryWrapper wrapper(
+          aManager->CommandBuilder(), *mBoundary);
+
       aBuilder.SetSendSubBuilderDisplayList(mRenderRoot);
       wr::DisplayListBuilder& builder = aBuilder.SubBuilder(mRenderRoot);
       wr::IpcResourceUpdateQueue& resources = aResources.SubQueue(mRenderRoot);

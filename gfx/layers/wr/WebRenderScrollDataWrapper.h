@@ -160,12 +160,33 @@ class MOZ_STACK_CLASS WebRenderScrollDataWrapper {
 
     if (mLayer->GetReferentRenderRoot()) {
       MOZ_ASSERT(!mLayer->GetReferentId());
-      MOZ_ASSERT(*mLayer->GetReferentRenderRoot() != mNodeId.mRenderRoot);
+      MOZ_ASSERT(mLayer->GetReferentRenderRoot()->GetChildType() != mNodeId.mRenderRoot);
 
       APZNodeId newNodeId =
-          APZNodeId(mNodeId.mLayersId, *mLayer->GetReferentRenderRoot());
-      return WebRenderScrollDataWrapper(*mUpdater, newNodeId,
-                                        mUpdater->GetScrollData(newNodeId));
+          APZNodeId(mNodeId.mLayersId, mLayer->GetReferentRenderRoot()->GetChildType());
+      const WebRenderScrollData* childData = mUpdater->GetScrollData(newNodeId);
+      // See the comment above RenderRootBoundary for more context on what's
+      // happening here. We need to fish out the appropriate wrapper root from
+      // inside the dummy root. Note that the wrapper root should always be a
+      // direct descendant of the dummy root, so we can pass
+      // `childData->GetLayerCount()` for the `aContainingSubtreeLastIndex`
+      // parameter below.
+      Maybe<size_t> layerIndex;
+      for (size_t i = 0; i < childData->GetLayerCount(); i++) {
+        const WebRenderLayerScrollData* wrlsd = childData->GetLayerData(i);
+        if (wrlsd->GetBoundaryRoot() == mLayer->GetReferentRenderRoot()) {
+          // found it
+          layerIndex = Some(i);
+          break;
+        }
+      }
+      if (!layerIndex) {
+        // It's possible that there's no wrapper root. In that case there are
+        // no descendants
+        return WebRenderScrollDataWrapper(*mUpdater, mNodeId);
+      }
+      return WebRenderScrollDataWrapper(mUpdater, newNodeId, childData,
+          *layerIndex, childData->GetLayerCount());
     }
 
     // We've run out of descendants. But! If the original layer was a RefLayer,
@@ -284,7 +305,9 @@ class MOZ_STACK_CLASS WebRenderScrollDataWrapper {
     MOZ_ASSERT(IsValid());
 
     if (AtBottomLayer()) {
-      return mLayer->GetReferentRenderRoot();
+      if (mLayer->GetReferentRenderRoot()) {
+        return Some(mLayer->GetReferentRenderRoot()->GetChildType());
+      }
     }
     return Nothing();
   }

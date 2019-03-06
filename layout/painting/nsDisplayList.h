@@ -40,6 +40,7 @@
 #include "mozilla/TimeStamp.h"
 #include "mozilla/gfx/UserData.h"
 #include "mozilla/layers/LayerAttributes.h"
+#include "mozilla/layers/RenderRootBoundary.h"
 #include "mozilla/layers/ScrollableLayerGuid.h"
 #include "nsCSSRenderingBorders.h"
 #include "nsPresArena.h"
@@ -5814,6 +5815,7 @@ class nsDisplayRenderRoot : public nsDisplayWrapList {
  protected:
   mozilla::wr::RenderRoot mRenderRoot;
   bool mBuiltWRCommands;
+  mozilla::Maybe<mozilla::layers::RenderRootBoundary> mBoundary;
 };
 
 /**

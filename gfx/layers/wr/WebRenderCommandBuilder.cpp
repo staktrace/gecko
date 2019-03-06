@@ -1010,10 +1010,8 @@ void Grouper::PaintContainerItem(DIGroup* aGroup, nsDisplayItem* aItem,
   }
 }
 
-size_t WebRenderScrollDataCollection::GetLayerCount(
-    const wr::DisplayListBuilder& aBuilder) const {
-  wr::RenderRoot renderRoot = aBuilder.GetRenderRoot();
-  return mInternalScrollDatas[renderRoot].size();
+size_t WebRenderScrollDataCollection::GetLayerCount(wr::RenderRoot aRoot) const {
+  return mInternalScrollDatas[aRoot].size();
 }
 
 void WebRenderScrollDataCollection::AppendRoot(
@@ -1039,6 +1037,22 @@ void WebRenderScrollDataCollection::AppendRoot(
     }
   }
 }
+
+void WebRenderScrollDataCollection::AppendWrapper(RenderRootBoundary aBoundary,
+    size_t aLayerCountBeforeRecursing) {
+  wr::RenderRoot root = aBoundary.GetChildType();
+  size_t layerCountAfterRecursing = GetLayerCount(root);
+  MOZ_ASSERT(layerCountAfterRecursing >= aLayerCountBeforeRecursing);
+  if (layerCountAfterRecursing == aLayerCountBeforeRecursing) {
+    // nothing to wrap
+    return;
+  }
+  mInternalScrollDatas[root].emplace_back();
+  mInternalScrollDatas[root].back().InitializeRoot(
+      layerCountAfterRecursing - aLayerCountBeforeRecursing);
+  mInternalScrollDatas[root].back().SetBoundaryRoot(aBoundary);
+}
+
 
 void WebRenderScrollDataCollection::AppendNode(
     const wr::DisplayListBuilder& aBuilder, WebRenderLayerManager* aManager,
@@ -1659,7 +1673,7 @@ void WebRenderCommandBuilder::CreateWebRenderCommandsFromDisplayList(
     }
 
     bool forceNewLayerData = false;
-    size_t layerCountBeforeRecursing = mLayerScrollDatas.GetLayerCount(aBuilder);
+    size_t layerCountBeforeRecursing = mLayerScrollDatas.GetLayerCount(aBuilder.GetRenderRoot());
     if (apzEnabled) {
       // For some types of display items we want to force a new
       // WebRenderLayerScrollData object, to ensure we preserve the APZ-relevant
@@ -2580,6 +2594,18 @@ WebRenderGroupData::~WebRenderGroupData() {
   GP("Group data destruct\n");
   mSubGroup.ClearImageKey(mManager, true);
   mFollowingGroup.ClearImageKey(mManager, true);
+}
+
+WebRenderCommandBuilder::ScrollDataBoundaryWrapper::ScrollDataBoundaryWrapper(
+    WebRenderCommandBuilder& aBuilder, RenderRootBoundary& aBoundary)
+  : mBuilder(aBuilder), mBoundary(aBoundary)
+{
+  mLayerCountBeforeRecursing = mBuilder.mLayerScrollDatas.GetLayerCount(
+      mBoundary.GetChildType());
+}
+
+WebRenderCommandBuilder::ScrollDataBoundaryWrapper::~ScrollDataBoundaryWrapper() {
+  mBuilder.mLayerScrollDatas.AppendWrapper(mBoundary, mLayerCountBeforeRecursing);
 }
 
 }  // namespace layers

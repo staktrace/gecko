@@ -9,6 +9,7 @@
 
 #include "mozilla/webrender/WebRenderAPI.h"
 #include "mozilla/layers/ClipManager.h"
+#include "mozilla/layers/RenderRootBoundary.h"
 #include "mozilla/layers/WebRenderMessages.h"
 #include "mozilla/layers/WebRenderScrollData.h"
 #include "mozilla/layers/WebRenderUserData.h"
@@ -52,6 +53,9 @@ class WebRenderScrollDataCollection {
                   Maybe<ScrollMetadata>& aRootMetadata,
                   wr::RenderRootArray<WebRenderScrollData>& aScrollDatas);
 
+  void AppendWrapper(RenderRootBoundary aBoundary,
+                     size_t aLayerCountBeforeRecursing);
+
   void AppendNode(const wr::DisplayListBuilder& aBuilder,
                   WebRenderLayerManager* aManager, nsDisplayItem* aItem,
                   size_t aLayerCountBeforeRecursing,
@@ -64,7 +68,7 @@ class WebRenderScrollDataCollection {
                   const ActiveScrolledRoot* aStopAtAsr,
                   const Maybe<gfx::Matrix4x4>& aAncestorTransform);
 
-  size_t GetLayerCount(const wr::DisplayListBuilder& aBuilder) const;
+  size_t GetLayerCount(wr::RenderRoot aRenderRoot) const;
 
   void Clear() {
     for (auto renderRoot : wr::kRenderRoots) {
@@ -225,6 +229,18 @@ class WebRenderCommandBuilder {
   }
 
   WebRenderLayerManager* mManager;
+
+  class MOZ_RAII ScrollDataBoundaryWrapper {
+   public:
+    ScrollDataBoundaryWrapper(WebRenderCommandBuilder& aBuilder,
+        RenderRootBoundary& aBoundary);
+    ~ScrollDataBoundaryWrapper();
+   private:
+    WebRenderCommandBuilder& mBuilder;
+    RenderRootBoundary mBoundary;
+    size_t mLayerCountBeforeRecursing;
+  };
+  friend class ScrollDataBoundaryWrapper;
 
  private:
   RenderRootStateManager* GetRenderRootStateManager(wr::RenderRoot aRenderRoot);

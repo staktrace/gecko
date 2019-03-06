@@ -18,6 +18,7 @@
 #include "mozilla/layers/LayerAttributes.h"
 #include "mozilla/layers/LayersMessageUtils.h"
 #include "mozilla/layers/FocusTarget.h"
+#include "mozilla/layers/RenderRootBoundary.h"
 #include "mozilla/layers/WebRenderMessageUtils.h"
 #include "mozilla/webrender/WebRenderTypes.h"
 #include "mozilla/Maybe.h"
@@ -89,11 +90,17 @@ class WebRenderLayerScrollData {
   void SetReferentId(LayersId aReferentId) { mReferentId = Some(aReferentId); }
   Maybe<LayersId> GetReferentId() const { return mReferentId; }
 
-  void SetReferentRenderRoot(wr::RenderRoot aReferentRenderRoot) {
-    mReferentRenderRoot = Some(aReferentRenderRoot);
+  void SetReferentRenderRoot(RenderRootBoundary aBoundary) {
+    mReferentRenderRoot = Some(aBoundary);
   }
-  Maybe<wr::RenderRoot> GetReferentRenderRoot() const {
+  Maybe<RenderRootBoundary> GetReferentRenderRoot() const {
     return mReferentRenderRoot;
+  }
+  void SetBoundaryRoot(RenderRootBoundary aBoundary) {
+    mBoundaryRoot = Some(aBoundary);
+  }
+  Maybe<RenderRootBoundary> GetBoundaryRoot() const {
+    return mBoundaryRoot;
   }
 
   void SetScrollbarData(const ScrollbarData& aData) { mScrollbarData = aData; }
@@ -142,7 +149,8 @@ class WebRenderLayerScrollData {
   bool mTransformIsPerspective;
   LayerIntRegion mVisibleRegion;
   Maybe<LayersId> mReferentId;
-  Maybe<wr::RenderRoot> mReferentRenderRoot;
+  Maybe<RenderRootBoundary> mReferentRenderRoot;
+  Maybe<RenderRootBoundary> mBoundaryRoot;
   EventRegionsOverride mEventRegionsOverride;
   ScrollbarData mScrollbarData;
   Maybe<uint64_t> mScrollbarAnimationId;
@@ -237,6 +245,10 @@ class WebRenderScrollData {
 }  // namespace mozilla
 
 namespace IPC {
+
+template <>
+struct ParamTraits<mozilla::layers::RenderRootBoundary>
+    : public PlainOldDataSerializer<mozilla::layers::RenderRootBoundary> {};
 
 // When ScrollbarData is stored on the layer tree, it's part of
 // SimpleAttributes which itself uses PlainOldDataSerializer, so
