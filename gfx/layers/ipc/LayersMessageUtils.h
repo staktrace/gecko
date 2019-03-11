@@ -14,6 +14,7 @@
 #include "ipc/IPCMessageUtils.h"
 #include "ipc/nsGUIEventIPC.h"
 #include "mozilla/GfxMessageUtils.h"
+#include "mozilla/layers/APZTypes.h"
 #include "mozilla/layers/AsyncDragMetrics.h"
 #include "mozilla/layers/CompositorOptions.h"
 #include "mozilla/layers/CompositorTypes.h"
@@ -24,6 +25,7 @@
 #include "mozilla/layers/LayersTypes.h"
 #include "mozilla/layers/RefCountedShmem.h"
 #include "mozilla/layers/RepaintRequest.h"
+#include "mozilla/layers/WebRenderMessageUtils.h"
 #include "VsyncSource.h"
 #include "mozilla/Move.h"
 
@@ -479,6 +481,22 @@ struct ParamTraits<mozilla::layers::ScrollableLayerGuid> {
     return (ReadParam(aMsg, aIter, &aResult->mLayersId) &&
             ReadParam(aMsg, aIter, &aResult->mPresShellId) &&
             ReadParam(aMsg, aIter, &aResult->mScrollId));
+  }
+};
+
+template <>
+struct ParamTraits<mozilla::layers::SLGuidAndRenderRoot> {
+  typedef mozilla::layers::SLGuidAndRenderRoot paramType;
+
+  static void Write(Message* aMsg, const paramType& aParam) {
+    WriteParam(aMsg, aParam.mScrollableLayerGuid);
+    WriteParam(aMsg, aParam.mRenderRoot);
+  }
+
+  static bool Read(const Message* aMsg, PickleIterator* aIter,
+                   paramType* aResult) {
+    return (ReadParam(aMsg, aIter, &aResult->mScrollableLayerGuid) &&
+            ReadParam(aMsg, aIter, &aResult->mRenderRoot));
   }
 };
 

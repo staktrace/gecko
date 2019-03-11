@@ -164,6 +164,7 @@ class FocusState final {
   // The layer tree ID which contains the scrollable frame of the focused
   // element
   LayersId mFocusLayersId;
+
   // The scrollable layer corresponding to the scrollable frame that is used to
   // scroll the focused element. This depends on the direction the user is
   // scrolling.

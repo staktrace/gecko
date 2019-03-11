@@ -786,10 +786,11 @@ static void AddAnimationsForDisplayItem(nsIFrame* aFrame,
 
 static uint64_t AddAnimationsForWebRender(
     nsDisplayItem* aItem, mozilla::layers::RenderRootStateManager* aManager,
-    nsDisplayListBuilder* aDisplayListBuilder) {
+    nsDisplayListBuilder* aDisplayListBuilder, wr::RenderRoot aRenderRoot) {
   RefPtr<WebRenderAnimationData> animationData =
       aManager->CommandBuilder()
-          .CreateOrRecycleWebRenderUserData<WebRenderAnimationData>(aItem);
+          .CreateOrRecycleWebRenderUserData<WebRenderAnimationData>(
+              aItem, aRenderRoot);
   AnimationInfo& animationInfo = animationData->GetAnimationInfo();
   AddAnimationsForDisplayItem(aItem->Frame(), aDisplayListBuilder, aItem,
                               aItem->GetType(), Send::Immediate,
@@ -803,7 +804,7 @@ static uint64_t AddAnimationsForWebRender(
   if (!animationInfo.GetAnimations().IsEmpty()) {
     OpAddCompositorAnimations anim(
         CompositorAnimations(animationInfo.GetAnimations(), animationsId));
-    aManager->WrBridge()->AddWebRenderParentCommand(anim);
+    aManager->WrBridge()->AddWebRenderParentCommand(anim, aRenderRoot);
     aManager->AddActiveCompositorAnimationId(animationsId);
   } else if (animationsId) {
     aManager->AddCompositorAnimationsIdForDiscard(animationsId);
@@ -1071,6 +1072,7 @@ nsDisplayListBuilder::nsDisplayListBuilder(nsIFrame* aReferenceFrame,
       mCurrentContainerASR(nullptr),
       mCurrentFrame(aReferenceFrame),
       mCurrentReferenceFrame(aReferenceFrame),
+      mNeedsDisplayListBuild{},
       mRootAGR(AnimatedGeometryRoot::CreateAGRForFrame(
           aReferenceFrame, nullptr, true, aRetainingDisplayList)),
       mCurrentAGR(mRootAGR),
@@ -1143,6 +1145,13 @@ void nsDisplayListBuilder::BeginFrame() {
   mInTransform = false;
   mInFilter = false;
   mSyncDecodeImages = false;
+  for (auto& needsDisplayListBuild : mNeedsDisplayListBuild) {
+    needsDisplayListBuild = false;
+  }
+
+  for (auto& renderRootRect : mRenderRootRects) {
+    renderRootRect = LayoutDeviceRect();
+  }
 }
 
 void nsDisplayListBuilder::EndFrame() {
@@ -3152,8 +3161,7 @@ static int32_t ZIndexForFrame(nsIFrame* aFrame) {
     return 0;
 
   const nsStylePosition* position = aFrame->StylePosition();
-  if (position->mZIndex.IsInteger())
-    return position->mZIndex.integer._0;
+  if (position->mZIndex.IsInteger()) return position->mZIndex.integer._0;
   MOZ_ASSERT(position->mZIndex.IsAuto());
   // sort the auto and 0 elements together
   return 0;
@@ -3356,10 +3364,27 @@ bool nsDisplaySolidColor::CreateWebRenderCommands(
     nsDisplayListBuilder* aDisplayListBuilder) {
   LayoutDeviceRect bounds = LayoutDeviceRect::FromAppUnits(
       mBounds, mFrame->PresContext()->AppUnitsPerDevPixel());
-  wr::LayoutRect roundedRect = wr::ToRoundedLayoutRect(bounds);
 
-  aBuilder.PushRect(roundedRect, roundedRect, !BackfaceIsHidden(),
-                    wr::ToColorF(ToDeviceColor(mColor)));
+  // There is one big solid color behind everything - just split it out if it
+  // intersects multiple render roots
+  if (aBuilder.GetRenderRoot() == wr::RenderRoot::Default) {
+    for (auto renderRoot : wr::kRenderRoots) {
+      if (aBuilder.HasSubBuilder(renderRoot)) {
+        LayoutDeviceRect renderRootRect =
+            aDisplayListBuilder->GetRenderRootRect(renderRoot);
+        wr::LayoutRect intersection =
+            wr::ToRoundedLayoutRect(bounds.Intersect(renderRootRect));
+        aBuilder.SubBuilder(renderRoot)
+            .PushRect(intersection, intersection, !BackfaceIsHidden(),
+                      wr::ToColorF(ToDeviceColor(mColor)));
+      }
+    }
+  } else {
+    wr::LayoutRect roundedRect = wr::ToRoundedLayoutRect(bounds);
+
+    aBuilder.PushRect(roundedRect, roundedRect, !BackfaceIsHidden(),
+                      wr::ToColorF(ToDeviceColor(mColor)));
+  }
 
   return true;
 }
@@ -6127,8 +6152,8 @@ bool nsDisplayOpacity::CreateWebRenderCommands(
     nsDisplayListBuilder* aDisplayListBuilder) {
   float* opacityForSC = &mOpacity;
 
-  uint64_t animationsId =
-      AddAnimationsForWebRender(this, aManager, aDisplayListBuilder);
+  uint64_t animationsId = AddAnimationsForWebRender(
+      this, aManager, aDisplayListBuilder, aBuilder.GetRenderRoot());
   wr::WrAnimationProperty prop{
       wr::WrAnimationType::Opacity,
       animationsId,
@@ -6406,7 +6431,8 @@ bool nsDisplayOwnLayer::CreateWebRenderCommands(
     // zoom of this content asynchronously as needed.
     RefPtr<WebRenderAnimationData> animationData =
         aManager->CommandBuilder()
-            .CreateOrRecycleWebRenderUserData<WebRenderAnimationData>(this);
+            .CreateOrRecycleWebRenderUserData<WebRenderAnimationData>(
+                this, aBuilder.GetRenderRoot());
     AnimationInfo& animationInfo = animationData->GetAnimationInfo();
     animationInfo.EnsureAnimationsId();
     mWrAnimationId = animationInfo.GetCompositorAnimationsId();
@@ -6465,6 +6491,111 @@ void nsDisplayOwnLayer::WriteDebugInfo(std::stringstream& aStream) {
   aStream << nsPrintfCString(" (flags 0x%x) (scrolltarget %" PRIu64 ")",
                              (int)mFlags, mScrollbarData.mTargetViewId)
                  .get();
+}
+
+nsDisplayRenderRoot::nsDisplayRenderRoot(
+    nsDisplayListBuilder* aBuilder, nsIFrame* aFrame, nsDisplayList* aList,
+    const ActiveScrolledRoot* aActiveScrolledRoot, wr::RenderRoot aRenderRoot)
+    : nsDisplayWrapList(aBuilder, aFrame, aList, aActiveScrolledRoot, true),
+      mRenderRoot(aRenderRoot),
+      mBuiltWRCommands(false) {
+  MOZ_ASSERT(aRenderRoot != wr::RenderRoot::Default);
+  MOZ_ASSERT(gfxPrefs::WebRenderSplitRenderRoots());
+  mozilla::LayoutDeviceRect rect = mozilla::LayoutDeviceRect::FromAppUnits(
+      mFrame->GetRect(), mFrame->PresContext()->AppUnitsPerDevPixel());
+  aBuilder->ExpandRenderRootRect(rect, mRenderRoot);
+  MOZ_COUNT_CTOR(nsDisplayRenderRoot);
+}
+
+void nsDisplayRenderRoot::Destroy(nsDisplayListBuilder* aBuilder) {
+  if (mBuiltWRCommands && aBuilder) {
+    aBuilder->SetNeedsDisplayListBuild(mRenderRoot);
+  }
+  nsDisplayWrapList::Destroy(aBuilder);
+}
+
+void nsDisplayRenderRoot::NotifyUsed(nsDisplayListBuilder* aBuilder) {
+  mozilla::LayoutDeviceRect rect = mozilla::LayoutDeviceRect::FromAppUnits(
+      mFrame->GetRect(), mFrame->PresContext()->AppUnitsPerDevPixel());
+  aBuilder->ExpandRenderRootRect(rect, mRenderRoot);
+  nsDisplayWrapList::SetReused(aBuilder);
+}
+
+void nsDisplayRenderRoot::InvalidateCachedChildInfo(
+    nsDisplayListBuilder* aBuilder) {
+  if (mBuiltWRCommands && aBuilder) {
+    aBuilder->SetNeedsDisplayListBuild(mRenderRoot);
+    mBuiltWRCommands = false;
+  }
+}
+
+bool nsDisplayRenderRoot::UpdateScrollData(
+    mozilla::layers::WebRenderScrollData* aData,
+    mozilla::layers::WebRenderLayerScrollData* aLayerData) {
+  // Ideally we'd return false if this nsDisplayRenderRoot isn't actually
+  // establishing a render root boundary (i.e. if mRenderRoot ==
+  // aBuilder.GetRenderRoot()). But we don't have aBuilder here so we can't do
+  // that. Returning true unconditionally is suboptimal but still correct.
+  if (aLayerData) {
+    if (mBoundary) {
+      // Scroll data entries that are referents should never have direct
+      // descendants. Instead they will refer to a different subtree
+      MOZ_ASSERT(aLayerData->GetDescendantCount() == 0);
+      aLayerData->SetReferentRenderRoot(*mBoundary);
+    }
+  }
+  return true;
+}
+
+bool nsDisplayRenderRoot::CreateWebRenderCommands(
+    mozilla::wr::DisplayListBuilder& aBuilder,
+    mozilla::wr::IpcResourceUpdateQueue& aResources,
+    const StackingContextHelper& aSc, RenderRootStateManager* aManager,
+    nsDisplayListBuilder* aDisplayListBuilder) {
+  if (aDisplayListBuilder->GetNeedsDisplayListBuild(mRenderRoot) ||
+      !mBuiltWRCommands) {
+    if (aBuilder.GetRenderRoot() == mRenderRoot) {
+      nsDisplayWrapList::CreateWebRenderCommands(aBuilder, aResources, aSc,
+                                                 aManager, aDisplayListBuilder);
+    } else {
+      RefPtr<WebRenderRenderRootData> userData =
+          aManager->CommandBuilder()
+              .CreateOrRecycleWebRenderUserData<WebRenderRenderRootData>(
+                  this, aBuilder.GetRenderRoot());
+      mBoundary = Some(userData->EnsureHasBoundary(mRenderRoot));
+
+      WebRenderCommandBuilder::ScrollDataBoundaryWrapper wrapper(
+          aManager->CommandBuilder(), *mBoundary);
+
+      aBuilder.SetSendSubBuilderDisplayList(mRenderRoot);
+      wr::DisplayListBuilder& builder = aBuilder.SubBuilder(mRenderRoot);
+      wr::IpcResourceUpdateQueue& resources = aResources.SubQueue(mRenderRoot);
+
+      wr::StackingContextParams params;
+      params.clip =
+          wr::WrStackingContextClip::ClipChain(builder.CurrentClipChainId());
+      LayoutDeviceRect rrRect =
+          aDisplayListBuilder->GetRenderRootRect(mRenderRoot);
+      LayoutDevicePoint scOrigin = aSc.GetOrigin();
+      // Subtract the render root rect from this, as it already acts as the
+      // origin for our whole display list in WebRender (via SetDocumentView).
+      // However, we can't simply ignore the value of aSc.GetOrigin(), even
+      // though they will often be the same. This is because there might be
+      // multiple cousin nsDisplayRenderRoots in a tree of nsDisplayItems, and
+      // the RenderRootRect will be the union of their areas.
+      scOrigin.x -= rrRect.x;
+      scOrigin.y -= rrRect.y;
+      StackingContextHelper sc(
+          aManager->CommandBuilder().GetRootStackingContextHelper(mRenderRoot),
+          nullptr, nullptr, nullptr, builder, params,
+          LayoutDeviceRect(scOrigin, LayoutDeviceSize()));
+
+      nsDisplayWrapList::CreateWebRenderCommands(builder, resources, sc,
+                                                 aManager, aDisplayListBuilder);
+    }
+    mBuiltWRCommands = true;
+  }
+  return true;
 }
 
 nsDisplaySubDocument::nsDisplaySubDocument(nsDisplayListBuilder* aBuilder,
@@ -7985,8 +8116,8 @@ bool nsDisplayTransform::CreateWebRenderCommands(
     position.Round();
   }
 
-  uint64_t animationsId =
-      AddAnimationsForWebRender(this, aManager, aDisplayListBuilder);
+  uint64_t animationsId = AddAnimationsForWebRender(
+      this, aManager, aDisplayListBuilder, aBuilder.GetRenderRoot());
   wr::WrAnimationProperty prop{
       wr::WrAnimationType::Transform,
       animationsId,
@@ -9415,8 +9546,7 @@ static float ClampStdDeviation(float aStdDeviation) {
   return std::min(std::max(0.0f, aStdDeviation), 100.0f);
 }
 
-bool nsDisplayFilters::CreateWebRenderCSSFilters(
-    WrFiltersHolder& wrFilters) {
+bool nsDisplayFilters::CreateWebRenderCSSFilters(WrFiltersHolder& wrFilters) {
   // All CSS filters are supported by WebRender. SVG filters are not fully
   // supported, those use NS_STYLE_FILTER_URL and are handled separately.
   const nsTArray<nsStyleFilter>& filters = mFrame->StyleEffects()->mFilters;
@@ -9469,9 +9599,10 @@ bool nsDisplayFilters::CreateWebRenderCSSFilters(
       case NS_STYLE_FILTER_BLUR: {
         float appUnitsPerDevPixel =
             mFrame->PresContext()->AppUnitsPerDevPixel();
-        wrFilters.filters.AppendElement(mozilla::wr::FilterOp::Blur(ClampStdDeviation(
-            NSAppUnitsToFloatPixels(filter.GetFilterParameter().GetCoordValue(),
-                                    appUnitsPerDevPixel))));
+        wrFilters.filters.AppendElement(mozilla::wr::FilterOp::Blur(
+            ClampStdDeviation(NSAppUnitsToFloatPixels(
+                filter.GetFilterParameter().GetCoordValue(),
+                appUnitsPerDevPixel))));
         break;
       }
       case NS_STYLE_FILTER_DROP_SHADOW: {

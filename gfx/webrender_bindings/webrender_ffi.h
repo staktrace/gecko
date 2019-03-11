@@ -120,6 +120,7 @@ struct FontInstanceFlags {
 
 struct Transaction;
 struct WrWindowId;
+struct DocumentId;
 struct WrPipelineInfo;
 
 const uint64_t ROOT_CLIP_CHAIN = ~0;
@@ -136,7 +137,8 @@ void apz_deregister_updater(mozilla::wr::WrWindowId aWindowId);
 
 void apz_register_sampler(mozilla::wr::WrWindowId aWindowId);
 void apz_sample_transforms(mozilla::wr::WrWindowId aWindowId,
-                           mozilla::wr::Transaction* aTransaction);
+                           mozilla::wr::Transaction* aTransaction,
+                           mozilla::wr::DocumentId aRenderRootId);
 void apz_deregister_sampler(mozilla::wr::WrWindowId aWindowId);
 }  // extern "C"
 

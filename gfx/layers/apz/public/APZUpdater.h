@@ -12,6 +12,7 @@
 
 #include "base/platform_thread.h"  // for PlatformThreadId
 #include "LayersTypes.h"
+#include "APZTypes.h"
 #include "mozilla/layers/APZTestData.h"
 #include "mozilla/layers/WebRenderScrollData.h"
 #include "mozilla/StaticMutex.h"
@@ -21,10 +22,6 @@
 #include "Units.h"
 
 namespace mozilla {
-
-namespace wr {
-struct WrWindowId;
-}  // namespace wr
 
 namespace layers {
 
@@ -63,7 +60,7 @@ class APZUpdater {
 
   void ClearTree(LayersId aRootLayersId);
   void UpdateFocusState(LayersId aRootLayerTreeId,
-                        LayersId aOriginatingLayersId,
+                        WRRootId aOriginatingWrRootId,
                         const FocusTarget& aFocusTarget);
   void UpdateHitTestingTree(LayersId aRootLayerTreeId, Layer* aRoot,
                             bool aIsFirstPaint, LayersId aOriginatingLayersId,
@@ -76,8 +73,8 @@ class APZUpdater {
    * This function will store the new scroll data and update the focus state and
    * hit-testing tree.
    */
-  void UpdateScrollDataAndTreeState(LayersId aRootLayerTreeId,
-                                    LayersId aOriginatingLayersId,
+  void UpdateScrollDataAndTreeState(WRRootId aRootLayerTreeId,
+                                    WRRootId aOriginatingWrRootId,
                                     const wr::Epoch& aEpoch,
                                     WebRenderScrollData&& aScrollData);
   /**
@@ -86,26 +83,26 @@ class APZUpdater {
    * side). This function will update the stored scroll offsets and the
    * hit-testing tree.
    */
-  void UpdateScrollOffsets(LayersId aRootLayerTreeId,
-                           LayersId aOriginatingLayersId,
+  void UpdateScrollOffsets(WRRootId aRootLayerTreeId,
+                           WRRootId aOriginatingWrRootId,
                            ScrollUpdatesMap&& aUpdates,
                            uint32_t aPaintSequenceNumber);
 
-  void NotifyLayerTreeAdopted(LayersId aLayersId,
+  void NotifyLayerTreeAdopted(WRRootId aWrRootId,
                               const RefPtr<APZUpdater>& aOldUpdater);
-  void NotifyLayerTreeRemoved(LayersId aLayersId);
+  void NotifyLayerTreeRemoved(WRRootId aWrRootId);
 
-  bool GetAPZTestData(LayersId aLayersId, APZTestData* aOutData);
+  bool GetAPZTestData(WRRootId aWrRootId, APZTestData* aOutData);
 
-  void SetTestAsyncScrollOffset(LayersId aLayersId,
+  void SetTestAsyncScrollOffset(WRRootId aWrRootId,
                                 const ScrollableLayerGuid::ViewID& aScrollId,
                                 const CSSPoint& aOffset);
-  void SetTestAsyncZoom(LayersId aLayersId,
+  void SetTestAsyncZoom(WRRootId aWrRootId,
                         const ScrollableLayerGuid::ViewID& aScrollId,
                         const LayerToParentLayerScale& aZoom);
 
   // This can only be called on the updater thread.
-  const WebRenderScrollData* GetScrollData(LayersId aLayersId) const;
+  const WebRenderScrollData* GetScrollData(WRRootId aWrRootId) const;
 
   /**
    * This can be used to assert that the current thread is the
@@ -123,7 +120,8 @@ class APZUpdater {
    * task queue, so that if one layer tree is blocked waiting for a scene build
    * then tasks for the other layer trees can still be processed.
    */
-  void RunOnUpdaterThread(LayersId aLayersId, already_AddRefed<Runnable> aTask);
+  void RunOnUpdaterThread(UpdaterQueueSelector aSelector,
+                          already_AddRefed<Runnable> aTask);
 
   /**
    * Returns true if currently on the APZUpdater's "updater thread".
@@ -141,7 +139,7 @@ class APZUpdater {
    * requesting this task to be run; in most cases this will probably just be
    * the root layers id of the compositor.
    */
-  void RunOnControllerThread(LayersId aLayersId,
+  void RunOnControllerThread(UpdaterQueueSelector aSelector,
                              already_AddRefed<Runnable> aTask);
 
  protected:
@@ -159,7 +157,7 @@ class APZUpdater {
 
   // Map from layers id to WebRenderScrollData. This can only be touched on
   // the updater thread.
-  std::unordered_map<LayersId, WebRenderScrollData, LayersId::HashFn>
+  std::unordered_map<WRRootId, WebRenderScrollData, WRRootId::HashFn>
       mScrollData;
 
   // Stores epoch state for a particular layers id. This structure is only
@@ -190,7 +188,7 @@ class APZUpdater {
 
   // Map from layers id to epoch state.
   // This data structure can only be touched on the updater thread.
-  std::unordered_map<LayersId, EpochState, LayersId::HashFn> mEpochData;
+  std::unordered_map<WRRootId, EpochState, WRRootId::HashFn> mEpochData;
 
   // Used to manage the mapping from a WR window id to APZUpdater. These are
   // only used if WebRender is enabled. Both sWindowIdMap and mWindowId should
@@ -211,11 +209,14 @@ class APZUpdater {
   // care about the contents.
   Maybe<PlatformThreadId> mUpdaterThreadId;
 
-  // Helper struct that pairs each queued runnable with the layers id that it
-  // is associated with. This allows us to easily implement the conceptual
-  // separation of mUpdaterQueue into independent queues per layers id.
+  // Helper struct that pairs each queued runnable with the layers id and render
+  // roots that it is associated with. This allows us to easily implement the
+  // conceptual separation of mUpdaterQueue into independent queues per (layers
+  // id, render root) pair. Note that when the UpdaterQueueSelector has multiple
+  // render roots, the task blocks on *all* of the queues for the (layers
+  // id, render root) pairs.
   struct QueuedTask {
-    LayersId mLayersId;
+    UpdaterQueueSelector mSelector;
     RefPtr<Runnable> mRunnable;
   };
 
