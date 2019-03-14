@@ -191,10 +191,6 @@ Maybe<size_t> WebRenderScrollData::HasMetadataFor(
   return (it == mScrollIdMap.end() ? Nothing() : Some(it->second));
 }
 
-void WebRenderScrollData::SetFocusTarget(const FocusTarget& aFocusTarget) {
-  mFocusTarget = aFocusTarget;
-}
-
 void WebRenderScrollData::SetIsFirstPaint() { mIsFirstPaint = true; }
 
 bool WebRenderScrollData::IsFirstPaint() const { return mIsFirstPaint; }

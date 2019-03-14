@@ -350,8 +350,6 @@ void WebRenderLayerManager::EndTransactionWithoutLayer(
   for (auto& stateManager : mStateManagers) {
     if (AsyncPanZoomEnabled()) {
       auto& scrollData = mScrollDatas[stateManager.GetRenderRoot()];
-      scrollData.SetFocusTarget(mFocusTarget);
-      mFocusTarget = FocusTarget();
 
       if (mIsFirstPaint) {
         // Set the same flag on each scrollData instance (one per render root).
@@ -434,6 +432,8 @@ void WebRenderLayerManager::EndTransactionWithoutLayer(
                                mTransactionIdAllocator->GetVsyncId(),
                                mTransactionIdAllocator->GetVsyncStart(),
                                refreshStart, mTransactionStart, mURL);
+    WrBridge()->SendSetFocusTarget(mFocusTarget);
+    mFocusTarget = FocusTarget();
   }
 
   // Discard animations after calling WrBridge()->EndTransaction().

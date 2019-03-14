@@ -186,9 +186,6 @@ class WebRenderScrollData {
   Maybe<size_t> HasMetadataFor(
       const ScrollableLayerGuid::ViewID& aScrollId) const;
 
-  const FocusTarget& GetFocusTarget() const { return mFocusTarget; }
-  void SetFocusTarget(const FocusTarget& aFocusTarget);
-
   void SetIsFirstPaint();
   bool IsFirstPaint() const;
   void SetPaintSequenceNumber(uint32_t aPaintSequenceNumber);
@@ -231,9 +228,6 @@ class WebRenderScrollData {
   // descendants that layer had, which allows reconstructing the traversal on
   // the other side.
   nsTArray<WebRenderLayerScrollData> mLayerScrollData;
-
-  // The focus information for this layer tree
-  FocusTarget mFocusTarget;
 
   bool mIsFirstPaint;
   uint32_t mPaintSequenceNumber;
@@ -307,7 +301,6 @@ struct ParamTraits<mozilla::layers::WebRenderScrollData> {
   static void Write(Message* aMsg, const paramType& aParam) {
     WriteParam(aMsg, aParam.mScrollMetadatas);
     WriteParam(aMsg, aParam.mLayerScrollData);
-    WriteParam(aMsg, aParam.mFocusTarget);
     WriteParam(aMsg, aParam.mIsFirstPaint);
     WriteParam(aMsg, aParam.mPaintSequenceNumber);
   }
@@ -316,7 +309,6 @@ struct ParamTraits<mozilla::layers::WebRenderScrollData> {
                    paramType* aResult) {
     return ReadParam(aMsg, aIter, &aResult->mScrollMetadatas) &&
            ReadParam(aMsg, aIter, &aResult->mLayerScrollData) &&
-           ReadParam(aMsg, aIter, &aResult->mFocusTarget) &&
            ReadParam(aMsg, aIter, &aResult->mIsFirstPaint) &&
            ReadParam(aMsg, aIter, &aResult->mPaintSequenceNumber) &&
            aResult->RepopulateMap();

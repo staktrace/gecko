@@ -195,10 +195,6 @@ void APZUpdater::UpdateScrollDataAndTreeState(
       NS_NewRunnableFunction(
           "APZUpdater::UpdateHitTestingTree",
           [=, aScrollData = std::move(aScrollData)]() {
-            self->mApz->UpdateFocusState(aRootLayerTreeId.mLayersId,
-                                         aOriginatingWrRootId.mLayersId,
-                                         aScrollData.GetFocusTarget());
-
             self->mScrollData[aOriginatingWrRootId] = aScrollData;
             auto root = self->mScrollData.find(aRootLayerTreeId);
             if (root == self->mScrollData.end()) {
