@@ -155,7 +155,13 @@ void APZUpdater::UpdateFocusState(LayersId aRootLayerTreeId,
                                   WRRootId aOriginatingWrRootId,
                                   const FocusTarget& aFocusTarget) {
   MOZ_ASSERT(CompositorThreadHolder::IsInCompositorThread());
-  RunOnUpdaterThread(UpdaterQueueSelector(aOriginatingWrRootId),
+  UpdaterQueueSelector selector(aOriginatingWrRootId);
+  if (aFocusTarget.mData.is<FocusTarget::ScrollTargets>()) {
+    const FocusTarget::ScrollTargets& targets = aFocusTarget.mData.as<FocusTarget::ScrollTargets>();
+    selector.mRenderRoots += targets.mHorizontalRenderRoot;
+    selector.mRenderRoots += targets.mVerticalRenderRoot;
+  }
+  RunOnUpdaterThread(selector,
                      NewRunnableMethod<LayersId, LayersId, FocusTarget>(
                          "APZUpdater::UpdateFocusState", mApz,
                          &APZCTreeManager::UpdateFocusState, aRootLayerTreeId,
