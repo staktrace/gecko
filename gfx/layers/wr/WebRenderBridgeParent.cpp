@@ -985,8 +985,15 @@ mozilla::ipc::IPCResult WebRenderBridgeParent::RecvSetDisplayList(
   mReceivedDisplayList = true;
   bool observeLayersUpdate = ShouldParentObserveEpoch();
 
+  // The IsFirstPaint() flag should be the same for all the scrolldata across
+  // all the renderroot display lists in a given transaction. We assert this
+  // below. So we can read the flag from any one of them.
   if (aDisplayLists[0].mScrollData.IsFirstPaint()) {
     mIsFirstPaint = true;
+  }
+  for (const auto& dl : aDisplayLists) {
+    // Ensure the flag is the same on all of them.
+    MOZ_RELEASE_ASSERT(dl.mScrollData.IsFirstPaint() == mIsFirstPaint);
   }
 
   // aScrollData is moved into this function but that is not reflected by the

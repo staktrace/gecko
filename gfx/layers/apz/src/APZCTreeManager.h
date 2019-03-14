@@ -208,7 +208,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
    */
   void UpdateHitTestingTree(LayersId aRootLayerTreeId,
                             const WebRenderScrollDataWrapper& aScrollWrapper,
-                            bool aIsFirstPaint, LayersId aOriginatingLayersId,
+                            bool aIsFirstPaint, WRRootId aOriginatingWrRootId,
                             uint32_t aPaintSequenceNumber);
 
   /**
@@ -621,7 +621,7 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
   template <class ScrollNode>
   void UpdateHitTestingTreeImpl(LayersId aRootLayerTreeId,
                                 const ScrollNode& aRoot, bool aIsFirstPaint,
-                                LayersId aOriginatingLayersId,
+                                WRRootId aOriginatingWrRootId,
                                 uint32_t aPaintSequenceNumber);
 
   void AttachNodeToTree(HitTestingTreeNode* aNode, HitTestingTreeNode* aParent,

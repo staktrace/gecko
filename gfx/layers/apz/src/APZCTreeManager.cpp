@@ -74,10 +74,10 @@ typedef CompositorBridgeParent::LayerTreeState LayerTreeState;
 
 struct APZCTreeManager::TreeBuildingState {
   TreeBuildingState(LayersId aRootLayersId, bool aIsFirstPaint,
-                    LayersId aOriginatingLayersId, APZTestData* aTestData,
+                    WRRootId aOriginatingWrRootId, APZTestData* aTestData,
                     uint32_t aPaintSequence)
       : mIsFirstPaint(aIsFirstPaint),
-        mOriginatingLayersId(aOriginatingLayersId),
+        mOriginatingWrRootId(aOriginatingWrRootId),
         mPaintLogger(aTestData, aPaintSequence) {
     CompositorBridgeParent::CallWithIndirectShadowTree(
         aRootLayersId, [this](LayerTreeState& aState) -> void {
@@ -93,7 +93,7 @@ struct APZCTreeManager::TreeBuildingState {
   RefPtr<CompositorController> mCompositorController;
   RefPtr<MetricsSharingController> mInProcessSharingController;
   const bool mIsFirstPaint;
-  const LayersId mOriginatingLayersId;
+  const WRRootId mOriginatingWrRootId;
   const APZPaintLogHelper mPaintLogger;
 
   // State that is updated as we perform the tree build
@@ -351,7 +351,7 @@ void  // ScrollNode is a LayerMetricsWrapper or a WebRenderScrollDataWrapper
 APZCTreeManager::UpdateHitTestingTreeImpl(LayersId aRootLayerTreeId,
                                           const ScrollNode& aRoot,
                                           bool aIsFirstPaint,
-                                          LayersId aOriginatingLayersId,
+                                          WRRootId aOriginatingWrRootId,
                                           uint32_t aPaintSequenceNumber) {
   RecursiveMutexAutoLock lock(mTreeLock);
 
@@ -362,12 +362,12 @@ APZCTreeManager::UpdateHitTestingTreeImpl(LayersId aRootLayerTreeId,
     MutexAutoLock lock(mTestDataLock);
     UniquePtr<APZTestData> ptr = MakeUnique<APZTestData>();
     auto result =
-        mTestData.insert(std::make_pair(aOriginatingLayersId, std::move(ptr)));
+        mTestData.insert(std::make_pair(aOriginatingWrRootId.mLayersId, std::move(ptr)));
     testData = result.first->second.get();
     testData->StartNewPaint(aPaintSequenceNumber);
   }
 
-  TreeBuildingState state(aRootLayerTreeId, aIsFirstPaint, aOriginatingLayersId,
+  TreeBuildingState state(aRootLayerTreeId, aIsFirstPaint, aOriginatingWrRootId,
                           testData, aPaintSequenceNumber);
 
   // We do this business with collecting the entire tree into an array because
@@ -580,17 +580,17 @@ void APZCTreeManager::UpdateHitTestingTree(LayersId aRootLayerTreeId,
 
   LayerMetricsWrapper root(aRoot);
   UpdateHitTestingTreeImpl(aRootLayerTreeId, root, aIsFirstPaint,
-                           aOriginatingLayersId, aPaintSequenceNumber);
+                           WRRootId::NonWebRender(aOriginatingLayersId), aPaintSequenceNumber);
 }
 
 void APZCTreeManager::UpdateHitTestingTree(
     LayersId aRootLayerTreeId, const WebRenderScrollDataWrapper& aScrollWrapper,
-    bool aIsFirstPaint, LayersId aOriginatingLayersId,
+    bool aIsFirstPaint, WRRootId aOriginatingWrRootId,
     uint32_t aPaintSequenceNumber) {
   AssertOnUpdaterThread();
 
   UpdateHitTestingTreeImpl(aRootLayerTreeId, aScrollWrapper, aIsFirstPaint,
-                           aOriginatingLayersId, aPaintSequenceNumber);
+                           aOriginatingWrRootId, aPaintSequenceNumber);
 }
 
 void APZCTreeManager::SampleForWebRender(wr::TransactionWrapper& aTxn,
@@ -1014,7 +1014,7 @@ HitTestingTreeNode* APZCTreeManager::PrepareNodeForLayer(
         apzc, aLayer.GetLayer(), uint64_t(aLayersId), aMetrics.GetScrollId());
 
     apzc->NotifyLayersUpdated(aLayer.Metadata(), aState.mIsFirstPaint,
-                              aLayersId == aState.mOriginatingLayersId);
+                              WRRootId(aLayersId, aRenderRoot) == aState.mOriginatingWrRootId);
 
     // Since this is the first time we are encountering an APZC with this guid,
     // the node holding it must be the primary holder. It may be newly-created
@@ -1042,7 +1042,7 @@ HitTestingTreeNode* APZCTreeManager::PrepareNodeForLayer(
     // that originated the update, because the only identifying information
     // we are logging about APZCs is the scroll id, and otherwise we could
     // confuse APZCs from different layer trees with the same scroll id.
-    if (aLayersId == aState.mOriginatingLayersId) {
+    if (aLayersId == aState.mOriginatingWrRootId.mLayersId) {
       if (apzc->HasNoParentWithSameLayersId()) {
         aState.mPaintLogger.LogTestData(aMetrics.GetScrollId(),
                                         "hasNoParentWithSameLayersId", true);

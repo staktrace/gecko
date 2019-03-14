@@ -354,12 +354,16 @@ void WebRenderLayerManager::EndTransactionWithoutLayer(
       mFocusTarget = FocusTarget();
 
       if (mIsFirstPaint) {
+        // Set the same flag on each scrollData instance (one per render root).
+        // We need to duplicate this because they will get processed by APZ at
+        // separate times and the flag state is relevant each time.
         scrollData.SetIsFirstPaint();
-        mIsFirstPaint = false;
       }
       scrollData.SetPaintSequenceNumber(mPaintSequenceNumber);
     }
   }
+  mIsFirstPaint = false;
+
   // Since we're sending a full mScrollData that will include the new scroll
   // offsets, and we can throw away the pending scroll updates we had kept for
   // an empty transaction.

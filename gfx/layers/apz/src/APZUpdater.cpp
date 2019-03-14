@@ -208,7 +208,7 @@ void APZUpdater::UpdateScrollDataAndTreeState(
                 aRootLayerTreeId.mLayersId,
                 WebRenderScrollDataWrapper(*self, aRootLayerTreeId,
                                            &(root->second)),
-                aScrollData.IsFirstPaint(), aOriginatingWrRootId.mLayersId,
+                aScrollData.IsFirstPaint(), aOriginatingWrRootId,
                 aScrollData.GetPaintSequenceNumber());
           }));
 }
@@ -234,7 +234,7 @@ void APZUpdater::UpdateScrollOffsets(WRRootId aRootLayerTreeId,
                                WebRenderScrollDataWrapper(
                                    *self, aRootLayerTreeId, &(root->second)),
                                /*isFirstPaint*/ false,
-                               aOriginatingWrRootId.mLayersId,
+                               aOriginatingWrRootId,
                                aPaintSequenceNumber);
                          }));
 }
