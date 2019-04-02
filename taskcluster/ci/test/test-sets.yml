@@ -421,8 +421,14 @@ android-x86_64-tests:
     # - reftest
 
 android-x86-tests:
-    - web-platform-tests
     - web-platform-tests-reftests
+    - reftest
+    - crashtest
+
+android-x86-qr-tests:
+    - web-platform-tests-reftests
+    - reftest
+    - crashtest
 
 android-ccov-tests:
     - geckoview-junit
