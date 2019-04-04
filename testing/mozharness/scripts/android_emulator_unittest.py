@@ -394,6 +394,13 @@ class AndroidEmulatorTest(TestingMixin, BaseScript, MozbaseMixin, CodeCoverageMi
         self.start_time = datetime.datetime.now()
         max_per_test_time = datetime.timedelta(minutes=60)
 
+        if self.enable_webrender:
+            if not os.path.exists(os.path.expanduser("~/.android")):
+                os.mkdir(os.path.expanduser("~/.android"))
+            adv_features = open(os.path.expanduser("~/.android/advancedFeatures.ini"), "a")
+            adv_features.write("GLESDynamicVersion = on\n")
+            adv_features.close()
+
         per_test_args = []
         suites = self._query_suites()
         minidump = self.query_minidump_stackwalk()
