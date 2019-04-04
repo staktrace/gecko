@@ -794,8 +794,10 @@ bool CreateConfig(EGLConfig* aConfig, int32_t depth, bool aEnableDepthBuffer) {
 
   if (!egl->fChooseConfig(EGL_DISPLAY(), attribs, configs, ncfg, &ncfg) ||
       ncfg < 1) {
+    printf_stderr("Choose configs produced %d configs for depth %d\n", ncfg, depth);
     return false;
   }
+  printf_stderr("Choose configs produced %d configs for depth %d\n", ncfg, depth);
 
   for (int j = 0; j < ncfg; ++j) {
     EGLConfig config = configs[j];
@@ -811,16 +813,20 @@ bool CreateConfig(EGLConfig* aConfig, int32_t depth, bool aEnableDepthBuffer) {
          (depth == 32 && r == 8 && g == 8 && b == 8 && a == 8))) {
       EGLint z;
       if (aEnableDepthBuffer) {
+          printf_stderr("EGLConfig depth=%d rgba=(%d %d %d %d)\n", depth, r, g, b, a);
         if (!egl->fGetConfigAttrib(EGL_DISPLAY(), config, LOCAL_EGL_DEPTH_SIZE,
                                    &z) ||
             z != 24) {
+          printf_stderr("EGLConfig depth buffer z=%d\n", z);
           continue;
         }
       }
       *aConfig = config;
+      printf_stderr("EGLConfig found!\n");
       return true;
     }
   }
+  printf_stderr("No EGLConfig found :(\n");
   return false;
 }
 
