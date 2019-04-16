@@ -99,6 +99,20 @@ pub struct DebugServer {
     senders: Vec<ws::Sender>,
 }
 
+use std::ffi::{CString};
+use std::os::raw::{c_char, c_int};
+extern "C" {
+    fn __android_log_write(prio: c_int, tag: *const c_char, text: *const c_char) -> c_int;
+}
+
+fn logcat(msg: &str) {
+    unsafe {
+        __android_log_write(4 /* info */,
+                            CString::new("Gecko").unwrap().as_ptr(),
+                            CString::new(msg).unwrap().as_ptr());
+    }
+}
+
 impl DebugServer {
     pub fn new(api_tx: MsgSender<ApiMsg>) -> DebugServer {
         let (debug_tx, debug_rx) = channel();
@@ -118,9 +132,9 @@ impl DebugServer {
 
         let join_handle = Some(thread::spawn(move || {
             let address = "127.0.0.1:3583";
-            debug!("WebRender debug server started: {}", address);
+            logcat(&format!("WebRender debug server started: {}", address));
             if let Err(..) = socket.listen(address) {
-                error!("ERROR: Unable to bind debugger websocket (port may be in use).");
+                logcat(&format!("ERROR: Unable to bind debugger websocket (port may be in use)."));
             }
         }));
 
