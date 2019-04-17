@@ -54,6 +54,18 @@
                 Disable clip masks
             </label>
         </div>
+        <div class="field">
+            <label class="checkbox">
+                <input type="checkbox" :disabled="disabled" v-on:click="setTextPrims(!$event.target.checked)">
+                Disable text primitives
+            </label>
+        </div>
+        <div class="field">
+            <label class="checkbox">
+                <input type="checkbox" :disabled="disabled" v-on:click="setGradientPrims(!$event.target.checked)">
+                Disable gradient primitives
+            </label>
+        </div>
     </div>
 </template>
 
@@ -126,6 +138,13 @@ export default {
                 this.$store.dispatch('sendMessage', "enable_clip_masks");
             } else {
                 this.$store.dispatch('sendMessage', "disable_clip_masks");
+            }
+        },
+        setGradientPrims(enabled) {
+            if (enabled) {
+                this.$store.dispatch('sendMessage', "enable_gradient_prims");
+            } else {
+                this.$store.dispatch('sendMessage', "disable_gradient_prims");
             }
         }
     },
