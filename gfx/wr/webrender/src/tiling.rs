@@ -4,6 +4,7 @@
 
 use api::{ColorF, BorderStyle, MixBlendMode, PipelineId, PremultipliedColorF};
 use api::{DocumentLayer, FilterData, FilterOp, ImageFormat, LineOrientation};
+use api::DebugFlags;
 use api::units::*;
 #[cfg(feature = "pathfinder")]
 use api::FontRenderMode;
@@ -993,6 +994,7 @@ impl RenderPass {
         transforms: &mut TransformPalette,
         prim_headers: &mut PrimitiveHeaders,
         z_generator: &mut ZBufferIdGenerator,
+        debug_flags: DebugFlags,
     ) {
         profile_scope!("RenderPass::build");
 
@@ -1113,26 +1115,30 @@ impl RenderPass {
                     }
                 }
 
-                color.build(
-                    ctx,
-                    gpu_cache,
-                    render_tasks,
-                    deferred_resolves,
-                    saved_color,
-                    prim_headers,
-                    transforms,
-                    z_generator,
-                );
-                alpha.build(
-                    ctx,
-                    gpu_cache,
-                    render_tasks,
-                    deferred_resolves,
-                    saved_alpha,
-                    prim_headers,
-                    transforms,
-                    z_generator,
-                );
+                if !debug_flags.contains(DebugFlags::DISABLE_OPAQUE_PASS) {
+                    color.build(
+                        ctx,
+                        gpu_cache,
+                        render_tasks,
+                        deferred_resolves,
+                        saved_color,
+                        prim_headers,
+                        transforms,
+                        z_generator,
+                    );
+                }
+                if !debug_flags.contains(DebugFlags::DISABLE_ALPHA_PASS) {
+                    alpha.build(
+                        ctx,
+                        gpu_cache,
+                        render_tasks,
+                        deferred_resolves,
+                        saved_alpha,
+                        prim_headers,
+                        transforms,
+                        z_generator,
+                    );
+                }
             }
         }
     }

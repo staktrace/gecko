@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-use api::{BorderRadius, ClipMode, ColorF};
+use api::{BorderRadius, ClipMode, ColorF, DebugFlags};
 use api::{FilterOp, ImageRendering, RepeatMode};
 use api::{PremultipliedColorF, PropertyBinding, Shadow, GradientStop};
 use api::{BoxShadowClipMode, LineStyle, LineOrientation};
@@ -974,6 +974,10 @@ impl BrushSegment {
                         return ClipMaskKind::Clipped;
                     }
                 };
+
+                if frame_context.debug_flags.contains(DebugFlags::DISABLE_CLIP_MASKS) {
+                    return ClipMaskKind::None;
+                }
 
                 let clip_task = RenderTask::new_mask(
                     device_rect.to_i32(),
@@ -3562,6 +3566,10 @@ impl PrimitiveInstance {
                 prim_info.clipped_world_rect,
                 device_pixel_scale,
             ) {
+                if frame_context.debug_flags.contains(DebugFlags::DISABLE_CLIP_MASKS) {
+                    return;
+                }
+
                 let clip_task = RenderTask::new_mask(
                     device_rect,
                     prim_info.clip_chain.clips_range,

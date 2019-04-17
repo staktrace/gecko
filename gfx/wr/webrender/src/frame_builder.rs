@@ -622,6 +622,7 @@ impl FrameBuilder {
                     &mut transform_palette,
                     &mut prim_headers,
                     &mut z_generator,
+                    debug_flags,
                 );
 
                 match pass.kind {
