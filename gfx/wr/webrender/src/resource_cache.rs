@@ -1982,8 +1982,6 @@ impl ResourceCache {
     pub fn save_capture(
         &mut self, root: &PathBuf
     ) -> (PlainResources, Vec<ExternalCaptureImage>) {
-        #[cfg(feature = "png")]
-        use device::ReadPixelsFormat;
         use std::fs;
         use std::io::Write;
 
@@ -2046,7 +2044,7 @@ impl ResourceCache {
                     CaptureConfig::save_png(
                         root.join(format!("images/{}.png", image_id)),
                         desc.size,
-                        ReadPixelsFormat::Standard(desc.format),
+                        desc.format,
                         &arc,
                     );
                     let file_name = format!("{}.raw", image_id);
@@ -2101,7 +2099,7 @@ impl ResourceCache {
                     CaptureConfig::save_png(
                         root.join(format!("blobs/{}.png", num_blobs)),
                         desc.size,
-                        ReadPixelsFormat::Standard(desc.format),
+                        desc.format,
                         &result.data,
                     );
                     let file_name = format!("{}.raw", num_blobs);
