@@ -28,7 +28,9 @@ const PLATFORM: &str = "win";
 const PLATFORM: &str = "linux";
 #[cfg(target_os = "macos")]
 const PLATFORM: &str = "mac";
-#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
+#[cfg(target_os = "android")]
+const PLATFORM: &str = "android";
+#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows", target_os = "android")))]
 const PLATFORM: &str = "other";
 
 const OPTION_DISABLE_SUBPX: &str = "disable-subpixel";
@@ -238,6 +240,12 @@ impl ReftestManifest {
                         );
 
                         break;
+                    }
+                    platform if platform.starts_with("skip_on") => {
+                        let (_, args, _) = parse_function(platform);
+                        if args.iter().any(|arg| arg == &PLATFORM) {
+                            break;
+                        }
                     }
                     platform if platform.starts_with("platform") => {
                         let (_, args, _) = parse_function(platform);
