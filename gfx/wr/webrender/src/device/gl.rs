@@ -1139,7 +1139,7 @@ impl Device {
         // pipeline.
         if cfg!(debug_assertions) {
             gl = gl::ErrorReactingGl::wrap(gl, |gl, name, code| {
-                Self::echo_driver_messages(gl);
+                //Self::echo_driver_messages(gl);
                 panic!("Caught GL error {:x} at {}", code, name);
             });
         }
