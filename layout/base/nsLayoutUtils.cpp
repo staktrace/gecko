@@ -1388,6 +1388,12 @@ void nsLayoutUtils::RemoveDisplayPort(nsIContent* aContent) {
   aContent->DeleteProperty(nsGkAtoms::DisplayPortMargins);
 }
 
+void nsLayoutUtils::NotifyPaintSkipTransaction(std::unordered_set<ViewID> scrollIds) {
+  for (const auto& id : scrollIds) {
+    NotifyPaintSkipTransaction(id);
+  }
+}
+
 void nsLayoutUtils::NotifyPaintSkipTransaction(ViewID aScrollId) {
   if (nsIScrollableFrame* scrollFrame =
           nsLayoutUtils::FindScrollableFrameFor(aScrollId)) {

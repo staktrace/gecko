@@ -301,7 +301,8 @@ bool ClientLayerManager::EndTransactionInternal(
 
   // Apply pending tree updates before recomputing effective
   // properties.
-  GetRoot()->ApplyPendingUpdatesToSubtree();
+  std::unordered_set<ScrollableLayerGuid::ViewID> paintSkipIds =
+      GetRoot()->ApplyPendingUpdatesToSubtree();
 
   mPaintedLayerCallback = aCallback;
   mPaintedLayerCallbackData = aCallbackData;
@@ -319,6 +320,10 @@ bool ClientLayerManager::EndTransactionInternal(
     }
   } else {
     gfxCriticalNote << "LayerManager::EndTransaction skip RenderLayer().";
+  }
+
+  if (mTransactionIncomplete) {
+    nsLayoutUtils::NotifyPaintSkipTransaction(paintSkipIds);
   }
 
   if (!mRepeatTransaction && !GetRoot()->GetInvalidRegion().IsEmpty()) {
