@@ -1,8 +1,8 @@
 == mask.yaml mask-ref.yaml
-== mask-tiling.yaml mask-ref.yaml
-== nested-mask.yaml nested-mask-ref.yaml
+skip_on(android) == mask-tiling.yaml mask-ref.yaml
+skip_on(android) == nested-mask.yaml nested-mask-ref.yaml
 skip_on(android) == nested-mask-tiling.yaml nested-mask-ref.yaml
-!= mask.yaml green.yaml
+skip_on(android) != mask.yaml green.yaml
 == aligned-layer-rect.yaml aligned-layer-rect-ref.yaml
 == mask-transformed-to-empty-rect.yaml mask-transformed-to-empty-rect-ref.yaml
 platform(linux,mac) == rounded-corners.yaml rounded-corners.png
