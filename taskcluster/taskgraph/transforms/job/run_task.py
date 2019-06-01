@@ -125,6 +125,7 @@ def generic_worker_run_task(config, job, taskdesc):
     worker = taskdesc['worker'] = job['worker']
     is_win = worker['os'] == 'windows'
     is_mac = worker['os'] == 'macosx'
+    is_bitbar = worker['os'] == 'linux-bitbar'
 
     if is_win:
         command = ['C:/mozilla-build/python3/python3.exe', 'run-task']
@@ -132,6 +133,9 @@ def generic_worker_run_task(config, job, taskdesc):
         command = ['/tools/python36/bin/python3.6', 'run-task']
         if job['worker-type'].endswith('1014'):
             command = ['/usr/local/bin/python3', 'run-task']
+    elif is_bitbar:
+        # Need root to get access to adb and android device on bitbar
+        command = ['./run-task', '--user=root', '--group=root']
     else:
         command = ['./run-task']
 
@@ -156,6 +160,13 @@ def generic_worker_run_task(config, job, taskdesc):
             },
             'file': './fetch-content',
         })
+    if is_bitbar:
+        worker['mounts'].append({
+            'content': {
+                'url': script_url(config, 'tester/test-linux.sh'),
+            },
+            'file': './test-linux.sh',
+        })
 
     run_command = run['command']
     if isinstance(run_command, basestring):
@@ -164,6 +175,10 @@ def generic_worker_run_task(config, job, taskdesc):
         run_command = ['bash', '-cx', run_command]
 
     command.append('--')
+    if is_bitbar:
+        # Use the bitbar wrapper script which sets up the device and adb
+        # environment variables
+        command.append('/builds/taskcluster/script.py')
     command.extend(run_command)
 
     if is_win:
