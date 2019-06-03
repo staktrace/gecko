@@ -429,6 +429,11 @@ android-x86_64-tests:
     - web-platform-tests-reftests
     - xpcshell
 
+android-x86_64-qr-tests:
+    - reftest
+    - crashtest
+    - web-platform-tests-reftests
+
 android-x86-tests:
     - web-platform-tests
     - web-platform-tests-reftests
