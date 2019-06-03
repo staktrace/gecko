@@ -745,16 +745,14 @@ def set_treeherder_machine_platform(config, tests):
         if 'android' in test['test-platform'] and 'pgo/opt' in test['test-platform']:
             platform_new = test['test-platform'].replace('-pgo/opt', '/pgo')
             test['treeherder-machine-platform'] = platform_new
+        elif 'android-em-7.0-x86' in test['test-platform']:
+            # covers x86, x86_64, x86_64-qr variants
+            (base, opt) = test['test-platform'].split('/')
+            test['treeherder-machine-platform'] = base.replace('.', '_')+'/'+opt
         elif '-qr' in test['test-platform']:
             test['treeherder-machine-platform'] = test['test-platform']
         elif 'android-hw' in test['test-platform']:
             test['treeherder-machine-platform'] = test['test-platform']
-        elif 'android-em-7.0-x86_64' in test['test-platform']:
-            opt = test['test-platform'].split('/')[1]
-            test['treeherder-machine-platform'] = 'android-em-7-0-x86_64/'+opt
-        elif 'android-em-7.0-x86' in test['test-platform']:
-            opt = test['test-platform'].split('/')[1]
-            test['treeherder-machine-platform'] = 'android-em-7-0-x86/'+opt
         else:
             test['treeherder-machine-platform'] = translation.get(
                 test['build-platform'], test['test-platform'])
