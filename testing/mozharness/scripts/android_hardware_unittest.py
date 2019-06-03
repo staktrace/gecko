@@ -77,6 +77,20 @@ class AndroidHardwareTest(TestingMixin, BaseScript, MozbaseMixin,
          "default": True,
          "help": "Run tests without multiple processes (e10s).",
          }
+    ], [
+        ['--enable-webrender'],
+        {"action": "store_true",
+         "dest": "enable_webrender",
+         "default": False,
+         "help": "Run with WebRender enabled.",
+         }
+    ], [
+        ['--disable-webrender'],
+        {"action": "store_true",
+         "dest": "disable_webrender",
+         "default": False,
+         "help": "Run with WebRender force-disabled.",
+         }
     ]] + copy.deepcopy(testing_config_options)
 
     def __init__(self, require_config_file=False):
@@ -118,6 +132,8 @@ class AndroidHardwareTest(TestingMixin, BaseScript, MozbaseMixin,
         self.log_raw_level = c.get('log_raw_level')
         self.log_tbpl_level = c.get('log_tbpl_level')
         self.e10s = c.get('e10s')
+        self.enable_webrender = c.get('enable_webrender')
+        self.disable_webrender = c.get('disable_webrender')
 
     def query_abs_dirs(self):
         if self.abs_dirs:
@@ -246,6 +262,11 @@ class AndroidHardwareTest(TestingMixin, BaseScript, MozbaseMixin,
                 cmd.extend(['--disable-e10s'])
             elif category not in SUITE_DEFAULT_E10S and self.e10s:
                 cmd.extend(['--e10s'])
+
+        if self.disable_webrender:
+            cmd.extend(['--setenv', 'MOZ_WEBRENDER=0'])
+        elif self.enable_webrender:
+            cmd.extend(['--setenv', 'MOZ_WEBRENDER=1'])
 
         try_options, try_tests = self.try_args(self.test_suite)
         cmd.extend(try_options)
