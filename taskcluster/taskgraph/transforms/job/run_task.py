@@ -160,13 +160,6 @@ def generic_worker_run_task(config, job, taskdesc):
             },
             'file': './fetch-content',
         })
-    if is_bitbar:
-        worker['mounts'].append({
-            'content': {
-                'url': script_url(config, 'tester/test-linux.sh'),
-            },
-            'file': './test-linux.sh',
-        })
 
     run_command = run['command']
     if isinstance(run_command, basestring):
