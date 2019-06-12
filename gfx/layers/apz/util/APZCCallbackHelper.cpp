@@ -693,7 +693,9 @@ static bool PrepareForSetTargetAPZCNotification(
   if (XRE_IsContentProcess()) {
     guid.mRenderRoot = gfxUtils::GetContentRenderRoot();
   } else {
-    guid.mRenderRoot = gfxUtils::RecursivelyGetRenderRootForElement(dpElement);
+    guid.mRenderRoot = target
+                           ? gfxUtils::RecursivelyGetRenderRootForElement(target)
+                           : wr::RenderRoot::Default;
   }
 
 #ifdef APZCCH_LOGGING
