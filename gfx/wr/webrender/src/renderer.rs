@@ -4393,7 +4393,7 @@ impl Renderer {
         stats: &mut RendererStats,
         clear_framebuffer: bool,
     ) {
-        let _gm = self.gpu_profile.start_marker("tile frame draw");
+        //let _gm = self.gpu_profile.start_marker("tile frame draw");
 
         if frame.passes.is_empty() {
             frame.has_been_rendered = true;
@@ -4406,8 +4406,8 @@ impl Renderer {
 
         self.bind_frame_data(frame);
 
-        for (pass_index, pass) in frame.passes.iter_mut().enumerate() {
-            let _gm = self.gpu_profile.start_marker(&format!("pass {}", pass_index));
+        for (_pass_index, pass) in frame.passes.iter_mut().enumerate() {
+            //let _gm = self.gpu_profile.start_marker(&format!("pass {}", pass_index));
 
             self.texture_resolver.bind(
                 &TextureSource::PrevPassAlpha,
