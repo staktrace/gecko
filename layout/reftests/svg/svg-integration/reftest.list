@@ -3,18 +3,18 @@ include clip-path/reftest.list
 
 == clipPath-html-01.xhtml clipPath-html-01-ref.svg
 == clipPath-html-01-extref.xhtml clipPath-html-01-ref.svg
-== clipPath-html-02.xhtml clipPath-html-02-ref.svg
-== clipPath-html-02-extref.xhtml clipPath-html-02-ref.svg
-== clipPath-html-03.xhtml clipPath-html-03-ref.svg
-== clipPath-html-03-extref.xhtml clipPath-html-03-ref.svg
+fuzzy-if(geckoview&&webrender,0-1,0-400) == clipPath-html-02.xhtml clipPath-html-02-ref.svg
+fuzzy-if(geckoview&&webrender,0-1,0-400) == clipPath-html-02-extref.xhtml clipPath-html-02-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-261) == clipPath-html-03.xhtml clipPath-html-03-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-261) == clipPath-html-03-extref.xhtml clipPath-html-03-ref.svg
 == clipPath-html-04.xhtml clipPath-html-04-ref.xhtml
 == clipPath-html-04-extref.xhtml clipPath-html-04-ref.xhtml
 fuzzy-if(true,0-140,0-70) == clipPath-html-05.xhtml clipPath-html-05-ref.xhtml # Bug 776089
 fuzzy-if(true,0-140,0-70) == clipPath-html-05-extref.xhtml clipPath-html-05-ref.xhtml # Bug 776089
 fuzzy-if(Android,0-255,0-30) == clipPath-html-06.xhtml clipPath-html-06-ref.xhtml
 fuzzy-if(Android,0-255,0-30) == clipPath-html-06-extref.xhtml clipPath-html-06-ref.xhtml
-== clipPath-html-07.xhtml clipPath-html-07-ref.svg
-== clipPath-html-08.xhtml clipPath-html-07-ref.svg # reuse 07-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-99) == clipPath-html-07.xhtml clipPath-html-07-ref.svg
+fuzzy-if(geckoview&&webrender,0-1,0-28) == clipPath-html-08.xhtml clipPath-html-07-ref.svg # reuse 07-ref.svg
 == clipPath-html-zoomed-01.xhtml clipPath-html-01-ref.svg
 == clipPath-transformed-html-01.xhtml ../pass.svg
 == clipPath-transformed-html-02.xhtml ../pass.svg
@@ -27,7 +27,7 @@ fuzzy-if(Android,0-255,0-30) == clipPath-html-06-extref.xhtml clipPath-html-06-r
 == filter-html-01.xhtml filter-html-01-ref.svg
 == filter-html-dynamic-01.xhtml filter-html-dynamic-01-ref.xhtml
 random-if(Android) == filter-html-01-extref.xhtml filter-html-01-ref.svg # Android: bug 1198380
-== filter-html-zoomed-01.xhtml filter-html-01-ref.svg
+fuzzy-if(geckoview&&webrender,0-1,0-34) == filter-html-zoomed-01.xhtml filter-html-01-ref.svg
 fuzzy-if(webrender,0-1,0-125414) == mask-html-01.xhtml mask-html-01-ref.svg
 fuzzy-if(webrender,0-1,0-125414) == mask-html-01-extref-01.xhtml mask-html-01-ref.svg
 random == mask-html-01-extref-02.xhtml mask-html-01-ref.svg # random due to bug 877661
@@ -44,9 +44,9 @@ fuzzy(0-1,0-5000) == mask-clipPath-opacity-01c.xhtml mask-clipPath-opacity-01-re
 fuzzy(0-1,0-5000) == mask-clipPath-opacity-01d.xhtml mask-clipPath-opacity-01-ref.xhtml
 fuzzy(0-1,0-5000) == mask-clipPath-opacity-01e.xhtml mask-clipPath-opacity-01-ref.xhtml
 
-== transform-outer-svg-01.xhtml transform-outer-svg-01-ref.xhtml
+fuzzy-if(geckoview&&webrender,0-1,0-141) == transform-outer-svg-01.xhtml transform-outer-svg-01-ref.xhtml
 
 # box-decoration-break tests
-fuzzy-if(Android,0-4,0-10) == box-decoration-break-01.xhtml box-decoration-break-01-ref.xhtml
+fuzzy-if(Android,0-4,0-10) fuzzy-if(geckoview&&webrender,0-1,0-40) == box-decoration-break-01.xhtml box-decoration-break-01-ref.xhtml
 fuzzy(0-119,0-16) == box-decoration-break-02.xhtml box-decoration-break-02-ref.xhtml
 fuzzy(0-67,0-238) == box-decoration-break-03.xhtml box-decoration-break-01-ref.xhtml

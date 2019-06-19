@@ -58,9 +58,9 @@
 # s36i3p04 - 36x36 paletted file, interlaced
 == s36i3p04.png s36_3p04.html
 # s36n3p04 - 36x36 paletted file, no interlacing
-== s36n3p04.png s36_3p04.html
+fuzzy-if(geckoview&&webrender,0-1,0-12) == s36n3p04.png s36_3p04.html
 # s37i3p04 - 37x37 paletted file, interlaced
-== s37i3p04.png s37_3p04.html
+fuzzy-if(geckoview&&webrender,0-1,0-5) == s37i3p04.png s37_3p04.html
 # s37n3p04 - 37x37 paletted file, no interlacing
 == s37n3p04.png s37_3p04.html
 # s38i3p04 - 38x38 paletted file, interlaced
@@ -74,4 +74,4 @@
 # s40i3p04 - 40x40 paletted file, interlaced
 == s40i3p04.png s40_3p04.html
 # s40n3p04 - 40x40 paletted file, no interlacing 
-== s40n3p04.png s40_3p04.html
+fuzzy-if(geckoview&&webrender,0-1,0-6) == s40n3p04.png s40_3p04.html

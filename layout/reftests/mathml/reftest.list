@@ -84,9 +84,9 @@ fails-if(geckoview) == stretchy-mfenced-4b.html stretchy-mfenced-4-ref.html # Bu
 fails == stretchy-mover-2a.html stretchy-mover-2-ref.html
 != stretchy-mover-2b.html stretchy-mover-2-ref.html
 == stretchy-mover-3.html stretchy-mover-3-ref.html
-== stretchy-largeop-1.html stretchy-largeop-1-ref.html
-== stretchy-largeop-2.html stretchy-largeop-2-ref.html
-== stretchy-largeop-3.html stretchy-largeop-3-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-12) == stretchy-largeop-1.html stretchy-largeop-1-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-14) == stretchy-largeop-2.html stretchy-largeop-2-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-43) == stretchy-largeop-3.html stretchy-largeop-3-ref.html
 == table-width-1.xhtml table-width-1-ref.xhtml
 == table-width-2.html table-width-2-ref.html
 == table-width-3.html table-width-3-ref.html
@@ -112,11 +112,11 @@ fails == stretchy-mover-2a.html stretchy-mover-2-ref.html
 == embellished-op-4-1.html embellished-op-4-1-ref.html
 == embellished-op-4-2.html embellished-op-4-2-ref.html
 == embellished-op-4-3.html embellished-op-4-3-ref.html
-== embellished-op-5-1.html embellished-op-5-ref.html
-== embellished-op-5-2.html embellished-op-5-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-12) == embellished-op-5-1.html embellished-op-5-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-12) == embellished-op-5-2.html embellished-op-5-ref.html
 fails-if(gtkWidget||Android) random-if(winWidget) == semantics-1.xhtml semantics-1-ref.xhtml # bug 1309429, bug 1328771
 == semantics-2.html semantics-2-ref.html
-== semantics-3.html semantics-3-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-326) == semantics-3.html semantics-3-ref.html
 == semantics-4.html semantics-4-ref.html
 != mathcolor-1.xml mathcolor-1-ref.xml
 != mathcolor-2.xml mathcolor-2-ref.xml
@@ -129,7 +129,7 @@ fails-if(gtkWidget||Android) random-if(winWidget) == semantics-1.xhtml semantics
 == mstyle-1.xhtml mstyle-1-ref.xhtml
 == mstyle-2.xhtml mstyle-2-ref.xhtml
 fuzzy-if(OSX,0-16,0-8) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mstyle-3.xhtml mstyle-3-ref.xhtml # Bug 1392106
-fuzzy-if(OSX,0-1,0-4) == mstyle-4.xhtml mstyle-4-ref.xhtml
+fuzzy-if(OSX,0-1,0-4) fuzzy-if(geckoview&&webrender,0-1,0-2) == mstyle-4.xhtml mstyle-4-ref.xhtml
 == mstyle-5.xhtml mstyle-5-ref.xhtml # Bug 787215
 == scale-stretchy-1.xhtml scale-stretchy-1-ref.xhtml
 != scale-stretchy-2.xhtml scale-stretchy-2-ref.xhtml
@@ -145,11 +145,11 @@ fails-if(skiaContent&&OSX>=1010) == scale-stretchy-3.xhtml scale-stretchy-3-ref.
 == mpadded-5.html mpadded-5-ref.html
 == mpadded-1-2.html mpadded-1-2-ref.html
 == mpadded-6.html mpadded-6-ref.html
-random-if(gtkWidget) == mpadded-7.html mpadded-7-ref.html # bug 1309430
+random-if(gtkWidget) fails-if(geckoview&&webrender) == mpadded-7.html mpadded-7-ref.html # bug 1309430
 random-if(gtkWidget) == mpadded-8.html mpadded-8-ref.html # bug 1309430
 random-if(gtkWidget) == mpadded-9.html mpadded-9-ref.html # bug 1309430
 == math-display.html math-display-ref.html
-== scriptlevel-1.html scriptlevel-1-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-78) == scriptlevel-1.html scriptlevel-1-ref.html
 == scriptlevel-movablelimits-1.html scriptlevel-movablelimits-1-ref.html
 == munderover-align-accent-false.html munderover-align-accent-false-ref.html
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == munderover-align-accent-true.html munderover-align-accent-true-ref.html # Bug 1392106
@@ -184,24 +184,24 @@ random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mtable-align-whitespace.
 == mtable-columnalign-multi-mtable.html mtable-columnalign-multi-ref.html
 == mtable-columnalign-multi-mtable-dynamic.html mtable-columnalign-multi-ref.html
 == maction-selection.html maction-selection-ref.html
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == maction-dynamic-embellished-op.html maction-dynamic-embellished-op-ref.html # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-1144) == maction-dynamic-embellished-op.html maction-dynamic-embellished-op-ref.html # Bug 1392106
 == maction-dynamic-1.html maction-dynamic-1-ref.html # bug 773482
 == maction-dynamic-2.html maction-dynamic-2-ref.html
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mo-lspace-rspace.html mo-lspace-rspace-ref.html # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mo-lspace-rspace-2.html mo-lspace-rspace-2-ref.html # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-22) == mo-lspace-rspace-2.html mo-lspace-rspace-2-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mo-lspace-rspace-3.html mo-lspace-rspace-3-ref.html # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mo-lspace-rspace-4.html mo-lspace-rspace-4-ref.html # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-1) == mo-lspace-rspace-4.html mo-lspace-rspace-4-ref.html # Bug 1392106
 == mo-invisibleoperators.html mo-invisibleoperators-ref.html
 == mo-invisibleoperators-2.html mo-invisibleoperators-2-ref.html
 random-if(gtkWidget) == mo-glyph-size.html mo-glyph-size-ref.html # bug 1309426
-== maction-dynamic-3.html maction-dynamic-3-ref.html # bug 773482
-== whitespace-trim-1.html whitespace-trim-1-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-574) == maction-dynamic-3.html maction-dynamic-3-ref.html # bug 773482
+fuzzy-if(geckoview&&webrender,0-1,0-5) == whitespace-trim-1.html whitespace-trim-1-ref.html
 == whitespace-trim-2.html whitespace-trim-2-ref.html
 == whitespace-trim-3.html whitespace-trim-3-ref.html
 fails == whitespace-trim-4.html whitespace-trim-4-ref.html # Bug 787215
 == whitespace-trim-5.html whitespace-trim-5-ref.html
-random-if(winWidget&&!d2d) == opentype-stretchy.html opentype-stretchy-ref.html
-== opentype-fraction-dynamic-linethickness.html opentype-fraction-dynamic-linethickness-ref.html
+random-if(winWidget&&!d2d) fuzzy-if(geckoview&&webrender,0-1,0-14) == opentype-stretchy.html opentype-stretchy-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-51) == opentype-fraction-dynamic-linethickness.html opentype-fraction-dynamic-linethickness-ref.html
 == operator-1.xhtml operator-1-ref.xhtml
 == scriptshift-1.xhtml scriptshift-1-ref.xhtml
 == number-size-1.xhtml number-size-1-ref.xhtml
@@ -225,47 +225,47 @@ fuzzy-if(skiaContent,0-1,0-80) fuzzy-if(Android,0-255,0-105) skip-if(winWidget) 
 != menclose-1o.html menclose-1-ref.html
 != menclose-1p.html menclose-1-ref.html
 != menclose-1q.html menclose-1-ref.html
-random-if(gtkWidget) == menclose-2-actuarial.html menclose-2-actuarial-ref.html # bug 1309426
-random-if(gtkWidget) == menclose-2-bottom.html menclose-2-bottom-ref.html # bug 1309426
-random-if(gtkWidget) == menclose-2-box.html menclose-2-box-ref.html # bug 1309426
-== menclose-2-circle.html menclose-2-circle-ref.html
-== menclose-2-downdiagonalstrike.html menclose-2-downdiagonalstrike-ref.html
+random-if(gtkWidget) fuzzy-if(geckoview&&webrender,0-1,0-219) == menclose-2-actuarial.html menclose-2-actuarial-ref.html # bug 1309426
+random-if(gtkWidget) fuzzy-if(geckoview&&webrender,0-1,0-4) == menclose-2-bottom.html menclose-2-bottom-ref.html # bug 1309426
+random-if(gtkWidget) fuzzy-if(geckoview&&webrender,0-1,0-16) == menclose-2-box.html menclose-2-box-ref.html # bug 1309426
+fuzzy-if(geckoview&&webrender,0-2,0-1035) == menclose-2-circle.html menclose-2-circle-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-18) == menclose-2-downdiagonalstrike.html menclose-2-downdiagonalstrike-ref.html
 == menclose-2-horizontalstrike.html menclose-2-horizontalstrike-ref.html
 == menclose-2-left.html menclose-2-left-ref.html
-fuzzy-if(skiaContent,0-80,0-5) == menclose-2-longdiv.html menclose-2-longdiv-ref.html
+fuzzy-if(skiaContent,0-80,0-5) fuzzy-if(geckoview&&webrender,0-1,0-161) == menclose-2-longdiv.html menclose-2-longdiv-ref.html
 random-if(gtkWidget) == menclose-2-right.html menclose-2-right-ref.html # bug 1309426
 random-if(gtkWidget) == menclose-2-roundedbox.html menclose-2-roundedbox-ref.html # bug 1309426
-== menclose-2-top.html menclose-2-top-ref.html
-random-if(gtkWidget) == menclose-2-updiagonalarrow.html menclose-2-updiagonalarrow-ref.html # bug 1309426
-== menclose-2-updiagonalstrike.html menclose-2-updiagonalstrike-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-4) == menclose-2-top.html menclose-2-top-ref.html
+random-if(gtkWidget) fuzzy-if(geckoview&&webrender,0-1,0-62) == menclose-2-updiagonalarrow.html menclose-2-updiagonalarrow-ref.html # bug 1309426
+fuzzy-if(geckoview&&webrender,0-1,0-188) == menclose-2-updiagonalstrike.html menclose-2-updiagonalstrike-ref.html
 == menclose-2-verticalstrike.html menclose-2-verticalstrike-ref.html
 random-if(gtkWidget) == menclose-2-roundedbox.html menclose-2-roundedbox-ref.html # bug 1309426
-== menclose-2-phasorangle.html menclose-2-phasorangle-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-57) == menclose-2-phasorangle.html menclose-2-phasorangle-ref.html
 == menclose-3-box.html menclose-3-box-ref.html
 == menclose-3-madruwb.html menclose-3-madruwb-ref.html
 fails-if(Android) == menclose-3-radical.html menclose-3-radical-ref.html # Bug 973917
 == menclose-3-default.html menclose-3-default-ref.html
 == menclose-3-invalid.html menclose-3-invalid-ref.html
-== menclose-3-multiple.html menclose-3-multiple-ref.html
-== menclose-3-unknown.html menclose-3-unknown.html
+fuzzy-if(geckoview&&webrender,0-1,0-3) == menclose-3-multiple.html menclose-3-multiple-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-14) == menclose-3-unknown.html menclose-3-unknown.html
 == menclose-4.html data:text/html,<body>Pass
 == menclose-5-actuarial.html menclose-5-actuarial-ref.html
 == menclose-5-bottom.html menclose-5-bottom-ref.html
 == menclose-5-box.html menclose-5-box-ref.html
-fuzzy-if(OSX,0-1,0-100) fuzzy-if(skiaContent,0-1,0-2) == menclose-5-circle.html menclose-5-circle-ref.html
-fuzzy-if(d2d,0-7,0-1) == menclose-5-downdiagonalstrike.html menclose-5-downdiagonalstrike-ref.html
+fuzzy-if(OSX,0-1,0-100) fuzzy-if(skiaContent,0-1,0-2) fuzzy-if(geckoview&&webrender,0-1,0-4) == menclose-5-circle.html menclose-5-circle-ref.html
+fuzzy-if(d2d,0-7,0-1) fuzzy-if(geckoview&&webrender,0-1,0-9) == menclose-5-downdiagonalstrike.html menclose-5-downdiagonalstrike-ref.html
 == menclose-5-horizontalstrike.html menclose-5-horizontalstrike-ref.html
 == menclose-5-left.html menclose-5-left-ref.html
 == menclose-5-longdiv.html menclose-5-longdiv-ref.html
 == menclose-5-madruwb.html menclose-5-madruwb-ref.html
-== menclose-5-radical.html menclose-5-radical-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-2) == menclose-5-radical.html menclose-5-radical-ref.html
 == menclose-5-right.html menclose-5-right-ref.html
 fuzzy-if(skiaContent,0-5,0-5) == menclose-5-roundedbox.html menclose-5-roundedbox-ref.html
 == menclose-5-top.html menclose-5-top-ref.html
 fuzzy-if(skiaContent,0-1,0-1) == menclose-5-updiagonalarrow.html menclose-5-updiagonalarrow-ref.html
 fuzzy-if(d2d,0-7,0-1) == menclose-5-updiagonalstrike.html menclose-5-updiagonalstrike-ref.html
 == menclose-5-verticalstrike.html menclose-5-verticalstrike-ref.html
-== menclose-5-phasorangle.html menclose-5-phasorangle-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-25) == menclose-5-phasorangle.html menclose-5-phasorangle-ref.html
 == menclose-6-actuarial.html menclose-6-ref.html
 == menclose-6-bottom.html menclose-6-ref.html
 == menclose-6-box.html menclose-6-ref.html
@@ -285,11 +285,11 @@ fuzzy-if(d2d,0-7,0-1) == menclose-6-updiagonalstrike.html menclose-6-ref.html
 == menclose-6-phasorangle.html menclose-6-ref.html
 == mmultiscript-align.html mmultiscript-align-ref.html
 fails-if(winWidget) == subscript-italic-correction.html subscript-italic-correction-ref.html # bug 961482
-fails-if(Android) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mathvariant-1a.html mathvariant-1a-ref.html # Bug 1010679, Bug 1392106
-fails-if(Android) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mathvariant-1b.html mathvariant-1b-ref.html # Bug 1010679, Bug 1392106
-fails-if(Android) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mathvariant-1c.html mathvariant-1c-ref.html # Bug 1010679, Bug 1392106
+fails-if(Android&&!webrender) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mathvariant-1a.html mathvariant-1a-ref.html # Bug 1010679, Bug 1392106
+fails-if(Android&&!webrender) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mathvariant-1b.html mathvariant-1b-ref.html # Bug 1010679, Bug 1392106
+fails-if(Android&&!webrender) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mathvariant-1c.html mathvariant-1c-ref.html # Bug 1010679, Bug 1392106
 == mathvariant-1d.html mathvariant-1d-ref.html
-fails-if(Android||OSX) == mathvariant-2.html mathvariant-2-ref.html # Bugs 1010678, 1010679
+fails-if(Android&&!webrender) fails-if(OSX) == mathvariant-2.html mathvariant-2-ref.html # Bugs 1010678, 1010679
 == mathvariant-3.html mathvariant-3-ref.html
 == mathvariant-4.html mathvariant-4-ref.html
 == mathvariant-5.html mathvariant-5-ref.html
@@ -297,9 +297,9 @@ fails-if(Android||OSX) == mathvariant-2.html mathvariant-2-ref.html # Bugs 10106
 == dtls-2.html dtls-2-ref.html
 == dtls-3.html dtls-3-ref.html
 == ssty-1.html ssty-1-ref.html
-== ssty-2.html ssty-2-ref.html
-== ssty-3.html ssty-3-ref.html
-== ssty-4.html ssty-4-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-3) == ssty-2.html ssty-2-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-4) == ssty-3.html ssty-3-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-263) == ssty-4.html ssty-4-ref.html
 == mathscript-1.html mathscript-1-ref.html
 == mathscript-2.html mathscript-2-ref.html
 == mo-accent-dynamic.html mo-accent-dynamic-ref.html
@@ -331,7 +331,7 @@ random-if(gtkWidget) == rowlines-3-2.html rowlines-3-2-ref.html # bug 1309426
 != tablespacing-8a.html tablespacing-8-ref.html
 != tablespacing-8b.html tablespacing-8-ref.html
 != op-dict-1.html op-dict-1-ref.html
-== op-dict-2.html op-dict-2-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-19) == op-dict-2.html op-dict-2-ref.html
 != op-dict-3.html op-dict-3-ref.html
 == op-dict-4.html op-dict-4-ref.html
 != op-dict-5.html op-dict-5-ref.html
@@ -354,18 +354,18 @@ random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mfrac-A-5.html mfrac-A-5
 == mfrac-B-1.html mfrac-B-1-ref.html
 == mfrac-B-2.html mfrac-B-2-3-ref.html
 == mfrac-B-3.html mfrac-B-2-3-ref.html
-== mfrac-B-4.html mfrac-B-4-5-ref.html
+fuzzy-if(geckoview&&webrender,0-198,0-781) == mfrac-B-4.html mfrac-B-4-5-ref.html
 == mfrac-B-5.html mfrac-B-4-5-ref.html
-== mfrac-B-6.html mfrac-B-6-7-ref.html
+fuzzy-if(geckoview&&webrender,0-198,0-781) == mfrac-B-6.html mfrac-B-6-7-ref.html
 == mfrac-B-7.html mfrac-B-6-7-ref.html
 fuzzy-if(OSX,0-1,0-100) fuzzy-if(skiaContent,0-1,0-14) == mfrac-C-1.html mfrac-C-1-ref.html
 == mfrac-C-2.html mfrac-C-2-ref.html
-== mfrac-C-3.html mfrac-C-3-ref.html
-== mfrac-C-4.html mfrac-C-4-ref.html
+fuzzy-if(geckoview&&webrender,0-198,0-776) == mfrac-C-3.html mfrac-C-3-ref.html
+fuzzy-if(geckoview&&webrender,0-198,0-270) == mfrac-C-4.html mfrac-C-4-ref.html
 fuzzy-if(OSX,0-1,0-100) fuzzy-if(skiaContent,0-1,0-14) == mfrac-D-1.html mfrac-D-1-ref.html
 == mfrac-D-2.html mfrac-D-2-ref.html
-== mfrac-D-3.html mfrac-D-3-ref.html
-== mfrac-D-4.html mfrac-D-4-ref.html
+fuzzy-if(geckoview&&webrender,0-198,0-776) == mfrac-D-3.html mfrac-D-3-ref.html
+fuzzy-if(geckoview&&webrender,0-198,0-270) == mfrac-D-4.html mfrac-D-4-ref.html
 == mfrac-E-1.html mfrac-E-1-ref.html
 == shadow-dom-1.html shadow-dom-1-ref.html
 pref(dom.meta-viewport.enabled,true) pref(font.size.inflation.emPerLine,25) fuzzy-if(webrender&&!gtkWidget,0-255,0-260) == font-inflation-1.html font-inflation-1-ref.html

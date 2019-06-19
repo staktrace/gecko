@@ -41,7 +41,7 @@ test-pref(font.minimum-size.ja,16) == min-font-size-1.html min-font-size-1-ref.h
 load nested-ruby-1.html
 == no-transform.html no-transform-ref.html
 == relative-positioning-1.html relative-positioning-1-ref.html
-== relative-positioning-2.html relative-positioning-2-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-6) == relative-positioning-2.html relative-positioning-2-ref.html
 == ruby-align-1.html ruby-align-1-ref.html
 == ruby-align-1a.html ruby-align-1-ref.html
 == ruby-align-2.html ruby-align-2-ref.html
@@ -50,7 +50,7 @@ pref(layout.css.ruby.intercharacter.enabled,true) fuzzy-if(Android,0-198,0-70) =
 pref(layout.css.ruby.intercharacter.enabled,false) != ruby-intercharacter-1.htm ruby-intercharacter-1-ref.htm
 pref(layout.css.ruby.intercharacter.enabled,true) == ruby-intercharacter-2.htm ruby-intercharacter-2-ref.htm
 pref(layout.css.ruby.intercharacter.enabled,false) != ruby-intercharacter-2.htm ruby-intercharacter-2-ref.htm
-== ruby-position-horizontal.html ruby-position-horizontal-ref.html
+fuzzy-if(geckoview&&webrender,0-1,0-14) == ruby-position-horizontal.html ruby-position-horizontal-ref.html
 == ruby-position-vertical-lr.html ruby-position-vertical-lr-ref.html
 == ruby-position-vertical-rl.html ruby-position-vertical-rl-ref.html
 != ruby-reflow-1-opaqueruby.html ruby-reflow-1-noruby.html

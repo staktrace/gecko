@@ -36,8 +36,8 @@ HTTP == data:text/html,<div>Text</div> default.html
 != blank.html default.html
 HTTP != blank.html default.html
 
-== filter-1.xhtml filter-1-ref.xhtml
-== filter-2.xhtml filter-2-ref.xhtml
+fails-if(geckoview&&webrender) == filter-1.xhtml filter-1-ref.xhtml
+fails-if(geckoview&&webrender) == filter-2.xhtml filter-2-ref.xhtml
 
 # test that the MozReftestInvalidate event fires
 == invalidation.html about:blank
@@ -140,7 +140,7 @@ fails ref-pref(font.size.variable.x-western,false) == font-size-16.html font-def
 fails ref-pref(font.size.variable.x-western,"foo") == font-size-16.html font-default.html
 test-pref(font.size.variable.x-western,16) == font-default.html font-size-16.html
 test-pref(font.size.variable.x-western,16) != font-default.html font-size-24.html
-test-pref(font.size.variable.x-western,24) == font-default.html font-size-24.html
+test-pref(font.size.variable.x-western,24) fuzzy-if(geckoview&&webrender,0-1,0-8) == font-default.html font-size-24.html
 test-pref(font.size.variable.x-western,24) != font-default.html font-size-16.html
 fails test-pref(font.size.variable.x-western,false) == font-default.html font-size-16.html
 fails test-pref(font.size.variable.x-western,"foo") == font-default.html font-size-16.html

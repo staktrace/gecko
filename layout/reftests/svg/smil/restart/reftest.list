@@ -1,5 +1,5 @@
 # Tests for restart behaviour
-== reset-1.svg reset-1-ref.svg
+fuzzy-if(geckoview&&webrender,0-1,0-3) == reset-1.svg reset-1-ref.svg
 == reset-2.svg green-box-ref.svg
 == reset-3.svg green-box-ref.svg
 == reset-4.svg green-box-ref.svg

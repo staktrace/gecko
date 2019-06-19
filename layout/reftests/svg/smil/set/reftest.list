@@ -1,2 +1,2 @@
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == set-css-fontsize-freeze-1.svg set-css-fontsize-freeze-1-ref.svg
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == set-css-fontsize-remove-1.svg set-css-fontsize-remove-1-ref.svg
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-141) == set-css-fontsize-freeze-1.svg set-css-fontsize-freeze-1-ref.svg
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-115) == set-css-fontsize-remove-1.svg set-css-fontsize-remove-1-ref.svg
