@@ -69,6 +69,15 @@ function TestBuffer(str)
   g.testLog.push(str);
 }
 
+function isWebRenderOnAndroidDevice() {
+  var xr = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
+  // This is the best we can do for now; maybe in the future we'll have
+  // more correct detection of this case.
+  return xr.OS == "Android" &&
+      g.browserIsRemote &&
+      g.windowUtils.layerManagerType == "WebRender";
+}
+
 function FlushTestBuffer()
 {
   // In debug mode, we've dumped all these messages already.
@@ -1102,15 +1111,31 @@ function RecordResult(testRunTime, errorMsg, typeSpecificResults)
             // by the actual comparison results
             var fuzz_exceeded = false;
 
+            // what is expected on this platform (PASS, FAIL, RANDOM, or FUZZY)
+            var expected = g.urls[0].expected;
+
             differences = g.windowUtils.compareCanvases(g.canvas1, g.canvas2, maxDifference);
+
+            // Special handling for WR on Android physical devices:
+            // automatically reduce any maxDifference of 1 to 0, because we
+            // get a lot of off-by-ones that are very random and hard to
+            // annotate. In cases where the difference on any pixel component
+            // is more than 1 we require manual annotation. Note that this
+            // applies to both == tests and != tests, so != tests don't
+            // inadvertently pass due to a random off-by-one pixel difference.
+            // We do this only if there's no explicit fuzzy annotation on the
+            // test.
+            if (isWebRenderOnAndroidDevice() && maxDifference.value == 1 && differences > 0) {
+                logger.info(`REFTEST wr-on-android dropping fuzz of (${maxDifference.value}, ${differences}) to (0, 0)`);
+                maxDifference.value = 0;
+                differences = 0;
+            }
+
             equal = (differences == 0);
 
             if (maxDifference.value > 0 && equal) {
                 throw "Inconsistent result from compareCanvases.";
             }
-
-            // what is expected on this platform (PASS, FAIL, or RANDOM)
-            var expected = g.urls[0].expected;
 
             if (expected == EXPECTED_FUZZY) {
                 logger.info(`REFTEST fuzzy test ` +
