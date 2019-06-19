@@ -9,11 +9,11 @@
 == capitalize-8.html capitalize-8-ref.html
 == lowercase-1.html lowercase-ref.html
 == lowercase-sigma-1.html lowercase-sigma-1-ref.html
-random-if(winWidget) fuzzy-if(geckoview&&webrender,0-1,0-67) == small-caps-1.html small-caps-1-ref.html # fails if default font supports 'smcp'
-fuzzy-if(geckoview&&webrender,0-1,0-198) == fake-small-caps-1.html fake-small-caps-1-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-39) == opentype-small-caps-1.html opentype-small-caps-1-ref.html
+random-if(winWidget) == small-caps-1.html small-caps-1-ref.html # fails if default font supports 'smcp'
+== fake-small-caps-1.html fake-small-caps-1-ref.html
+== opentype-small-caps-1.html opentype-small-caps-1-ref.html
 != opentype-small-caps-1.html opentype-small-caps-1-notref.html
-fuzzy-if(geckoview&&webrender,0-1,0-13) == graphite-small-caps-1.html graphite-small-caps-1-ref.html
+== graphite-small-caps-1.html graphite-small-caps-1-ref.html
 != graphite-small-caps-1.html graphite-small-caps-1-notref.html
 == uppercase-1.html uppercase-ref.html
 == uppercase-szlig-1.html uppercase-szlig-ref.html
@@ -27,12 +27,12 @@ random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == smtp-title.html smtp-tit
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == turkish-casing-1.html turkish-casing-1-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) != small-caps-turkish-1.html small-caps-turkish-1-notref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == greek-uppercase-1a.html greek-uppercase-1-ref.html # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-49) == greek-uppercase-1b.html greek-uppercase-1-ref.html # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == greek-uppercase-1b.html greek-uppercase-1-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == greek-uppercase-2.html greek-uppercase-2-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == greek-uppercase-3.html greek-uppercase-3-ref.html # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-8) == greek-small-caps-1.html greek-small-caps-1-ref.html # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == greek-small-caps-1.html greek-small-caps-1-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == irish-uppercase-1.html irish-uppercase-1-ref.html # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-716) == irish-lowercase-1a.html irish-lowercase-1-ref.html # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == irish-lowercase-1a.html irish-lowercase-1-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == irish-lowercase-1b.html irish-lowercase-1-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == fullwidth-1.html fullwidth-1-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == fullwidth-2.html fullwidth-2-ref.html # Bug 1392106

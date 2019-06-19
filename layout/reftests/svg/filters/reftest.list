@@ -30,11 +30,11 @@ fuzzy-if(d2d,0-1,0-10000) == feColorMatrix-2.svg feColorMatrix-2-ref.svg
 fuzzy-if(d2d||skiaContent,0-1,0-9600) == feComposite-1.svg feComposite-1-ref.svg
 fuzzy-if(d2d||skiaContent,0-1,0-10000) == feComposite-2.svg feComposite-2-ref.svg
 
-fuzzy-if(geckoview&&webrender,0-1,0-10) == feConvolveMatrix-1.svg feConvolveMatrix-1-ref.svg
+== feConvolveMatrix-1.svg feConvolveMatrix-1-ref.svg
 == feConvolveMatrix-2.svg feConvolveMatrix-2-ref.svg
 
 == feDisplacementMap-1.svg feDisplacementMap-1-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-152) == feDisplacementMap-2.svg feDisplacementMap-2-ref.svg
+== feDisplacementMap-2.svg feDisplacementMap-2-ref.svg
 
 fuzzy-if(d2d,0-1,0-6400) fuzzy-if(skiaContent,0-1,0-1600)  == feFlood-1.svg feFlood-1-ref.svg
 skip-if(d2d) fuzzy-if(skiaContent,0-1,0-6400) == feFlood-2.svg feFlood-2-ref.svg
@@ -43,25 +43,25 @@ fuzzy(0-1,0-6400) fuzzy-if(skiaContent,0-1,0-6404) fuzzy-if(webrender,178-178,30
 fuzzy-if(webrender,0-2,0-304) == feGaussianBlur-2.svg feGaussianBlur-2-ref.svg
 # != feGaussianBlur-3.svg feGaussianBlur-3-ref.svg
 fuzzy-if(webrender,3-5,5760-8168) == feGaussianBlur-4.svg feGaussianBlur-4-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-79) == feGaussianBlur-5.svg feGaussianBlur-5-ref.svg
+== feGaussianBlur-5.svg feGaussianBlur-5-ref.svg
 == feGaussianBlur-6.svg feGaussianBlur-6-ref.svg
 skip-if(d2d) == feGaussianBlur-cap-large-directional-radius-on-software.html feGaussianBlur-cap-large-directional-radius-on-software-ref.html
 
 != feImage-1.svg about:blank # (Make sure our image renders at all)
-fuzzy-if(geckoview&&webrender,0-1,0-48) == feImage-1.svg feImage-1-ref.svg
+== feImage-1.svg feImage-1-ref.svg
 == feImage-scale-to-primitive-subregion.html feImage-scale-to-primitive-subregion-ref.html
 
 == feMerge-1.svg feMerge-1-ref.svg
 == feMerge-2.svg feMerge-2-ref.svg
 
-fuzzy-if(geckoview&&webrender,0-1,0-12) == feMorphology-1.svg feMorphology-1-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-62) == feMorphology-2.svg feMorphology-2-ref.svg
+== feMorphology-1.svg feMorphology-1-ref.svg
+== feMorphology-2.svg feMorphology-2-ref.svg
 
 == feOffset-1.svg feOffset-1-ref.svg
 == feOffset-2.svg feOffset-2-ref.svg
 
 == feTile-1.svg feTile-1-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-720) == feTile-2.svg feTile-2-ref.svg
+== feTile-2.svg feTile-2-ref.svg
 
 # no tests for feTurbulence
 
@@ -70,23 +70,23 @@ fuzzy-if(geckoview&&webrender,0-8,0-199) == filter-clipped-rect-01.svg pass.svg
 fuzzy(0-5,0-67) != filter-in-pattern-02.svg filter-in-pattern-02-ref.svg
 random-if(winWidget) == filter-in-mask-01.svg pass.svg # bug 1356139
 == filter-in-mask-02.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-28) == filter-inner-svg-01.svg pass.svg
+== filter-inner-svg-01.svg pass.svg
 == filter-inner-svg-02.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-28) == filter-inner-svg-03.svg pass.svg
+== filter-inner-svg-03.svg pass.svg
 fails == filter-marked-line-01.svg pass.svg # bug 477704
-fuzzy-if(geckoview&&webrender,0-1,0-3) == filter-kernelUnitLength-01.svg filter-kernelUnitLength-01-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-28) == filter-marked-line-02.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-77) == filter-marked-line-03.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-77) == filter-marked-line-04.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-77) == filter-marked-line-05.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-77) == filter-marked-line-06.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-77) == filter-marked-line-07.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-77) == filter-marked-line-08.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-77) == filter-marked-line-09.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-31) == filter-nested-filtering-01.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-35) == filter-nested-filtering-02.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-28) == filter-patterned-rect-01.svg pass.svg
-fuzzy-if(geckoview&&webrender,0-1,0-39) == filter-patterned-rect-02.svg pass.svg
+== filter-kernelUnitLength-01.svg filter-kernelUnitLength-01-ref.svg
+== filter-marked-line-02.svg pass.svg
+== filter-marked-line-03.svg pass.svg
+== filter-marked-line-04.svg pass.svg
+== filter-marked-line-05.svg pass.svg
+== filter-marked-line-06.svg pass.svg
+== filter-marked-line-07.svg pass.svg
+== filter-marked-line-08.svg pass.svg
+== filter-marked-line-09.svg pass.svg
+== filter-nested-filtering-01.svg pass.svg
+== filter-nested-filtering-02.svg pass.svg
+== filter-patterned-rect-01.svg pass.svg
+== filter-patterned-rect-02.svg pass.svg
 == filter-region-01a.html pass.svg
 == filter-region-01b.html pass.svg
 == filter-transform-01.svg pass.svg
@@ -117,13 +117,13 @@ fuzzy-if(webrender,20-21,5624-5646) == feGaussianBlur-alpha-01.svg feGaussianBlu
 
 == feTile-large-01.svg pass.svg
 == feTile-large-02.svg feTile-large-02-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-2) == feTile-outside-01.svg feTile-outside-01-ref.svg
+== feTile-outside-01.svg feTile-outside-01-ref.svg
 
 fuzzy(0-1,0-219) == feDiffuseLighting-1.svg feDiffuseLighting-1-ref.svg
 
 fuzzy(0-2,0-2659) skip-if(d2d) fuzzy-if(geckoview&&webrender,0-2,0-2695) == feSpecularLighting-1.svg feSpecularLighting-1-ref.svg
 
-fuzzy-if(geckoview&&webrender,0-1,0-507) == filter-lighting-region.svg filter-lighting-region-ref.svg
+== filter-lighting-region.svg filter-lighting-region-ref.svg
 
 == fePointLight-zoomed-page.svg fePointLight-zoomed-page-ref.svg
 

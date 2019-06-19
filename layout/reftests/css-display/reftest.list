@@ -8,14 +8,14 @@ fuzzy-if(Android,0-8,0-604) == display-contents-acid-dyn-3.html display-contents
 == display-contents-generated-content.html display-contents-generated-content-ref.html
 == display-contents-generated-content-2.html display-contents-generated-content-ref.html
 == display-contents-style-inheritance-1.html display-contents-style-inheritance-1-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-170) == display-contents-style-inheritance-1-stylechange.html display-contents-style-inheritance-1-ref.html
+== display-contents-style-inheritance-1-stylechange.html display-contents-style-inheritance-1-ref.html
 fuzzy-if(winWidget,0-12,0-100) == display-contents-style-inheritance-1-dom-mutations.html display-contents-style-inheritance-1-ref.html
 == display-contents-tables.xhtml display-contents-tables-ref.xhtml
 == display-contents-tables-2.xhtml display-contents-tables-ref.xhtml
 == display-contents-tables-3.xhtml display-contents-tables-3-ref.xhtml
 == display-contents-visibility-hidden.html display-contents-visibility-hidden-ref.html
 == display-contents-visibility-hidden-2.html display-contents-visibility-hidden-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-40) == display-contents-495385-2d.html display-contents-495385-2d-ref.html
+== display-contents-495385-2d.html display-contents-495385-2d-ref.html
 fuzzy-if(Android,0-7,0-3935) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == display-contents-xbl.xhtml display-contents-xbl-ref.html # bug 1392106
 == display-contents-xbl-2.xul display-contents-xbl-2-ref.xul
 == display-contents-xbl-3.xul display-contents-xbl-3-ref.xul

@@ -209,31 +209,31 @@ fails-if(Android&&!geckoview) == emoji-04.html emoji-04-ref.html
 pref(gfx.font_rendering.graphite.enabled,true) == graphite-01.html graphite-01-ref.html
 # Test 02 (using Pig Latin) is fuzzy on Win7 because glyph positioning is not guaranteed to match exactly
 # between a sequence of simple glyphs rendered individually, and the same sequence treated as a single cluster.
-fuzzy-if(winWidget,0-49,0-220) pref(gfx.font_rendering.graphite.enabled,true) fuzzy-if(geckoview&&webrender,0-1,0-5) == graphite-02.html graphite-02-ref.html
+fuzzy-if(winWidget,0-49,0-220) pref(gfx.font_rendering.graphite.enabled,true) == graphite-02.html graphite-02-ref.html
 pref(gfx.font_rendering.graphite.enabled,true) != graphite-03a.html graphite-03-notref.html
 pref(gfx.font_rendering.graphite.enabled,true) != graphite-03b.html graphite-03-notref.html
 pref(gfx.font_rendering.graphite.enabled,false) != graphite-01.html graphite-01-ref.html
 pref(gfx.font_rendering.graphite.enabled,false) != graphite-02.html graphite-02-ref.html
 # test 03a (lang setting in Padauk font) now works in opentype/harfbuzz as well
 pref(gfx.font_rendering.graphite.enabled,false) != graphite-03a.html graphite-03-notref.html
-pref(gfx.font_rendering.graphite.enabled,false) fuzzy-if(geckoview&&webrender,0-1,0-1049) == graphite-03b.html graphite-03-notref.html
+pref(gfx.font_rendering.graphite.enabled,false) == graphite-03b.html graphite-03-notref.html
 
 # tests for graphite rendering with valid and invalid lang tags
-pref(gfx.font_rendering.graphite.enabled,true) fuzzy-if(geckoview&&webrender,0-1,0-3) == graphite-04-fa.html graphite-04-ref.html
+pref(gfx.font_rendering.graphite.enabled,true) == graphite-04-fa.html graphite-04-ref.html
 pref(gfx.font_rendering.graphite.enabled,true) != graphite-04-sd.html graphite-04-ref.html
-pref(gfx.font_rendering.graphite.enabled,true) fuzzy-if(geckoview&&webrender,0-1,0-3) == graphite-04-snd.html graphite-04-ref.html
+pref(gfx.font_rendering.graphite.enabled,true) == graphite-04-snd.html graphite-04-ref.html
 pref(gfx.font_rendering.graphite.enabled,true) != graphite-04-ur.html graphite-04-ref.html
 pref(gfx.font_rendering.graphite.enabled,true) == graphite-04-urd.html graphite-04-ref.html
 pref(gfx.font_rendering.graphite.enabled,true) != graphite-04-sd.html graphite-04-ur.html
 
 # tests to compare graphite to opentype (will trivially pass when graphite not enabled)
-fuzzy-if(geckoview&&webrender,0-1,0-31) == graphite-05-ot-only.html graphite-05-ref.html
+== graphite-05-ot-only.html graphite-05-ref.html
 != graphite-05-ot-only.html graphite-05-fail.html
-fuzzy-if(geckoview&&webrender,0-1,0-21) == graphite-05-simple.html graphite-05-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == graphite-05-multipass.html graphite-05-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-31) == graphite-05-lang.html graphite-05-ref.html
+== graphite-05-simple.html graphite-05-ref.html
+== graphite-05-multipass.html graphite-05-ref.html
+== graphite-05-lang.html graphite-05-ref.html
 == graphite-05-badlang.html graphite-05-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-31) == graphite-05-feat.html graphite-05-ref.html
+== graphite-05-feat.html graphite-05-ref.html
 
 # comparing composed and decomposed characters that should render identically
 # under both OpenType and Graphite shaping
@@ -262,7 +262,7 @@ pref(gfx.font_rendering.graphite.enabled,true) == glyph-decomposition-graphite.h
 != auto-hyphenation-xmllang-1.xhtml auto-hyphenation-1-notref.html
 == auto-hyphenation-xmllang-1a.xhtml auto-hyphenation-1-ref.html
 == auto-hyphenation-xmllang-2.xhtml auto-hyphenation-2-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-3) == auto-hyphenation-xmllang-3.xhtml auto-hyphenation-3-ref.html
+== auto-hyphenation-xmllang-3.xhtml auto-hyphenation-3-ref.html
 == auto-hyphenation-xmllang-4.xhtml auto-hyphenation-4-ref.html
 == auto-hyphenation-xmllang-5.xhtml auto-hyphenation-5-ref.html
 == auto-hyphenation-xmllang-6.xhtml auto-hyphenation-6-ref.html

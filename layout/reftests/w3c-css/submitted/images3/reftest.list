@@ -51,95 +51,95 @@
 == object-fit-scale-down-png-002p.html object-fit-scale-down-png-002-ref.html
 
 # Tests for 'object-fit' / 'object-position' with an SVG image
-fuzzy-if(geckoview&&webrender,1-1,1-28) == object-fit-fill-svg-001e.html object-fit-fill-svg-001-ref.html
-fuzzy-if(geckoview&&webrender,1-1,1-35) == object-fit-fill-svg-001i.html object-fit-fill-svg-001-ref.html
-fuzzy-if(geckoview&&webrender,1-1,1-32) == object-fit-fill-svg-001o.html object-fit-fill-svg-001-ref.html
-fuzzy-if(geckoview&&webrender,1-1,2-35) == object-fit-fill-svg-001p.html object-fit-fill-svg-001-ref.html
-fuzzy-if(geckoview&&webrender,1-1,7-55) == object-fit-fill-svg-002e.html object-fit-fill-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-fit-fill-svg-002i.html object-fit-fill-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,1-1,6-37) == object-fit-fill-svg-002o.html object-fit-fill-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-fit-fill-svg-002p.html object-fit-fill-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-14) == object-fit-fill-svg-003e.html object-fit-fill-svg-003-ref.html
+== object-fit-fill-svg-001e.html object-fit-fill-svg-001-ref.html
+== object-fit-fill-svg-001i.html object-fit-fill-svg-001-ref.html
+== object-fit-fill-svg-001o.html object-fit-fill-svg-001-ref.html
+== object-fit-fill-svg-001p.html object-fit-fill-svg-001-ref.html
+== object-fit-fill-svg-002e.html object-fit-fill-svg-002-ref.html
+== object-fit-fill-svg-002i.html object-fit-fill-svg-002-ref.html
+== object-fit-fill-svg-002o.html object-fit-fill-svg-002-ref.html
+== object-fit-fill-svg-002p.html object-fit-fill-svg-002-ref.html
+== object-fit-fill-svg-003e.html object-fit-fill-svg-003-ref.html
 == object-fit-fill-svg-003i.html object-fit-fill-svg-003-ref.html
 == object-fit-fill-svg-003o.html object-fit-fill-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,1-1,1-11) == object-fit-fill-svg-003p.html object-fit-fill-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,1-1,6-246) == object-fit-fill-svg-004e.html object-fit-fill-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,1-1,6-246) == object-fit-fill-svg-004i.html object-fit-fill-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,1-1,6-257) == object-fit-fill-svg-004o.html object-fit-fill-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,1-1,6-246) == object-fit-fill-svg-004p.html object-fit-fill-svg-004-ref.html
+== object-fit-fill-svg-003p.html object-fit-fill-svg-003-ref.html
+== object-fit-fill-svg-004e.html object-fit-fill-svg-004-ref.html
+== object-fit-fill-svg-004i.html object-fit-fill-svg-004-ref.html
+== object-fit-fill-svg-004o.html object-fit-fill-svg-004-ref.html
+== object-fit-fill-svg-004p.html object-fit-fill-svg-004-ref.html
 == object-fit-fill-svg-005e.html object-fit-fill-svg-005-ref.html
 == object-fit-fill-svg-005i.html object-fit-fill-svg-005-ref.html
 == object-fit-fill-svg-005o.html object-fit-fill-svg-005-ref.html
-fuzzy-if(geckoview&&webrender,1-1,1-11) == object-fit-fill-svg-005p.html object-fit-fill-svg-005-ref.html
-fuzzy-if(geckoview&&webrender,1-1,6-247) == object-fit-fill-svg-006e.html object-fit-fill-svg-006-ref.html
-fuzzy-if(geckoview&&webrender,1-1,6-246) == object-fit-fill-svg-006i.html object-fit-fill-svg-006-ref.html
-fuzzy-if(geckoview&&webrender,1-1,18-259) == object-fit-fill-svg-006o.html object-fit-fill-svg-006-ref.html
-fuzzy-if(geckoview&&webrender,1-1,6-246) == object-fit-fill-svg-006p.html object-fit-fill-svg-006-ref.html
+== object-fit-fill-svg-005p.html object-fit-fill-svg-005-ref.html
+== object-fit-fill-svg-006e.html object-fit-fill-svg-006-ref.html
+== object-fit-fill-svg-006i.html object-fit-fill-svg-006-ref.html
+== object-fit-fill-svg-006o.html object-fit-fill-svg-006-ref.html
+== object-fit-fill-svg-006p.html object-fit-fill-svg-006-ref.html
 # All the random-if(geckoview) failures in this file are tracked by bug 1558515
 random-if(geckoview) == object-fit-contain-svg-001e.html object-fit-contain-svg-001-ref.html
 == object-fit-contain-svg-001i.html object-fit-contain-svg-001-ref.html
 random-if(geckoview) == object-fit-contain-svg-001o.html object-fit-contain-svg-001-ref.html
 == object-fit-contain-svg-001p.html object-fit-contain-svg-001-ref.html
 random-if(geckoview) == object-fit-contain-svg-002e.html object-fit-contain-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-fit-contain-svg-002i.html object-fit-contain-svg-002-ref.html
+== object-fit-contain-svg-002i.html object-fit-contain-svg-002-ref.html
 random-if(geckoview) == object-fit-contain-svg-002o.html object-fit-contain-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-fit-contain-svg-002p.html object-fit-contain-svg-002-ref.html
+== object-fit-contain-svg-002p.html object-fit-contain-svg-002-ref.html
 random-if(geckoview) == object-fit-contain-svg-003e.html object-fit-contain-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-contain-svg-003i.html object-fit-contain-svg-003-ref.html
+== object-fit-contain-svg-003i.html object-fit-contain-svg-003-ref.html
 random-if(geckoview) == object-fit-contain-svg-003o.html object-fit-contain-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-contain-svg-003p.html object-fit-contain-svg-003-ref.html
+== object-fit-contain-svg-003p.html object-fit-contain-svg-003-ref.html
 random-if(geckoview) == object-fit-contain-svg-004e.html object-fit-contain-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-14) == object-fit-contain-svg-004i.html object-fit-contain-svg-004-ref.html
+== object-fit-contain-svg-004i.html object-fit-contain-svg-004-ref.html
 random-if(geckoview) == object-fit-contain-svg-004o.html object-fit-contain-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-14) == object-fit-contain-svg-004p.html object-fit-contain-svg-004-ref.html
+== object-fit-contain-svg-004p.html object-fit-contain-svg-004-ref.html
 random-if(geckoview) == object-fit-contain-svg-005e.html object-fit-contain-svg-005-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-contain-svg-005i.html object-fit-contain-svg-005-ref.html
+== object-fit-contain-svg-005i.html object-fit-contain-svg-005-ref.html
 random-if(geckoview) == object-fit-contain-svg-005o.html object-fit-contain-svg-005-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-contain-svg-005p.html object-fit-contain-svg-005-ref.html
+== object-fit-contain-svg-005p.html object-fit-contain-svg-005-ref.html
 random-if(geckoview) == object-fit-contain-svg-006e.html object-fit-contain-svg-006-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-fit-contain-svg-006i.html object-fit-contain-svg-006-ref.html
+== object-fit-contain-svg-006i.html object-fit-contain-svg-006-ref.html
 random-if(geckoview) == object-fit-contain-svg-006o.html object-fit-contain-svg-006-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-14) == object-fit-contain-svg-006p.html object-fit-contain-svg-006-ref.html
+== object-fit-contain-svg-006p.html object-fit-contain-svg-006-ref.html
 random-if(geckoview) == object-fit-cover-svg-001e.html object-fit-cover-svg-001-ref.html
 == object-fit-cover-svg-001i.html object-fit-cover-svg-001-ref.html
 random-if(geckoview) == object-fit-cover-svg-001o.html object-fit-cover-svg-001-ref.html
 == object-fit-cover-svg-001p.html object-fit-cover-svg-001-ref.html
 random-if(geckoview) == object-fit-cover-svg-002e.html object-fit-cover-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-fit-cover-svg-002i.html object-fit-cover-svg-002-ref.html
+== object-fit-cover-svg-002i.html object-fit-cover-svg-002-ref.html
 random-if(geckoview) == object-fit-cover-svg-002o.html object-fit-cover-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,1-1,1-2) == object-fit-cover-svg-002p.html object-fit-cover-svg-002-ref.html
+== object-fit-cover-svg-002p.html object-fit-cover-svg-002-ref.html
 random-if(geckoview) == object-fit-cover-svg-003e.html object-fit-cover-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-23) == object-fit-cover-svg-003i.html object-fit-cover-svg-003-ref.html
+== object-fit-cover-svg-003i.html object-fit-cover-svg-003-ref.html
 random-if(geckoview) == object-fit-cover-svg-003o.html object-fit-cover-svg-003-ref.html
 == object-fit-cover-svg-003p.html object-fit-cover-svg-003-ref.html
 random-if(geckoview) == object-fit-cover-svg-004e.html object-fit-cover-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-33) == object-fit-cover-svg-004i.html object-fit-cover-svg-004-ref.html
+== object-fit-cover-svg-004i.html object-fit-cover-svg-004-ref.html
 random-if(geckoview) == object-fit-cover-svg-004o.html object-fit-cover-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,1-1,1-34) == object-fit-cover-svg-004p.html object-fit-cover-svg-004-ref.html
+== object-fit-cover-svg-004p.html object-fit-cover-svg-004-ref.html
 random-if(geckoview) == object-fit-cover-svg-005e.html object-fit-cover-svg-005-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-23) == object-fit-cover-svg-005i.html object-fit-cover-svg-005-ref.html
+== object-fit-cover-svg-005i.html object-fit-cover-svg-005-ref.html
 random-if(geckoview) == object-fit-cover-svg-005o.html object-fit-cover-svg-005-ref.html
 == object-fit-cover-svg-005p.html object-fit-cover-svg-005-ref.html
 random-if(geckoview) == object-fit-cover-svg-006e.html object-fit-cover-svg-006-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-33) == object-fit-cover-svg-006i.html object-fit-cover-svg-006-ref.html
+== object-fit-cover-svg-006i.html object-fit-cover-svg-006-ref.html
 random-if(geckoview) == object-fit-cover-svg-006o.html object-fit-cover-svg-006-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-cover-svg-006p.html object-fit-cover-svg-006-ref.html
+== object-fit-cover-svg-006p.html object-fit-cover-svg-006-ref.html
 random-if(geckoview) == object-fit-none-svg-001e.html object-fit-none-svg-001-ref.html
 == object-fit-none-svg-001i.html object-fit-none-svg-001-ref.html
 random-if(geckoview) == object-fit-none-svg-001o.html object-fit-none-svg-001-ref.html
 == object-fit-none-svg-001p.html object-fit-none-svg-001-ref.html
 random-if(geckoview) == object-fit-none-svg-002e.html object-fit-none-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-none-svg-002i.html object-fit-none-svg-002-ref.html
+== object-fit-none-svg-002i.html object-fit-none-svg-002-ref.html
 random-if(geckoview) == object-fit-none-svg-002o.html object-fit-none-svg-002-ref.html
 == object-fit-none-svg-002p.html object-fit-none-svg-002-ref.html
 random-if(geckoview) == object-fit-none-svg-003e.html object-fit-none-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-none-svg-003i.html object-fit-none-svg-003-ref.html
+== object-fit-none-svg-003i.html object-fit-none-svg-003-ref.html
 random-if(geckoview) == object-fit-none-svg-003o.html object-fit-none-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-none-svg-003p.html object-fit-none-svg-003-ref.html
+== object-fit-none-svg-003p.html object-fit-none-svg-003-ref.html
 random-if(geckoview) == object-fit-none-svg-004e.html object-fit-none-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-fit-none-svg-004i.html object-fit-none-svg-004-ref.html
+== object-fit-none-svg-004i.html object-fit-none-svg-004-ref.html
 random-if(geckoview) == object-fit-none-svg-004o.html object-fit-none-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-12) == object-fit-none-svg-004p.html object-fit-none-svg-004-ref.html
+== object-fit-none-svg-004p.html object-fit-none-svg-004-ref.html
 random-if(geckoview) == object-fit-none-svg-005e.html object-fit-none-svg-005-ref.html
 == object-fit-none-svg-005i.html object-fit-none-svg-005-ref.html
 random-if(geckoview) == object-fit-none-svg-005o.html object-fit-none-svg-005-ref.html
@@ -157,13 +157,13 @@ random-if(geckoview) == object-fit-scale-down-svg-002e.html object-fit-scale-dow
 random-if(geckoview) == object-fit-scale-down-svg-002o.html object-fit-scale-down-svg-002-ref.html
 == object-fit-scale-down-svg-002p.html object-fit-scale-down-svg-002-ref.html
 random-if(geckoview) == object-fit-scale-down-svg-003e.html object-fit-scale-down-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-scale-down-svg-003i.html object-fit-scale-down-svg-003-ref.html
+== object-fit-scale-down-svg-003i.html object-fit-scale-down-svg-003-ref.html
 random-if(geckoview) == object-fit-scale-down-svg-003o.html object-fit-scale-down-svg-003-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == object-fit-scale-down-svg-003p.html object-fit-scale-down-svg-003-ref.html
+== object-fit-scale-down-svg-003p.html object-fit-scale-down-svg-003-ref.html
 random-if(geckoview) == object-fit-scale-down-svg-004e.html object-fit-scale-down-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-fit-scale-down-svg-004i.html object-fit-scale-down-svg-004-ref.html
+== object-fit-scale-down-svg-004i.html object-fit-scale-down-svg-004-ref.html
 random-if(geckoview) == object-fit-scale-down-svg-004o.html object-fit-scale-down-svg-004-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-12) == object-fit-scale-down-svg-004p.html object-fit-scale-down-svg-004-ref.html
+== object-fit-scale-down-svg-004p.html object-fit-scale-down-svg-004-ref.html
 random-if(geckoview) == object-fit-scale-down-svg-005e.html object-fit-scale-down-svg-005-ref.html
 == object-fit-scale-down-svg-005i.html object-fit-scale-down-svg-005-ref.html
 random-if(geckoview) == object-fit-scale-down-svg-005o.html object-fit-scale-down-svg-005-ref.html
@@ -183,13 +183,13 @@ fails-if(!webrender) == object-position-png-002c.html object-position-png-002-re
 == object-position-png-002o.html object-position-png-002-ref.html
 == object-position-png-002p.html object-position-png-002-ref.html
 random-if(geckoview) == object-position-svg-001e.html object-position-svg-001-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == object-position-svg-001i.html object-position-svg-001-ref.html
+== object-position-svg-001i.html object-position-svg-001-ref.html
 random-if(geckoview) == object-position-svg-001o.html object-position-svg-001-ref.html
 == object-position-svg-001p.html object-position-svg-001-ref.html
 random-if(geckoview) == object-position-svg-002e.html object-position-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-5) == object-position-svg-002i.html object-position-svg-002-ref.html
+== object-position-svg-002i.html object-position-svg-002-ref.html
 random-if(geckoview) == object-position-svg-002o.html object-position-svg-002-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-5) == object-position-svg-002p.html object-position-svg-002-ref.html
+== object-position-svg-002p.html object-position-svg-002-ref.html
 
 # Tests for gradient color stops with 'currentcolor'
 == color-stop-currentcolor.html color-stop-currentcolor-ref.html

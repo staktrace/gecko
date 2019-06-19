@@ -7,4 +7,4 @@ fuzzy(0-4,0-24) fails-if(gtkWidget&&!webrender) fuzzy-if(geckoview&&webrender,0-
 fuzzy(0-48,0-28) fails-if(gtkWidget&&!webrender) fuzzy-if(geckoview&&webrender,0-63,0-42) == webkit-text-stroke-property-003.html webkit-text-stroke-property-003-ref.html
 fuzzy(0-64,0-33) fails-if(gtkWidget&&!webrender) fuzzy-if(geckoview&&webrender,0-48,0-293) == webkit-text-stroke-property-004.html webkit-text-stroke-property-004-ref.html
 fuzzy(0-64,0-47) fails-if(gtkWidget&&!webrender) fuzzy-if(geckoview&&webrender,0-64,0-770) == webkit-text-stroke-property-005.html webkit-text-stroke-property-005-ref.html
-fuzzy(0-71,0-10) fails-if(gtkWidget&&!webrender) fuzzy-if(geckoview&&webrender,0-1,0-45) == webkit-text-stroke-property-006.html webkit-text-stroke-property-006-ref.html
+fuzzy(0-71,0-10) fails-if(gtkWidget&&!webrender) == webkit-text-stroke-property-006.html webkit-text-stroke-property-006-ref.html

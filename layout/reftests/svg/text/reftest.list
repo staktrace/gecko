@@ -1,19 +1,19 @@
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(webrender&&winWidget,122-127,221-254) == simple.svg simple-ref.html # Bug 1392106
 == simple-2.svg simple.svg
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(webrender&&winWidget,122-127,221-254) == simple-underline.svg simple-underline-ref.html # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-483) == simple-underline-scaled.svg simple-underline-scaled-ref.svg # Bug 1392106
-fuzzy-if(webrender&&winWidget,119-166,255-318) fuzzy-if(webrender&&OSX,1-1,1-1) fuzzy-if(geckoview&&webrender,0-1,0-2) == simple-anchor-end-bidi.svg simple-anchor-end-bidi-ref.html
-fuzzy-if(webrender&&winWidget,117-138,182-204) fuzzy-if(geckoview&&webrender,0-1,0-2) == simple-anchor-end-rtl.svg simple-anchor-end-rtl-ref.html
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == simple-underline-scaled.svg simple-underline-scaled-ref.svg # Bug 1392106
+fuzzy-if(webrender&&winWidget,119-166,255-318) fuzzy-if(webrender&&OSX,1-1,1-1) == simple-anchor-end-bidi.svg simple-anchor-end-bidi-ref.html
+fuzzy-if(webrender&&winWidget,117-138,182-204) == simple-anchor-end-rtl.svg simple-anchor-end-rtl-ref.html
 fuzzy-if(webrender&&winWidget,119-137,220-250) == simple-anchor-end.svg simple-anchor-end-ref.html
 fuzzy-if(skiaContent&&dwrite,0-104,0-131) fuzzy-if(cocoaWidget,0-143,0-124) fuzzy-if(webrender&&!gtkWidget,79-200,109-319) fuzzy-if(webrender&&geckoview,1-1,1-1) == simple-anchor-middle-bidi.svg simple-anchor-middle-bidi-ref.html
-fuzzy-if(webrender&&winWidget,132-138,188-207) fuzzy-if(geckoview&&webrender,0-1,0-3) == simple-anchor-middle-rtl.svg simple-anchor-middle-rtl-ref.html
+fuzzy-if(webrender&&winWidget,132-138,188-207) == simple-anchor-middle-rtl.svg simple-anchor-middle-rtl-ref.html
 fuzzy-if(skiaContent,0-111,0-81) fuzzy-if(webrender&&winWidget,122-181,221-257) == simple-anchor-middle.svg simple-anchor-middle-ref.html
-fuzzy-if(webrender&&winWidget,132-138,261-319) fuzzy-if(geckoview&&webrender,0-1,0-1) == simple-bidi.svg simple-bidi-ref.html
+fuzzy-if(webrender&&winWidget,132-138,261-319) == simple-bidi.svg simple-bidi-ref.html
 == simple-bidi-2.svg simple-bidi.svg
 
 == simple-dx.svg simple.svg
 == simple-dx-2.svg simple-dx-2-ref.svg
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-113) == simple-dx-anchor-end-bidi.svg simple-dx-anchor-end-bidi-ref.svg # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == simple-dx-anchor-end-bidi.svg simple-dx-anchor-end-bidi-ref.svg # Bug 1392106
 == simple-dx-anchor-end-rtl.svg simple-dx-anchor-end-rtl-ref.svg
 == simple-dx-anchor-end.svg simple-dx-anchor-end-ref.svg
 == simple-dx-anchor-middle-bidi.svg simple-dx-anchor-middle-bidi-ref.svg
@@ -21,7 +21,7 @@ random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrend
 == simple-dx-anchor-middle.svg simple-dx-anchor-middle-ref.svg
 == simple-dx-bidi.svg simple-dx-bidi-ref.svg
 == simple-dx-bidi-2.svg simple-dx-bidi-2-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-98) == simple-dx-rtl.svg simple-dx-rtl-ref.svg
+== simple-dx-rtl.svg simple-dx-rtl-ref.svg
 == simple-dx-rtl-2.svg simple-dx-rtl-2-ref.svg
 
 == simple-fill-color-dynamic.svg simple-fill-color-dynamic-ref.svg
@@ -32,73 +32,73 @@ fuzzy-if(webrender&&winWidget,125-127,221-254) fuzzy-if(webrender&&OSX,46-46,195
 
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(webrender&&winWidget,122-127,221-254) == simple-multiple-dx.svg simple-multiple-dx-ref.html # Bug 1392106
 == simple-multiple-dx-2.svg simple-multiple-dx.svg
-fuzzy-if(geckoview&&webrender,0-1,0-8) == simple-multiple-dx-anchor-end-bidi.svg simple-multiple-dx-anchor-end-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-18) == simple-multiple-dx-anchor-middle-bidi.svg simple-multiple-dx-anchor-middle-bidi-ref.svg
+== simple-multiple-dx-anchor-end-bidi.svg simple-multiple-dx-anchor-end-bidi-ref.svg
+== simple-multiple-dx-anchor-middle-bidi.svg simple-multiple-dx-anchor-middle-bidi-ref.svg
 == simple-multiple-dx-anchor-end-rtl.svg simple-multiple-dx-anchor-end-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-9) == simple-multiple-dx-anchor-end.svg simple-multiple-dx-anchor-end-ref.svg
-fuzzy-if(skiaContent,0-1,0-2) fuzzy-if(geckoview&&webrender,0-1,0-37) == simple-multiple-dx-anchor-middle-rtl.svg simple-multiple-dx-anchor-middle-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-78) == simple-multiple-dx-anchor-middle.svg simple-multiple-dx-anchor-middle-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-91) == simple-multiple-dx-bidi.svg simple-multiple-dx-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-31) == simple-multiple-dx-bidi-2.svg simple-multiple-dx-bidi.svg
+== simple-multiple-dx-anchor-end.svg simple-multiple-dx-anchor-end-ref.svg
+fuzzy-if(skiaContent,0-1,0-2) == simple-multiple-dx-anchor-middle-rtl.svg simple-multiple-dx-anchor-middle-rtl-ref.svg
+== simple-multiple-dx-anchor-middle.svg simple-multiple-dx-anchor-middle-ref.svg
+== simple-multiple-dx-bidi.svg simple-multiple-dx-bidi-ref.svg
+== simple-multiple-dx-bidi-2.svg simple-multiple-dx-bidi.svg
 == simple-multiple-dx-rtl.svg simple-multiple-dx-rtl-ref.svg
 == simple-multiple-dx-rtl-2.svg simple-multiple-dx-rtl.svg
 
-fuzzy-if(webrender&&winWidget,132-138,183-206) fuzzy-if(geckoview&&webrender,0-1,0-2) == simple-rtl.svg simple-rtl-ref.html
+fuzzy-if(webrender&&winWidget,132-138,183-206) == simple-rtl.svg simple-rtl-ref.html
 == simple-rtl-2.svg simple-rtl.svg
 == simple-transform-rotate.svg simple-transform-rotate-ref.svg
 
-fuzzy-if(geckoview&&webrender,0-1,0-2) == multiple-x.svg multiple-x-ref.svg
+== multiple-x.svg multiple-x-ref.svg
 == multiple-x-bidi.svg multiple-x-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-52) == multiple-x-rtl.svg multiple-x-rtl-ref.svg
+== multiple-x-rtl.svg multiple-x-rtl-ref.svg
 == multiple-x-anchor-end-bidi.svg multiple-x-anchor-end-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-31) == multiple-x-anchor-end-rtl.svg multiple-x-anchor-end-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-2) == multiple-x-anchor-end.svg multiple-x-anchor-end-ref.svg
+== multiple-x-anchor-end-rtl.svg multiple-x-anchor-end-rtl-ref.svg
+== multiple-x-anchor-end.svg multiple-x-anchor-end-ref.svg
 == multiple-x-dx-bidi.svg multiple-x-dx-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-7) == multiple-x-dx-rtl.svg multiple-x-dx-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-2) == multiple-x-dx.svg multiple-x-dx-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-1) == multiple-x-holes-bidi.svg multiple-x-holes-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-1) == multiple-x-holes-dx-bidi.svg multiple-x-holes-dx-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-1) == multiple-x-holes.svg multiple-x-holes-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-1) == multiple-x-holes-dx.svg multiple-x-holes-dx-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-1) == multiple-x-holes-multiple-dx-bidi.svg multiple-x-holes-multiple-dx-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-5) == multiple-x-holes-multiple-dx-rtl.svg multiple-x-holes-multiple-dx-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-1) == multiple-x-holes-multiple-dx.svg multiple-x-holes-multiple-dx-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-5) == multiple-x-holes-rtl.svg multiple-x-holes-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-117) == multiple-x-multiple-dx-bidi.svg multiple-x-multiple-dx-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-18) == multiple-x-multiple-dx-rtl.svg multiple-x-multiple-dx-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-6) == multiple-x-multiple-dx.svg multiple-x-multiple-dx-ref.svg
+== multiple-x-dx-rtl.svg multiple-x-dx-rtl-ref.svg
+== multiple-x-dx.svg multiple-x-dx-ref.svg
+== multiple-x-holes-bidi.svg multiple-x-holes-bidi-ref.svg
+== multiple-x-holes-dx-bidi.svg multiple-x-holes-dx-bidi-ref.svg
+== multiple-x-holes.svg multiple-x-holes-ref.svg
+== multiple-x-holes-dx.svg multiple-x-holes-dx-ref.svg
+== multiple-x-holes-multiple-dx-bidi.svg multiple-x-holes-multiple-dx-bidi-ref.svg
+== multiple-x-holes-multiple-dx-rtl.svg multiple-x-holes-multiple-dx-rtl-ref.svg
+== multiple-x-holes-multiple-dx.svg multiple-x-holes-multiple-dx-ref.svg
+== multiple-x-holes-rtl.svg multiple-x-holes-rtl-ref.svg
+== multiple-x-multiple-dx-bidi.svg multiple-x-multiple-dx-bidi-ref.svg
+== multiple-x-multiple-dx-rtl.svg multiple-x-multiple-dx-rtl-ref.svg
+== multiple-x-multiple-dx.svg multiple-x-multiple-dx-ref.svg
 == multiple-x-multiple-dx-anchor-end-bidi.svg multiple-x-multiple-dx-anchor-end-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-38) == multiple-x-multiple-dx-anchor-end-rtl.svg multiple-x-multiple-dx-anchor-end-rtl-ref.svg
+== multiple-x-multiple-dx-anchor-end-rtl.svg multiple-x-multiple-dx-anchor-end-rtl-ref.svg
 == multiple-x-multiple-dx-anchor-end.svg multiple-x-multiple-dx-anchor-end-ref.svg
 
-fuzzy-if(geckoview&&webrender,0-1,0-18) == multiple-x-percentages.svg multiple-x-percentages-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-3) == multiple-x-percentages-2.html multiple-x-percentages-2-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-82) == multiple-x-percentages-3.html multiple-x-percentages-3-ref.html
+== multiple-x-percentages.svg multiple-x-percentages-ref.svg
+== multiple-x-percentages-2.html multiple-x-percentages-2-ref.html
+== multiple-x-percentages-3.html multiple-x-percentages-3-ref.html
 
-fuzzy-if(geckoview&&webrender,0-1,0-7) == multiple-x-white-space.svg multiple-x-white-space-ref.svg
+== multiple-x-white-space.svg multiple-x-white-space-ref.svg
 
 fails-if(geckoview) == multiple-chunks-bidi.svg multiple-chunks-bidi-ref.svg # Bug 1558513 for GV
 fails-if(geckoview) == multiple-chunks-different-anchor-bidi.svg multiple-chunks-different-anchor-bidi-ref.svg # Bug 1558513 for GV
-fuzzy-if(geckoview&&webrender,0-1,0-36) == multiple-chunks-different-anchor-rtl.svg multiple-chunks-different-anchor-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-6) == multiple-chunks-different-anchor.svg multiple-chunks-different-anchor-ref.svg
-fuzzy-if(Android,0-242,0-81) fuzzy-if(geckoview&&webrender,0-1,0-107) == multiple-chunks-directions-and-anchor.svg multiple-chunks-directions-and-anchor-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-107) == multiple-chunks-directions-and-anchor-dx.svg multiple-chunks-directions-and-anchor-dx-ref.svg
-fuzzy-if(Android,0-242,0-81) fuzzy-if(geckoview&&webrender,0-1,0-91) == multiple-chunks-directions-and-anchor-multiple-dx.svg multiple-chunks-directions-and-anchor-multiple-dx-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-44) == multiple-chunks-dx-bidi.svg multiple-chunks-dx-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-17) == multiple-chunks-dx-different-anchor-bidi.svg multiple-chunks-dx-different-anchor-bidi-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-36) == multiple-chunks-dx-different-anchor-rtl.svg multiple-chunks-dx-different-anchor-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-6) == multiple-chunks-dx-different-anchor.svg multiple-chunks-dx-different-anchor-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-112) == multiple-chunks-dx-rtl.svg multiple-chunks-dx-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-103) == multiple-chunks-dx.svg multiple-chunks-dx-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-103) == multiple-chunks-fill-color.svg multiple-chunks-fill-color-ref.svg
+== multiple-chunks-different-anchor-rtl.svg multiple-chunks-different-anchor-rtl-ref.svg
+== multiple-chunks-different-anchor.svg multiple-chunks-different-anchor-ref.svg
+fuzzy-if(Android,0-242,0-81) == multiple-chunks-directions-and-anchor.svg multiple-chunks-directions-and-anchor-ref.svg
+== multiple-chunks-directions-and-anchor-dx.svg multiple-chunks-directions-and-anchor-dx-ref.svg
+fuzzy-if(Android,0-242,0-81) == multiple-chunks-directions-and-anchor-multiple-dx.svg multiple-chunks-directions-and-anchor-multiple-dx-ref.svg
+== multiple-chunks-dx-bidi.svg multiple-chunks-dx-bidi-ref.svg
+== multiple-chunks-dx-different-anchor-bidi.svg multiple-chunks-dx-different-anchor-bidi-ref.svg
+== multiple-chunks-dx-different-anchor-rtl.svg multiple-chunks-dx-different-anchor-rtl-ref.svg
+== multiple-chunks-dx-different-anchor.svg multiple-chunks-dx-different-anchor-ref.svg
+== multiple-chunks-dx-rtl.svg multiple-chunks-dx-rtl-ref.svg
+== multiple-chunks-dx.svg multiple-chunks-dx-ref.svg
+== multiple-chunks-fill-color.svg multiple-chunks-fill-color-ref.svg
 fails-if(geckoview) == multiple-chunks-multiple-dx-bidi.svg multiple-chunks-multiple-dx-bidi-ref.svg # Bug 1558513 for GV
 fails-if(geckoview) == multiple-chunks-multiple-dx-different-anchor-bidi.svg multiple-chunks-multiple-dx-different-anchor-bidi-ref.svg # Bug 1558513 for GV
-fuzzy-if(geckoview&&webrender,0-1,0-113) == multiple-chunks-multiple-dx-different-anchor-rtl.svg multiple-chunks-multiple-dx-different-anchor-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-14) == multiple-chunks-multiple-dx-different-anchor.svg multiple-chunks-multiple-dx-different-anchor-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-88) == multiple-chunks-multiple-dx-rtl.svg multiple-chunks-multiple-dx-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-96) == multiple-chunks-multiple-dx.svg multiple-chunks-multiple-dx-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-113) == multiple-chunks-rtl.svg multiple-chunks-rtl-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-103) == multiple-chunks.svg multiple-chunks-ref.svg
+== multiple-chunks-multiple-dx-different-anchor-rtl.svg multiple-chunks-multiple-dx-different-anchor-rtl-ref.svg
+== multiple-chunks-multiple-dx-different-anchor.svg multiple-chunks-multiple-dx-different-anchor-ref.svg
+== multiple-chunks-multiple-dx-rtl.svg multiple-chunks-multiple-dx-rtl-ref.svg
+== multiple-chunks-multiple-dx.svg multiple-chunks-multiple-dx-ref.svg
+== multiple-chunks-rtl.svg multiple-chunks-rtl-ref.svg
+== multiple-chunks.svg multiple-chunks-ref.svg
 
 == display-none-1.svg simple.svg
 == display-none-2.svg simple.svg
@@ -106,28 +106,28 @@ fuzzy-if(geckoview&&webrender,0-1,0-103) == multiple-chunks.svg multiple-chunks-
 == display-none-4.svg simple.svg
 
 == simple-multiline.svg simple-multiline-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-14) == simple-multiline-number.svg simple-multiline-number-ref.svg
+== simple-multiline-number.svg simple-multiline-number-ref.svg
 == simple-multiline-pc.svg simple-multiline-pc-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-6) == simple-multiline-anchor-end.svg simple-multiline-anchor-end-ref.svg
+== simple-multiline-anchor-end.svg simple-multiline-anchor-end-ref.svg
 
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(skiaContent,0-1,0-15) fuzzy-if(geckoview&&webrender,0-1,0-53) == textpath.svg textpath-ref.svg # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(skiaContent,0-1,0-15) == textpath.svg textpath-ref.svg # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-a.svg textpath-a-ref.svg # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-5) == textpath-anchor-middle.svg textpath-anchor-middle-ref.svg # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-anchor-middle.svg textpath-anchor-middle-ref.svg # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-anchor-end.svg textpath-anchor-end-ref.svg # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-invalid-parent.svg textpath-invalid-parent-ref.svg # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-multiline.svg textpath-multiline-ref.svg # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-multiline-2.svg textpath-multiline-2-ref.svg # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-2) == textpath-after.svg textpath-after-ref.svg # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-282) == textpath-after-anchor-end.svg textpath-after-anchor-end-ref.svg # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-98) == textpath-reset-position.svg textpath-reset-position-ref.svg # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-79) == textpath-inherit-position.svg textpath-inherit-position-ref.svg # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-after.svg textpath-after-ref.svg # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-after-anchor-end.svg textpath-after-anchor-end-ref.svg # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-reset-position.svg textpath-reset-position-ref.svg # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-inherit-position.svg textpath-inherit-position-ref.svg # Bug 1392106
 
-fuzzy-if(geckoview&&webrender,0-1,0-23) == textLength.svg textLength-ref.svg
+== textLength.svg textLength-ref.svg
 fuzzy-if(skiaContent,0-1,0-200) == textLength-2.svg textLength-2-ref.svg
-fuzzy-if(/^Windows\x20NT\x2010\.0/.test(http.oscpu)||/^Windows\x20NT\x206\.[12]/.test(http.oscpu),0-4,0-17) fuzzy-if(skiaContent,0-4,0-100) fuzzy-if(geckoview&&webrender,0-1,0-1021) == textLength-3.svg textLength-3-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-6) == textLength-4.svg textLength-4-ref.svg
+fuzzy-if(/^Windows\x20NT\x2010\.0/.test(http.oscpu)||/^Windows\x20NT\x206\.[12]/.test(http.oscpu),0-4,0-17) fuzzy-if(skiaContent,0-4,0-100) == textLength-3.svg textLength-3-ref.svg
+== textLength-4.svg textLength-4-ref.svg
 == textLength-5.svg textLength-5-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-54) == textLength-6.svg textLength-6-ref.svg
+== textLength-6.svg textLength-6-ref.svg
 
 # text-shadow
 == text-shadow.svg text-shadow-ref.svg
@@ -136,24 +136,24 @@ fuzzy-if(geckoview&&webrender,0-1,0-54) == textLength-6.svg textLength-6-ref.svg
 == vertical-01.svg vertical-01-ref.svg
 
 # tests for ignoring various properties
-fuzzy-if(geckoview&&webrender,0-1,0-2) == ignore-border.svg ignore-prop-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-5585) == ignore-display.svg ignore-display-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-2) == ignore-float.svg ignore-prop-ref.svg
+== ignore-border.svg ignore-prop-ref.svg
+== ignore-display.svg ignore-display-ref.svg
+== ignore-float.svg ignore-prop-ref.svg
 == ignore-float-first-letter.svg ignore-prop-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-427) == ignore-position.svg ignore-position-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-2) == ignore-margin.svg ignore-prop-ref.svg
+== ignore-position.svg ignore-position-ref.svg
+== ignore-margin.svg ignore-prop-ref.svg
 == ignore-padding.svg ignore-prop-ref.svg
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-16) == ignore-vertical-align.svg ignore-vertical-align-ref.svg # Bug 1392106
-fuzzy-if(geckoview&&webrender,0-1,0-2) == ignore-overflow-scroll.svg ignore-prop-ref.svg
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == ignore-vertical-align.svg ignore-vertical-align-ref.svg # Bug 1392106
+== ignore-overflow-scroll.svg ignore-prop-ref.svg
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == ignore-text-align.svg ignore-prop-ref.svg # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == ignore-text-align-2.svg ignore-text-align-2-ref.svg # Bug 1392106
 
 # pseudo-elements
-fuzzy-if(geckoview&&webrender,0-1,0-32) == pseudo-first-line.svg pseudo-first-line-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-13) == pseudo-first-line-2.svg pseudo-first-line-2-ref.svg
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-309) == pseudo-first-letter.svg pseudo-first-letter-ref.svg # Bug 1392106
+== pseudo-first-line.svg pseudo-first-line-ref.svg
+== pseudo-first-line-2.svg pseudo-first-line-2-ref.svg
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == pseudo-first-letter.svg pseudo-first-letter-ref.svg # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == pseudo-first-letter-2.svg pseudo-first-letter-2-ref.svg # Bug 1392106
-fuzzy-if(geckoview&&webrender,0-1,0-2) == ignore-before-after.svg ignore-prop-ref.svg
+== ignore-before-after.svg ignore-prop-ref.svg
 
 # invalid child nodes
 == ignore-invalid-child.svg ignore-invalid-child-ref.svg
@@ -168,17 +168,17 @@ fuzzy-if(geckoview&&webrender,0-1,0-2) == ignore-before-after.svg ignore-prop-re
 == dynamic-font-size-3.svg dynamic-font-size-3-ref.svg
 == dynamic-font-size-4.svg dynamic-font-size-4-ref.svg
 fuzzy-if(geckoview&&webrender,0-2,0-709) == dynamic-dominant-baseline.svg dynamic-dominant-baseline-ref.svg
-fuzzy-if(geckoview&&webrender,0-1,0-6) == dynamic-multiple-x.svg dynamic-multiple-x-ref.svg
-fuzzy-if(!d2d,0-14,0-2) fuzzy-if(skiaContent,0-1,0-200) fuzzy-if(geckoview&&webrender,0-1,0-882) == dynamic-non-scaling-stroke.svg dynamic-non-scaling-stroke-ref.svg #Bug 885316
+== dynamic-multiple-x.svg dynamic-multiple-x-ref.svg
+fuzzy-if(!d2d,0-14,0-2) fuzzy-if(skiaContent,0-1,0-200) == dynamic-non-scaling-stroke.svg dynamic-non-scaling-stroke-ref.svg #Bug 885316
 == dynamic-text-shadow.svg text-shadow-ref.svg
 
 # text and masks
-fuzzy-if(skiaContent&&winWidget,0-50,0-224) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-8) == mask-applied.svg mask-applied-ref.svg # Bug 1392106
+fuzzy-if(skiaContent&&winWidget,0-50,0-224) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == mask-applied.svg mask-applied-ref.svg # Bug 1392106
 fuzzy-if(skiaContent&&winWidget,0-105,0-112) == mask-content.svg mask-content-ref.svg
 fuzzy-if(skiaContent&&winWidget,0-53,0-112) == mask-content-2.svg mask-content-2-ref.svg
 
 # text and clipPaths
-fuzzy-if(geckoview&&webrender,0-1,0-165) == clipPath-applied.svg clipPath-applied-ref.svg
+== clipPath-applied.svg clipPath-applied-ref.svg
 fuzzy-if(skiaContent&&winWidget,0-105,0-56) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == clipPath-content.svg clipPath-content-ref.svg # Bug 1392106
 fuzzy-if(skiaContent&&winWidget,0-53,0-112) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == clipPath-content-2.svg clipPath-content-2-ref.svg # Bug 1392106
 
@@ -186,10 +186,10 @@ fuzzy-if(skiaContent&&winWidget,0-53,0-112) random-if(/^Windows\x20NT\x206\.1/.t
 fuzzy-if(cocoaWidget,0-1,0-6) fuzzy-if(skiaContent,0-74,0-385) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == pattern-content.svg pattern-content-ref.svg # Bug 1392106
 
 # text and filters
-fuzzy-if(skiaContent&&winWidget,0-126,0-336) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-205) == filter-applied.svg filter-applied-ref.svg # Bug 1392106
+fuzzy-if(skiaContent&&winWidget,0-126,0-336) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == filter-applied.svg filter-applied-ref.svg # Bug 1392106
 
 # vertical text
-fuzzy-if(skiaContent,0-1,0-80) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-402) == textpath-vertical-dx.svg textpath-vertical-dx-ref.svg # Bug 1392106
+fuzzy-if(skiaContent,0-1,0-80) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == textpath-vertical-dx.svg textpath-vertical-dx-ref.svg # Bug 1392106
 
 # selection
 needs-focus == deselectAll.svg deselectAll-ref.svg
@@ -201,5 +201,5 @@ fuzzy-if(skiaContent,0-1,0-100) fuzzy-if(webrender,1-1,65-575) needs-focus fuzzy
 fuzzy-if(skiaContent,0-1,0-50) fuzzy-if(webrender,1-1,46-237) needs-focus fuzzy-if(webrender&&winWidget,127-148,221-254) fuzzy-if(webrender&&OSX,1-46,19-196) == simple-fill-color-selection.svg simple-fill-color-selection-ref.html
 fuzzy-if(skiaContent,0-1,0-150) fuzzy-if(webrender,1-1,35-222) needs-focus fuzzy-if(webrender&&winWidget,125-148,221-254) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == simple-underline-selection.svg simple-underline-selection-ref.html # Bug 1392106
 fuzzy-if(skiaContent,0-1,0-300) fuzzy-if(webrender,1-1,119-934) needs-focus fuzzy-if(webrender&&winWidget,134-152,432-501) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == multiple-text-selection.svg multiple-text-selection-ref.html # Bug 1392106
-needs-focus fuzzy-if(geckoview&&webrender,0-1,0-28) == multiple-chunks-selection.svg multiple-chunks-selection-ref.svg
+needs-focus == multiple-chunks-selection.svg multiple-chunks-selection-ref.svg
 fuzzy-if(skiaContent,0-1,0-200) needs-focus == textpath-selection.svg textpath-selection-ref.svg

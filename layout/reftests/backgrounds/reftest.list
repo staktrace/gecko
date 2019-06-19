@@ -20,8 +20,8 @@ fuzzy-if(skiaContent,0-1,0-1024) == translucent-color-3.html translucent-color-r
 == continuous-inline-1b.html continuous-inline-1ab-ref.html
 == continuous-inline-1c.html continuous-inline-1cd-ref.html
 == continuous-inline-1d.html continuous-inline-1cd-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == continuous-inline-2a.html continuous-inline-2-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-1) == continuous-inline-2b.html continuous-inline-2-ref.html
+== continuous-inline-2a.html continuous-inline-2-ref.html
+== continuous-inline-2b.html continuous-inline-2-ref.html
 == continuous-inline-3.html continuous-inline-3-ref.html
 == continuous-inline-4a.html continuous-inline-4-ref.html
 == continuous-inline-4b.html continuous-inline-4-ref.html
@@ -137,7 +137,7 @@ fuzzy(0-2,0-83) == fixed-bg-border-radius.html fixed-bg-border-radius-ref.html
 HTTP == root-background-1.html root-background-ref.html
 HTTP != root-background-1.html about:blank
 
-fuzzy-if(geckoview&&webrender,1-1,156-156) == really-big-background.html really-big-background-ref.html
+== really-big-background.html really-big-background-ref.html
 == body-background.html body-background-ref.html
 == table-background.html table-background-ref.html
 == table-background-print.html table-background-print-ref.html
@@ -171,7 +171,7 @@ fuzzy(0-16,0-69) fuzzy-if(skiaContent,0-95,0-2206) == attachment-local-clipping-
 fuzzy(0-16,0-69) fuzzy-if(skiaContent,0-95,0-2206) == attachment-local-clipping-image-5.html attachment-local-clipping-image-4-ref.html
 fuzzy(0-80,0-500) fuzzy-if(skiaContent,0-109,0-908) fuzzy-if(geckoview&&webrender,64-64,2474-2474) == attachment-local-clipping-image-6.html attachment-local-clipping-image-6-ref.html
 
-fuzzy-if(skiaContent,0-1,0-8) fuzzy-if(webrender,0-1,0-84) fuzzy-if(geckoview&&webrender,1-1,199-199) == background-multiple-with-border-radius.html background-multiple-with-border-radius-ref.html
+fuzzy-if(skiaContent,0-1,0-8) fuzzy-if(webrender,0-1,0-84) == background-multiple-with-border-radius.html background-multiple-with-border-radius-ref.html
 fuzzy-if(webrender,10-93,49600-49600) == background-repeat-large-area.html background-repeat-large-area-ref.html
 
 fuzzy(0-30,0-474) fuzzy-if(skiaContent,0-31,0-474) == background-tiling-zoom-1.html background-tiling-zoom-1-ref.html

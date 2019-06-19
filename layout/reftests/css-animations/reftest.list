@@ -47,13 +47,13 @@ fails-if(layerChecksEnabled) == background-position-running.html background-posi
 fails-if(layerChecksEnabled) == background-position-important.html background-position-ref.html # This test fails the reftest-opaque-layer check since animating background-position overridden by a non-animated !important style also creates an active layer, and reftest-opaque-layer only handles items that are assigned to PaintedLayers.
 
 == mask-position-after-finish-1a.html mask-anim-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-11) == mask-position-after-finish-1b.html mask-anim-ref.html
+== mask-position-after-finish-1b.html mask-anim-ref.html
 == mask-position-in-delay-1a.html mask-anim-ref.html
 == mask-position-in-delay-1b.html mask-anim-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-11) == mask-size-after-finish-1a.html mask-anim-ref.html
+== mask-size-after-finish-1a.html mask-anim-ref.html
 == mask-size-after-finish-1b.html mask-anim-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-11) == mask-size-in-delay-1a.html mask-anim-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-11) == mask-size-in-delay-1b.html mask-anim-ref.html
+== mask-size-in-delay-1a.html mask-anim-ref.html
+== mask-size-in-delay-1b.html mask-anim-ref.html
 
 == stop-animation-on-discarded-pseudo-element.html about:blank
 

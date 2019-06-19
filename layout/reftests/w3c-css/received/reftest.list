@@ -251,7 +251,7 @@ skip == css-values/vh_not_refreshing_on_chrome.html css-values/reference/vh_not_
 == css-writing-modes/abs-pos-non-replaced-icb-vlr-007.xht reference/ref-filled-green-100px-square.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vlr-009.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vlr-011.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(geckoview&&webrender,1-1,1375-1375) == css-writing-modes/abs-pos-non-replaced-icb-vlr-013.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-004-ref.xht
+== css-writing-modes/abs-pos-non-replaced-icb-vlr-013.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-004-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vlr-015.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vlr-017.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vlr-019.xht reference/ref-filled-green-100px-square.xht
@@ -263,11 +263,11 @@ skip == css-writing-modes/abs-pos-non-replaced-icb-vlr-021.xht reference/ref-fil
 == css-writing-modes/abs-pos-non-replaced-icb-vlr-031.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vlr-033.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-002.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(geckoview&&webrender,1-1,1375-1375) == css-writing-modes/abs-pos-non-replaced-icb-vrl-004.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-004-ref.xht
+== css-writing-modes/abs-pos-non-replaced-icb-vrl-004.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-004-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-006.xht reference/ref-filled-green-100px-square.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-008.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-010.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(geckoview&&webrender,1-1,1375-1375) == css-writing-modes/abs-pos-non-replaced-icb-vrl-012.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-004-ref.xht
+== css-writing-modes/abs-pos-non-replaced-icb-vrl-012.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-004-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-014.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-016.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-018.xht reference/ref-filled-green-100px-square.xht
@@ -278,230 +278,230 @@ skip == css-writing-modes/abs-pos-non-replaced-icb-vrl-020.xht reference/ref-fil
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-028.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-030.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
 == css-writing-modes/abs-pos-non-replaced-icb-vrl-032.xht css-writing-modes/abs-pos-non-replaced-icb-vrl-008-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-003.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-003.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-005.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-007.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-009.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-011.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-011.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-013.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-015.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-017.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-019.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-019.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-021.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-023.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-025.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-027.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-025.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-027.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-029.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-031.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-031.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-033.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-035.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-037.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-037.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-039.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-041.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-043.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-043.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-045.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-047.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-049.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-051.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-049.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-051.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-053.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-055.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-057.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-055.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-057.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-059.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-061.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-063.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-061.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-063.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-065.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-067.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-069.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-067.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-069.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-071.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-073.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-073.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-075.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-077.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-079.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-079.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-081.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-083.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-085.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-087.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-085.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-087.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-089.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-091.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-091.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-093.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-095.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-097.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-103.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-097.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-103.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-105.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-107.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-109.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-107.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-109.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-111.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-113.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-115.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-115.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-117.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-119.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-119.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-121.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-123.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1240-1240) == css-writing-modes/abs-pos-non-replaced-vlr-125.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-127.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1240-1240) == css-writing-modes/abs-pos-non-replaced-vlr-129.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1227-1227) == css-writing-modes/abs-pos-non-replaced-vlr-131.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-133.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1240-1240) == css-writing-modes/abs-pos-non-replaced-vlr-135.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-137.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-123.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-125.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-127.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-129.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-131.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-133.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-135.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-137.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-139.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1240-1240) == css-writing-modes/abs-pos-non-replaced-vlr-141.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-143.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-145.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1227-1227) == css-writing-modes/abs-pos-non-replaced-vlr-147.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-149.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-151.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-153.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-141.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-143.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-145.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-147.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-149.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-151.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-153.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-155.xht css-writing-modes/abs-pos-non-replaced-vlr-155-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-157.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-159.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-161.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vlr-163.xht css-writing-modes/abs-pos-non-replaced-vlr-163-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vlr-165.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-167.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-169.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1227-1227) == css-writing-modes/abs-pos-non-replaced-vlr-171.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-173.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-175.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-177.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-163.xht css-writing-modes/abs-pos-non-replaced-vlr-163-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-165.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-167.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-169.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-171.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-173.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-175.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-177.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-179.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-181.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-183.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-185.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1227-1227) == css-writing-modes/abs-pos-non-replaced-vlr-187.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-189.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-191.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-193.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-181.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-183.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-185.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-187.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-189.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-191.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-193.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-195.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-197.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-199.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-201.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1227-1227) == css-writing-modes/abs-pos-non-replaced-vlr-203.xht css-writing-modes/abs-pos-non-replaced-vlr-155-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-205.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-207.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-209.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-211.xht css-writing-modes/abs-pos-non-replaced-vlr-163-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-213.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-215.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-217.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1227-1227) == css-writing-modes/abs-pos-non-replaced-vlr-219.xht css-writing-modes/abs-pos-non-replaced-vlr-155-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-221.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-223.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-225.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vlr-227.xht css-writing-modes/abs-pos-non-replaced-vlr-163-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vlr-229.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-002.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-004.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-197.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-199.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-201.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-203.xht css-writing-modes/abs-pos-non-replaced-vlr-155-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-205.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-207.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-209.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-211.xht css-writing-modes/abs-pos-non-replaced-vlr-163-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-213.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-215.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-217.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-219.xht css-writing-modes/abs-pos-non-replaced-vlr-155-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-221.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-223.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-225.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-227.xht css-writing-modes/abs-pos-non-replaced-vlr-163-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vlr-229.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-002.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-004.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-006.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-008.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-010.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vrl-012.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-010.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-012.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-014.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-016.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-018.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-020.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-022.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-024.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-026.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-028.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-030.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-032.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-034.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-036.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-038.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-040.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-042.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-044.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-046.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-048.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-050.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-052.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-054.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-056.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-058.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-060.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-062.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-064.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-066.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-068.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-070.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-072.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-074.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-076.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-078.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-080.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-082.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-084.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-086.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-088.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-090.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-092.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-094.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-096.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-102.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-104.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-106.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-108.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-110.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-112.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/abs-pos-non-replaced-vrl-114.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-116.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1240-1240) == css-writing-modes/abs-pos-non-replaced-vrl-118.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-120.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-016.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-018.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-020.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-022.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-024.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-026.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-028.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-030.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-032.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-034.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-036.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-038.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-040.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-042.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-044.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-046.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-048.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-050.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-052.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-054.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-056.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-058.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-060.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-062.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-064.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-066.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-068.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-070.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-072.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-074.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-076.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-078.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-080.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-082.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-084.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-086.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-088.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-090.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-092.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-094.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-096.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-102.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-104.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-106.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-108.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-110.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-112.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-114.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-116.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-118.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-120.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-122.xht css-writing-modes/abs-pos-non-replaced-vrl-122-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-124.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-124.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-126.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vrl-128.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-128.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-130.xht css-writing-modes/abs-pos-non-replaced-vrl-130-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/abs-pos-non-replaced-vrl-132.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-134.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-136.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-132.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-134.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-136.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-138.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-140.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-142.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-144.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vrl-146.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-148.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-150.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-152.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-140.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-142.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-144.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-146.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-148.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-150.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-152.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-154.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-156.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-158.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-160.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vrl-162.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-164.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-166.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-168.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-170.xht css-writing-modes/abs-pos-non-replaced-vrl-122-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-172.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-174.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-176.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,343-343) == css-writing-modes/abs-pos-non-replaced-vrl-178.xht css-writing-modes/abs-pos-non-replaced-vrl-130-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-180.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-182.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-184.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-186.xht css-writing-modes/abs-pos-non-replaced-vrl-122-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-188.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-190.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-192.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,343-343) == css-writing-modes/abs-pos-non-replaced-vrl-194.xht css-writing-modes/abs-pos-non-replaced-vrl-130-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-196.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-198.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-200.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-156.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-158.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-160.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-162.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-164.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-166.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-168.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-170.xht css-writing-modes/abs-pos-non-replaced-vrl-122-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-172.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-174.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-176.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-178.xht css-writing-modes/abs-pos-non-replaced-vrl-130-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-180.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-182.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-184.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-186.xht css-writing-modes/abs-pos-non-replaced-vrl-122-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-188.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-190.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-192.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-194.xht css-writing-modes/abs-pos-non-replaced-vrl-130-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-196.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-198.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-200.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-202.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-204.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-206.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-208.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/abs-pos-non-replaced-vrl-210.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-212.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-214.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-216.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/abs-pos-non-replaced-vrl-218.xht css-writing-modes/abs-pos-non-replaced-vrl-122-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-220.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-222.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,46-46) == css-writing-modes/abs-pos-non-replaced-vrl-224.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,343-343) == css-writing-modes/abs-pos-non-replaced-vrl-226.xht css-writing-modes/abs-pos-non-replaced-vrl-130-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,30-30) == css-writing-modes/abs-pos-non-replaced-vrl-228.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-204.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-206.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-208.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-210.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-212.xht css-writing-modes/abs-pos-non-replaced-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-214.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-216.xht css-writing-modes/abs-pos-non-replaced-vrl-002-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-218.xht css-writing-modes/abs-pos-non-replaced-vrl-122-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-220.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-222.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-224.xht css-writing-modes/abs-pos-non-replaced-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-226.xht css-writing-modes/abs-pos-non-replaced-vrl-130-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/abs-pos-non-replaced-vrl-228.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
 == css-writing-modes/background-position-vrl-018.xht css-writing-modes/background-position-vrl-018-ref.xht
 == css-writing-modes/background-position-vrl-020.xht css-writing-modes/background-position-vrl-018-ref.xht
 == css-writing-modes/background-position-vrl-022.xht css-writing-modes/background-position-vrl-018-ref.xht
@@ -521,8 +521,8 @@ fuzzy-if(OSX||winWidget,0-255,0-600) == css-writing-modes/baseline-inline-non-re
 == css-writing-modes/bidi-embed-004.html css-writing-modes/reference/bidi-embed-004.html
 == css-writing-modes/bidi-embed-005.html css-writing-modes/reference/bidi-embed-005.html
 == css-writing-modes/bidi-embed-006.html css-writing-modes/reference/bidi-embed-006.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-embed-007.html css-writing-modes/reference/bidi-embed-007.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-embed-008.html css-writing-modes/reference/bidi-embed-008.html
+== css-writing-modes/bidi-embed-007.html css-writing-modes/reference/bidi-embed-007.html
+== css-writing-modes/bidi-embed-008.html css-writing-modes/reference/bidi-embed-008.html
 == css-writing-modes/bidi-embed-009.html css-writing-modes/reference/bidi-embed-009.html
 == css-writing-modes/bidi-embed-010.html css-writing-modes/reference/bidi-embed-010.html
 == css-writing-modes/bidi-embed-011.html css-writing-modes/reference/bidi-embed-011.html
@@ -532,8 +532,8 @@ fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-embed-008.html 
 == css-writing-modes/bidi-isolate-004.html css-writing-modes/reference/bidi-isolate-004.html
 == css-writing-modes/bidi-isolate-005.html css-writing-modes/reference/bidi-isolate-005.html
 == css-writing-modes/bidi-isolate-006.html css-writing-modes/reference/bidi-isolate-006.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-isolate-007.html css-writing-modes/reference/bidi-isolate-007.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-isolate-008.html css-writing-modes/reference/bidi-isolate-008.html
+== css-writing-modes/bidi-isolate-007.html css-writing-modes/reference/bidi-isolate-007.html
+== css-writing-modes/bidi-isolate-008.html css-writing-modes/reference/bidi-isolate-008.html
 == css-writing-modes/bidi-isolate-009.html css-writing-modes/reference/bidi-isolate-009.html
 == css-writing-modes/bidi-isolate-010.html css-writing-modes/reference/bidi-isolate-010.html
 == css-writing-modes/bidi-isolate-011.html css-writing-modes/reference/bidi-embed-011.html
@@ -543,8 +543,8 @@ fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-isolate-008.htm
 == css-writing-modes/bidi-isolate-override-004.html css-writing-modes/reference/bidi-isolate-override-004.html
 == css-writing-modes/bidi-isolate-override-005.html css-writing-modes/reference/bidi-isolate-override-005.html
 == css-writing-modes/bidi-isolate-override-006.html css-writing-modes/reference/bidi-isolate-override-006.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-isolate-override-007.html css-writing-modes/reference/bidi-isolate-override-007.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-isolate-override-008.html css-writing-modes/reference/bidi-isolate-override-008.html
+== css-writing-modes/bidi-isolate-override-007.html css-writing-modes/reference/bidi-isolate-override-007.html
+== css-writing-modes/bidi-isolate-override-008.html css-writing-modes/reference/bidi-isolate-override-008.html
 == css-writing-modes/bidi-isolate-override-009.html css-writing-modes/reference/bidi-isolate-override-009.html
 == css-writing-modes/bidi-isolate-override-010.html css-writing-modes/reference/bidi-isolate-override-010.html
 == css-writing-modes/bidi-isolate-override-011.html css-writing-modes/reference/bidi-isolate-override-011.html
@@ -555,8 +555,8 @@ fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-isolate-overrid
 == css-writing-modes/bidi-normal-004.html css-writing-modes/reference/bidi-normal-004.html
 == css-writing-modes/bidi-normal-005.html css-writing-modes/reference/bidi-normal-005.html
 == css-writing-modes/bidi-normal-006.html css-writing-modes/reference/bidi-normal-006.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-normal-007.html css-writing-modes/reference/bidi-normal-007.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-normal-008.html css-writing-modes/reference/bidi-normal-008.html
+== css-writing-modes/bidi-normal-007.html css-writing-modes/reference/bidi-normal-007.html
+== css-writing-modes/bidi-normal-008.html css-writing-modes/reference/bidi-normal-008.html
 == css-writing-modes/bidi-normal-009.html css-writing-modes/reference/bidi-normal-009.html
 == css-writing-modes/bidi-normal-010.html css-writing-modes/reference/bidi-normal-010.html
 == css-writing-modes/bidi-normal-011.html css-writing-modes/reference/bidi-normal-011.html
@@ -566,8 +566,8 @@ fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-normal-008.html
 == css-writing-modes/bidi-override-004.html css-writing-modes/reference/bidi-override-004.html
 == css-writing-modes/bidi-override-005.html css-writing-modes/reference/bidi-override-005.html
 == css-writing-modes/bidi-override-006.html css-writing-modes/reference/bidi-override-006.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-override-007.html css-writing-modes/reference/bidi-override-007.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-override-008.html css-writing-modes/reference/bidi-override-008.html
+== css-writing-modes/bidi-override-007.html css-writing-modes/reference/bidi-override-007.html
+== css-writing-modes/bidi-override-008.html css-writing-modes/reference/bidi-override-008.html
 == css-writing-modes/bidi-override-009.html css-writing-modes/reference/bidi-override-009.html
 == css-writing-modes/bidi-override-010.html css-writing-modes/reference/bidi-override-010.html
 == css-writing-modes/bidi-override-011.html css-writing-modes/reference/bidi-override-011.html
@@ -578,8 +578,8 @@ fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-override-008.ht
 == css-writing-modes/bidi-plaintext-004.html css-writing-modes/reference/bidi-plaintext-004.html
 == css-writing-modes/bidi-plaintext-005.html css-writing-modes/reference/bidi-plaintext-005.html
 == css-writing-modes/bidi-plaintext-006.html css-writing-modes/reference/bidi-plaintext-006.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-plaintext-007.html css-writing-modes/reference/bidi-plaintext-007.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-plaintext-008.html css-writing-modes/reference/bidi-plaintext-008.html
+== css-writing-modes/bidi-plaintext-007.html css-writing-modes/reference/bidi-plaintext-007.html
+== css-writing-modes/bidi-plaintext-008.html css-writing-modes/reference/bidi-plaintext-008.html
 == css-writing-modes/bidi-plaintext-009.html css-writing-modes/reference/bidi-plaintext-009.html
 == css-writing-modes/bidi-plaintext-010.html css-writing-modes/reference/bidi-plaintext-010.html
 == css-writing-modes/bidi-plaintext-011.html css-writing-modes/reference/bidi-plaintext-011.html
@@ -590,12 +590,12 @@ skip == css-writing-modes/bidi-table-001.html css-writing-modes/reference/bidi-t
 == css-writing-modes/bidi-unset-004.html css-writing-modes/reference/bidi-normal-004.html
 == css-writing-modes/bidi-unset-005.html css-writing-modes/reference/bidi-normal-005.html
 == css-writing-modes/bidi-unset-006.html css-writing-modes/reference/bidi-normal-006.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-unset-007.html css-writing-modes/reference/bidi-normal-007.html
-fuzzy-if(geckoview&&webrender,0-1,0-8) == css-writing-modes/bidi-unset-008.html css-writing-modes/reference/bidi-normal-008.html
+== css-writing-modes/bidi-unset-007.html css-writing-modes/reference/bidi-normal-007.html
+== css-writing-modes/bidi-unset-008.html css-writing-modes/reference/bidi-normal-008.html
 == css-writing-modes/bidi-unset-009.html css-writing-modes/reference/bidi-normal-009.html
 == css-writing-modes/bidi-unset-010.html css-writing-modes/reference/bidi-normal-010.html
 == css-writing-modes/block-embed-001.html css-writing-modes/reference/block-embed-001.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == css-writing-modes/block-embed-002.html css-writing-modes/reference/block-embed-002.html
+== css-writing-modes/block-embed-002.html css-writing-modes/reference/block-embed-002.html
 == css-writing-modes/block-embed-003.html css-writing-modes/reference/block-embed-003.html
 == css-writing-modes/block-flow-direction-004.xht css-writing-modes/block-flow-direction-001-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-1540) == css-writing-modes/block-flow-direction-htb-001.xht css-writing-modes/block-flow-direction-001-ref.xht
@@ -648,15 +648,15 @@ fuzzy-if(OSX||winWidget,0-255,0-1540) == css-writing-modes/block-flow-direction-
 fuzzy-if(OSX||winWidget,0-255,0-1540) == css-writing-modes/block-flow-direction-vrl-025.xht css-writing-modes/block-flow-direction-025-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-1540) == css-writing-modes/block-flow-direction-vrl-026.xht css-writing-modes/block-flow-direction-vrl-026-ref.xht
 == css-writing-modes/block-override-001.html css-writing-modes/reference/block-override-001.html
-fuzzy-if(geckoview&&webrender,0-1,0-10) == css-writing-modes/block-override-002.html css-writing-modes/reference/block-override-002.html
+== css-writing-modes/block-override-002.html css-writing-modes/reference/block-override-002.html
 == css-writing-modes/block-override-003.html css-writing-modes/reference/block-override-003.html
 == css-writing-modes/block-override-004.html css-writing-modes/reference/block-override-004.html
 == css-writing-modes/block-override-isolate-001.html css-writing-modes/reference/block-override-isolate-001.html
-fuzzy-if(geckoview&&webrender,0-1,0-10) == css-writing-modes/block-override-isolate-002.html css-writing-modes/reference/block-override-isolate-002.html
+== css-writing-modes/block-override-isolate-002.html css-writing-modes/reference/block-override-isolate-002.html
 == css-writing-modes/block-override-isolate-003.html css-writing-modes/reference/block-override-isolate-003.html
 == css-writing-modes/block-override-isolate-004.html css-writing-modes/reference/block-override-isolate-004.html
 == css-writing-modes/block-plaintext-001.html css-writing-modes/reference/block-plaintext-001.html
-fuzzy-if(geckoview&&webrender,0-1,0-2) == css-writing-modes/block-plaintext-002.html css-writing-modes/reference/block-plaintext-002.html
+== css-writing-modes/block-plaintext-002.html css-writing-modes/reference/block-plaintext-002.html
 == css-writing-modes/block-plaintext-003.html css-writing-modes/reference/block-plaintext-003.html
 == css-writing-modes/block-plaintext-004.html css-writing-modes/reference/block-plaintext-004.html
 skip == css-writing-modes/block-plaintext-006.html css-writing-modes/reference/block-plaintext-006.html
@@ -678,11 +678,11 @@ skip == css-writing-modes/block-plaintext-006.html css-writing-modes/reference/b
 == css-writing-modes/border-spacing-vrl-004.xht css-writing-modes/border-spacing-vrl-002-ref.xht
 == css-writing-modes/border-vlr-007.xht css-writing-modes/margin-vrl-002-ref.xht
 == css-writing-modes/border-vrl-006.xht css-writing-modes/margin-vrl-002-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,1227-1227) == css-writing-modes/box-offsets-rel-pos-vlr-003.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+== css-writing-modes/box-offsets-rel-pos-vlr-003.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
 fuzzy-if(OSX,0-255,0-200) == css-writing-modes/box-offsets-rel-pos-vlr-005.xht css-writing-modes/box-offsets-rel-pos-vlr-005-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,343-343) == css-writing-modes/box-offsets-rel-pos-vrl-002.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+== css-writing-modes/box-offsets-rel-pos-vrl-002.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
 fuzzy-if(OSX,0-255,0-200) == css-writing-modes/box-offsets-rel-pos-vrl-004.xht css-writing-modes/box-offsets-rel-pos-vrl-004-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,100-100) fuzzy-if(winWidget,0-114,0-300) fuzzy-if(geckoview&&webrender,0-1,0-65) == css-writing-modes/caption-side-vlr-003.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(!webrender&&OSX,255-255,100-100) fuzzy-if(winWidget,0-114,0-300) == css-writing-modes/caption-side-vlr-003.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(!webrender&&OSX,255-255,100-100) fuzzy-if(winWidget,0-114,0-300) == css-writing-modes/caption-side-vlr-005.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(!webrender&&OSX,255-255,100-100) fuzzy-if(winWidget,0-114,0-300) == css-writing-modes/caption-side-vrl-002.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(!webrender&&OSX,255-255,100-100) fuzzy-if(winWidget,0-114,0-300) == css-writing-modes/caption-side-vrl-004.xht reference/ref-filled-green-100px-square.xht
@@ -690,24 +690,24 @@ fuzzy-if(OSX||winWidget,0-215,0-780) == css-writing-modes/central-baseline-align
 fuzzy-if(OSX||winWidget,0-215,0-780) == css-writing-modes/central-baseline-alignment-003.xht css-writing-modes/central-baseline-alignment-002-ref.xht
 == css-writing-modes/clearance-calculations-vrl-002.xht css-writing-modes/clearance-calculations-vrl-002-ref.xht
 == css-writing-modes/clearance-calculations-vrl-004.xht css-writing-modes/clearance-calculations-vrl-004-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,17-17) == css-writing-modes/clearance-calculations-vrl-006.xht css-writing-modes/clearance-calculations-vrl-006-ref.xht
+== css-writing-modes/clearance-calculations-vrl-006.xht css-writing-modes/clearance-calculations-vrl-006-ref.xht
 == css-writing-modes/clearance-calculations-vrl-008.xht css-writing-modes/clearance-calculations-vrl-008-ref.xht
 == css-writing-modes/clip-rect-vlr-003.xht css-writing-modes/clip-rect-vrl-002-ref.xht
-fuzzy-if(geckoview&&webrender,0-1,0-15) == css-writing-modes/clip-rect-vlr-005.xht css-writing-modes/clip-rect-vrl-004-ref.xht
+== css-writing-modes/clip-rect-vlr-005.xht css-writing-modes/clip-rect-vrl-004-ref.xht
 == css-writing-modes/clip-rect-vlr-007.xht css-writing-modes/clip-rect-vrl-006-ref.xht
-fuzzy-if(geckoview&&webrender,0-1,0-15) == css-writing-modes/clip-rect-vlr-009.xht css-writing-modes/clip-rect-vrl-008-ref.xht
+== css-writing-modes/clip-rect-vlr-009.xht css-writing-modes/clip-rect-vrl-008-ref.xht
 == css-writing-modes/clip-rect-vlr-011.xht css-writing-modes/clip-rect-vlr-011-ref.xht
-fuzzy-if(geckoview&&webrender,0-1,0-15) == css-writing-modes/clip-rect-vlr-013.xht css-writing-modes/clip-rect-vlr-013-ref.xht
+== css-writing-modes/clip-rect-vlr-013.xht css-writing-modes/clip-rect-vlr-013-ref.xht
 == css-writing-modes/clip-rect-vlr-015.xht css-writing-modes/clip-rect-vlr-015-ref.xht
-fuzzy-if(geckoview&&webrender,0-1,0-15) == css-writing-modes/clip-rect-vlr-017.xht css-writing-modes/clip-rect-vlr-017-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/clip-rect-vrl-002.xht css-writing-modes/clip-rect-vrl-002-ref.xht
+== css-writing-modes/clip-rect-vlr-017.xht css-writing-modes/clip-rect-vlr-017-ref.xht
+== css-writing-modes/clip-rect-vrl-002.xht css-writing-modes/clip-rect-vrl-002-ref.xht
 == css-writing-modes/clip-rect-vrl-004.xht css-writing-modes/clip-rect-vrl-004-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,1224-1224) == css-writing-modes/clip-rect-vrl-006.xht css-writing-modes/clip-rect-vrl-006-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,1227-1242) == css-writing-modes/clip-rect-vrl-008.xht css-writing-modes/clip-rect-vrl-008-ref.xht
+== css-writing-modes/clip-rect-vrl-006.xht css-writing-modes/clip-rect-vrl-006-ref.xht
+== css-writing-modes/clip-rect-vrl-008.xht css-writing-modes/clip-rect-vrl-008-ref.xht
 == css-writing-modes/clip-rect-vrl-010.xht css-writing-modes/clip-rect-vrl-010-ref.xht
 == css-writing-modes/clip-rect-vrl-012.xht css-writing-modes/clip-rect-vrl-012-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,1-1) == css-writing-modes/clip-rect-vrl-014.xht css-writing-modes/clip-rect-vrl-014-ref.xht
-fuzzy-if(geckoview&&webrender,0-1,0-14) == css-writing-modes/clip-rect-vrl-016.xht css-writing-modes/clip-rect-vrl-016-ref.xht
+== css-writing-modes/clip-rect-vrl-014.xht css-writing-modes/clip-rect-vrl-014-ref.xht
+== css-writing-modes/clip-rect-vrl-016.xht css-writing-modes/clip-rect-vrl-016-ref.xht
 fails == css-writing-modes/contiguous-floated-table-vlr-003.xht reference/ref-filled-green-100px-square.xht
 fails == css-writing-modes/contiguous-floated-table-vlr-005.xht reference/ref-filled-green-100px-square.xht
 fails == css-writing-modes/contiguous-floated-table-vlr-007.xht reference/ref-filled-green-100px-square.xht
@@ -718,10 +718,10 @@ fails == css-writing-modes/contiguous-floated-table-vrl-006.xht reference/ref-fi
 fails == css-writing-modes/contiguous-floated-table-vrl-008.xht reference/ref-filled-green-100px-square.xht
 == css-writing-modes/different-block-flow-dir-001.xht reference/ref-filled-green-100px-square.xht
 == css-writing-modes/different-block-flow-dir-002.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) fuzzy-if(geckoview&&webrender,1-1,100-100) == css-writing-modes/direction-vlr-003.xht css-writing-modes/direction-vlr-003-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) fuzzy-if(geckoview&&webrender,1-1,100-100) == css-writing-modes/direction-vlr-005.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) fuzzy-if(geckoview&&webrender,1-1,100-100) == css-writing-modes/direction-vrl-002.xht css-writing-modes/direction-vrl-002-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) fuzzy-if(geckoview&&webrender,1-1,100-100) == css-writing-modes/direction-vrl-004.xht css-writing-modes/direction-vrl-004-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) == css-writing-modes/direction-vlr-003.xht css-writing-modes/direction-vlr-003-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) == css-writing-modes/direction-vlr-005.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) == css-writing-modes/direction-vrl-002.xht css-writing-modes/direction-vrl-002-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) == css-writing-modes/direction-vrl-004.xht css-writing-modes/direction-vrl-004-ref.xht
 == css-writing-modes/flexbox_align-items-stretch-writing-modes.html css-writing-modes/flexbox_align-items-stretch-writing-modes-ref.html
 == css-writing-modes/float-clear-vlr-003.xht reference/ref-filled-green-100px-square.xht
 == css-writing-modes/float-clear-vlr-005.xht reference/ref-filled-green-100px-square.xht
@@ -760,18 +760,18 @@ fuzzy-if(!webrender&&OSX,255-255,100-100) fuzzy-if(winWidget,0-109,0-300) == css
 == css-writing-modes/float-shrink-to-fit-vrl-006.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(!webrender&&OSX,255-255,100-100) fuzzy-if(winWidget,0-109,0-300) == css-writing-modes/float-shrink-to-fit-vrl-008.xht reference/ref-filled-green-100px-square.xht
 == css-writing-modes/float-shrink-to-fit-vrl-vlr-016.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) fuzzy-if(geckoview&&webrender,1-1,50-50) == css-writing-modes/float-vlr-003.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) fuzzy-if(geckoview&&webrender,1-1,50-50) == css-writing-modes/float-vlr-005.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vlr-003.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vlr-005.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vlr-007.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vlr-009.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vlr-011.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) fuzzy-if(geckoview&&webrender,1-1,15-15) == css-writing-modes/float-vlr-013.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vlr-013.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vrl-002.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vrl-004.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vrl-006.xht reference/ref-filled-green-100px-square.xht
 fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vrl-008.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) fuzzy-if(geckoview&&webrender,1-1,15-15) == css-writing-modes/float-vrl-010.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) fuzzy-if(geckoview&&webrender,1-1,50-50) == css-writing-modes/float-vrl-012.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vrl-010.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(winWidget,0-108,0-300) fuzzy-if(OSX&&!webrender,255-255,49-150) == css-writing-modes/float-vrl-012.xht reference/ref-filled-green-100px-square.xht
 != css-writing-modes/full-width-001.html css-writing-modes/reference/full-width-001-horizontal-notref.html
 != css-writing-modes/full-width-001.html css-writing-modes/reference/full-width-001-nofullwidth-notref.html
 != css-writing-modes/full-width-002.html css-writing-modes/reference/full-width-002-notcu-notref.html
@@ -798,7 +798,7 @@ fuzzy-if(!webrender&&OSX,255-255,432-432) fuzzy-if(winWidget,0-135,0-1080) == cs
 fuzzy-if(!webrender&&OSX,255-255,432-432) fuzzy-if(winWidget,0-112,0-960) == css-writing-modes/inline-block-alignment-srl-008.xht css-writing-modes/inline-block-alignment-006-ref.xht
 == css-writing-modes/inline-replaced-vlr-003.xht css-writing-modes/inline-replaced-vrl-002-ref.xht
 == css-writing-modes/inline-replaced-vlr-005.xht css-writing-modes/inline-replaced-vrl-004-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,255-255) == css-writing-modes/inline-replaced-vrl-002.xht css-writing-modes/inline-replaced-vrl-002-ref.xht
+== css-writing-modes/inline-replaced-vrl-002.xht css-writing-modes/inline-replaced-vrl-002-ref.xht
 == css-writing-modes/inline-replaced-vrl-004.xht css-writing-modes/inline-replaced-vrl-004-ref.xht
 fails == css-writing-modes/inline-table-alignment-002.xht css-writing-modes/inline-table-alignment-002-ref.xht
 fails == css-writing-modes/inline-table-alignment-003.xht css-writing-modes/inline-table-alignment-003-ref.xht
@@ -869,16 +869,16 @@ fails random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/
 == css-writing-modes/margin-collapse-vrl-010.xht reference/ref-filled-green-100px-square.xht
 == css-writing-modes/margin-collapse-vrl-014.xht reference/ref-filled-green-100px-square.xht
 == css-writing-modes/margin-collapse-vrl-016.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(geckoview&&webrender,1-1,55-55) == css-writing-modes/margin-collapse-vrl-024.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(geckoview&&webrender,1-1,67-67) == css-writing-modes/margin-collapse-vrl-030.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(geckoview&&webrender,1-1,43-43) == css-writing-modes/margin-collapse-vrl-034.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(geckoview&&webrender,1-1,43-43) == css-writing-modes/margin-collapse-vrl-036.xht reference/ref-filled-green-100px-square.xht
+== css-writing-modes/margin-collapse-vrl-024.xht reference/ref-filled-green-100px-square.xht
+== css-writing-modes/margin-collapse-vrl-030.xht reference/ref-filled-green-100px-square.xht
+== css-writing-modes/margin-collapse-vrl-034.xht reference/ref-filled-green-100px-square.xht
+== css-writing-modes/margin-collapse-vrl-036.xht reference/ref-filled-green-100px-square.xht
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/margin-vlr-003.xht css-writing-modes/margin-vrl-002-ref.xht
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/margin-vrl-002.xht css-writing-modes/margin-vrl-002-ref.xht
 == css-writing-modes/normal-flow-overconstrained-vlr-003.xht css-writing-modes/abs-pos-non-replaced-vlr-007-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,1243-1243) == css-writing-modes/normal-flow-overconstrained-vlr-005.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,1557-1557) == css-writing-modes/normal-flow-overconstrained-vrl-002.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
-fuzzy-if(geckoview&&webrender,1-1,1573-1573) == css-writing-modes/normal-flow-overconstrained-vrl-004.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
+== css-writing-modes/normal-flow-overconstrained-vlr-005.xht css-writing-modes/abs-pos-non-replaced-vlr-013-ref.xht
+== css-writing-modes/normal-flow-overconstrained-vrl-002.xht css-writing-modes/abs-pos-non-replaced-vrl-006-ref.xht
+== css-writing-modes/normal-flow-overconstrained-vrl-004.xht css-writing-modes/abs-pos-non-replaced-vrl-012-ref.xht
 == css-writing-modes/ortho-htb-alongside-vrl-floats-002.xht css-writing-modes/ortho-htb-alongside-vrl-floats-002-ref.xht
 == css-writing-modes/ortho-htb-alongside-vrl-floats-006.xht css-writing-modes/ortho-htb-alongside-vrl-floats-006-ref.xht
 == css-writing-modes/ortho-htb-alongside-vrl-floats-010.xht css-writing-modes/ortho-htb-alongside-vrl-floats-010-ref.xht
@@ -894,20 +894,20 @@ fuzzy-if(OSX&&!webrender,255-255,100-150) random-if(/^Windows\x20NT\x206\.1/.tes
 == css-writing-modes/overconstrained-rel-pos-rtl-left-right-vrl-008.xht css-writing-modes/overconstrained-rel-pos-rtl-left-right-vrl-008-ref.xht
 == css-writing-modes/overconstrained-rel-pos-rtl-top-bottom-vlr-007.xht css-writing-modes/overconstrained-rel-pos-rtl-top-bottom-vlr-007-ref.xht
 == css-writing-modes/overconstrained-rel-pos-rtl-top-bottom-vrl-006.xht css-writing-modes/overconstrained-rel-pos-rtl-top-bottom-vrl-006-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/padding-vlr-005.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/padding-vrl-004.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-margin-vlr-003.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-margin-vlr-005.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-margin-vlr-007.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-margin-vrl-002.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-margin-vrl-004.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-margin-vrl-006.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-padding-vlr-003.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-padding-vlr-005.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-padding-vlr-007.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-padding-vrl-002.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-padding-vrl-004.xht css-writing-modes/margin-vrl-002-ref.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-184) == css-writing-modes/percent-padding-vrl-006.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/padding-vlr-005.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/padding-vrl-004.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-margin-vlr-003.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-margin-vlr-005.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-margin-vlr-007.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-margin-vrl-002.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-margin-vrl-004.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-margin-vrl-006.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-padding-vlr-003.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-padding-vlr-005.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-padding-vlr-007.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-padding-vrl-002.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-padding-vrl-004.xht css-writing-modes/margin-vrl-002-ref.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/percent-padding-vrl-006.xht css-writing-modes/margin-vrl-002-ref.xht
 fuzzy-if(OSX||winWidget,0-110,0-1200) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/row-progression-slr-023.xht css-writing-modes/block-flow-direction-001-ref.xht
 fuzzy-if(OSX||winWidget,0-110,0-1200) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/row-progression-slr-029.xht css-writing-modes/block-flow-direction-001-ref.xht
 fuzzy-if(OSX||winWidget,0-110,0-1200) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/row-progression-srl-022.xht css-writing-modes/block-flow-direction-001-ref.xht
@@ -1052,24 +1052,24 @@ fails == css-writing-modes/table-progression-vlr-004.html css-writing-modes/tabl
 fails == css-writing-modes/table-progression-vrl-002.html css-writing-modes/table-progression-002-ref.html
 fails == css-writing-modes/table-progression-vrl-003.html css-writing-modes/table-progression-001-ref.html
 fails == css-writing-modes/table-progression-vrl-004.html css-writing-modes/table-progression-002-ref.html
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vlr-003.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vlr-005.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vlr-007.xht reference/ref-filled-green-100px-square.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,209-209) == css-writing-modes/text-align-vlr-009.xht css-writing-modes/text-align-vlr-009-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,209-209) == css-writing-modes/text-align-vlr-011.xht css-writing-modes/text-align-vlr-009-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,209-209) == css-writing-modes/text-align-vlr-013.xht css-writing-modes/text-align-vlr-009-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vlr-015.xht css-writing-modes/direction-vlr-003-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vlr-017.xht css-writing-modes/direction-vlr-003-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vlr-019.xht css-writing-modes/direction-vlr-003-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vrl-002.xht css-writing-modes/direction-vrl-004-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vrl-004.xht css-writing-modes/direction-vrl-004-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vrl-006.xht css-writing-modes/direction-vrl-004-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,209-209) == css-writing-modes/text-align-vrl-008.xht css-writing-modes/text-align-vrl-008-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,209-209) == css-writing-modes/text-align-vrl-010.xht css-writing-modes/text-align-vrl-008-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,209-209) == css-writing-modes/text-align-vrl-012.xht css-writing-modes/text-align-vrl-008-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vrl-014.xht css-writing-modes/direction-vrl-002-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vrl-016.xht css-writing-modes/direction-vrl-002-ref.xht
-fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,100-106) == css-writing-modes/text-align-vrl-018.xht css-writing-modes/direction-vrl-002-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-003.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-005.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-007.xht reference/ref-filled-green-100px-square.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-009.xht css-writing-modes/text-align-vlr-009-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-011.xht css-writing-modes/text-align-vlr-009-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-013.xht css-writing-modes/text-align-vlr-009-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-015.xht css-writing-modes/direction-vlr-003-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-017.xht css-writing-modes/direction-vlr-003-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vlr-019.xht css-writing-modes/direction-vlr-003-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-002.xht css-writing-modes/direction-vrl-004-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-004.xht css-writing-modes/direction-vrl-004-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-006.xht css-writing-modes/direction-vrl-004-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-008.xht css-writing-modes/text-align-vrl-008-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-010.xht css-writing-modes/text-align-vrl-008-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-012.xht css-writing-modes/text-align-vrl-008-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-014.xht css-writing-modes/direction-vrl-002-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-016.xht css-writing-modes/direction-vrl-002-ref.xht
+fuzzy-if(!webrender&&OSX,255-255,200-200) fuzzy-if(winWidget,0-75,0-404) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-align-vrl-018.xht css-writing-modes/direction-vrl-002-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-780) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-baseline-slr-009.xht css-writing-modes/text-baseline-slr-009-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-780) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-baseline-srl-008.xht css-writing-modes/text-baseline-vrl-006-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-780) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-baseline-vlr-003.xht css-writing-modes/text-baseline-vrl-002-ref.xht
@@ -1079,8 +1079,8 @@ fuzzy-if(OSX||winWidget,0-255,0-780) random-if(/^Windows\x20NT\x206\.1/.test(htt
 fuzzy-if(winWidget,0-215,0-780) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-baseline-vrl-004.xht css-writing-modes/text-baseline-vrl-002-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-780) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-baseline-vrl-006.xht css-writing-modes/text-baseline-vrl-006-ref.xht
 fuzzy-if(OSX&&!webrender,255-255,100-100) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-combine-upright-decorations-001.html css-writing-modes/reference/text-combine-upright-decorations-001.html
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,2-2) == css-writing-modes/text-combine-upright-inherit-all-001.html css-writing-modes/reference/text-combine-upright-inherit-all-001.html
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-7) == css-writing-modes/text-combine-upright-inherit-all-002.html css-writing-modes/reference/text-combine-upright-inherit-all-002.html
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-combine-upright-inherit-all-001.html css-writing-modes/reference/text-combine-upright-inherit-all-001.html
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-combine-upright-inherit-all-002.html css-writing-modes/reference/text-combine-upright-inherit-all-002.html
 == css-writing-modes/text-combine-upright-layout-rules-001.html css-writing-modes/reference/text-combine-upright-layout-rules-001-ref.html
 == css-writing-modes/text-combine-upright-line-breaking-rules-001.html css-writing-modes/text-combine-upright-line-breaking-rules-001-ref.html
 fuzzy(0-255,0-960) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-combine-upright-value-all-001.html css-writing-modes/reference/text-combine-upright-value-single-character.html
@@ -1110,25 +1110,25 @@ random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) != css-writing-modes/text-c
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-003.xht css-writing-modes/text-indent-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-005.xht css-writing-modes/text-indent-vlr-005-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-2,0-1239) == css-writing-modes/text-indent-vlr-007.xht css-writing-modes/text-indent-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,8-1232) == css-writing-modes/text-indent-vlr-009.xht css-writing-modes/text-indent-vlr-005-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-009.xht css-writing-modes/text-indent-vlr-005-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-011.xht css-writing-modes/text-indent-vlr-011-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-013.xht css-writing-modes/text-indent-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-2,1224-1239) == css-writing-modes/text-indent-vlr-015.xht css-writing-modes/text-indent-vlr-011-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,8-1232) == css-writing-modes/text-indent-vlr-017.xht css-writing-modes/text-indent-vlr-013-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-017.xht css-writing-modes/text-indent-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-002.xht css-writing-modes/text-indent-vrl-002-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,16-16) == css-writing-modes/text-indent-vrl-004.xht css-writing-modes/text-indent-vrl-004-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-004.xht css-writing-modes/text-indent-vrl-004-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-006.xht css-writing-modes/abs-pos-non-replaced-vlr-009-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,8-8) == css-writing-modes/text-indent-vrl-008.xht css-writing-modes/text-indent-vrl-008-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-008.xht css-writing-modes/text-indent-vrl-008-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-010.xht css-writing-modes/text-indent-vrl-010-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-012.xht css-writing-modes/text-indent-vrl-012-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-1375) == css-writing-modes/text-indent-vrl-014.xht css-writing-modes/text-indent-vrl-010-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,1375-1375) == css-writing-modes/text-indent-vrl-016.xht css-writing-modes/text-indent-vrl-012-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-014.xht css-writing-modes/text-indent-vrl-010-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-016.xht css-writing-modes/text-indent-vrl-012-ref.xht
 fuzzy-if(!webrender&&OSX,255-255,64-64) fuzzy-if(winWidget,0-226,0-960) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-orientation-016.xht css-writing-modes/text-orientation-016-ref.xht
 == css-writing-modes/text-orientation-mixed-srl-016.xht css-writing-modes/text-orientation-mixed-srl-016-ref.xht
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-orientation-mixed-vlr-100.html css-writing-modes/text-orientation-mixed-vlr-100-ref.html
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-orientation-mixed-vrl-100.html css-writing-modes/text-orientation-mixed-vrl-100-ref.html
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-orientation-sideways-vlr-100.html css-writing-modes/text-orientation-sideways-vlr-100-ref.html
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-48) == css-writing-modes/text-orientation-sideways-vrl-100.html css-writing-modes/text-orientation-sideways-vrl-100-ref.html
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-orientation-sideways-vrl-100.html css-writing-modes/text-orientation-sideways-vrl-100-ref.html
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-orientation-upright-srl-018.xht css-writing-modes/text-orientation-mixed-srl-016-ref.xht
 == css-writing-modes/text-orientation-upright-vlr-100.html css-writing-modes/text-orientation-upright-vlr-100-ref.html
 == css-writing-modes/text-orientation-upright-vrl-100.html css-writing-modes/text-orientation-upright-vrl-100-ref.html
@@ -1195,7 +1195,7 @@ skip == selectors/selector-required-type-change-001.html selectors/selector-requ
 skip == selectors/selector-required-type-change-002.html selectors/selector-required-type-change-002-ref.html
 == selectors/selector-required.html selectors/selector-required-ref.html
 skip == selectors/selectors-attr-white-space-001.html selectors/selectors-attr-white-space-001-ref.html
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-9) == selectors/selectors-dir-selector-ltr-001.html reference/ref-filled-green-100px-square.xht
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-1,0-9) == selectors/selectors-dir-selector-rtl-001.html reference/ref-filled-green-100px-square.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == selectors/selectors-dir-selector-ltr-001.html reference/ref-filled-green-100px-square.xht
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == selectors/selectors-dir-selector-rtl-001.html reference/ref-filled-green-100px-square.xht
 skip == selectors/selectors-empty-001.xml selectors/selectors-empty-001-ref.xml
 skip == selectors/selectors-namespace-001.xml selectors/selectors-namespace-001-ref.xml

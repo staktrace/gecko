@@ -2,7 +2,7 @@
 == text-combine-upright-break-inside-001a.html text-combine-upright-break-inside-001-ref.html
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == text-combine-upright-compression-001.html text-combine-upright-compression-001-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == text-combine-upright-compression-002.html text-combine-upright-compression-002-ref.html # Bug 1392106
-random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-1,42-42) == text-combine-upright-compression-003.html text-combine-upright-compression-003-ref.html # Bug 1392106
+random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == text-combine-upright-compression-003.html text-combine-upright-compression-003-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == text-combine-upright-compression-004.html text-combine-upright-compression-004-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == text-combine-upright-compression-005.html text-combine-upright-compression-005-ref.html # Bug 1392106
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == text-combine-upright-compression-005a.html text-combine-upright-compression-005-ref.html # Bug 1392106

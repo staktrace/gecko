@@ -102,7 +102,7 @@ fuzzy-if(OSX,48-49,622-622) fuzzy-if(winWidget,88-113,992-1726) fuzzy-if(geckovi
 == variable-reference-37.html variable-reference-37-ref.html
 == variable-reference-38.html variable-reference-38-ref.html
 == variable-reference-39.html support/color-green-ref.html
-fuzzy-if(geckoview&&webrender,0-1,0-228) == variable-reference-40.html variable-reference-40-ref.html
+== variable-reference-40.html variable-reference-40-ref.html
 == variable-supports-01.html support/color-green-ref.html
 == variable-supports-02.html support/color-green-ref.html
 == variable-supports-03.html support/color-green-ref.html
