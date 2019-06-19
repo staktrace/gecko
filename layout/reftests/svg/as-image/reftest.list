@@ -142,7 +142,7 @@ fuzzy-if(d2d,0-16,0-10) == img-content-outside-viewBox-1.html img-content-outsid
 
 == img-width-meet-1.html   img-width-meet-1-ref.html
 == img-width-meet-2.html   img-width-meet-2-ref.html
-fuzzy-if(webrender,255-255,3-3) fuzzy-if(geckoview&&webrender,255-255,269-269) == img-width-slice-1.html  img-width-slice-1-ref.html
+fuzzy-if(webrender,255-255,3-3) fuzzy-if(geckoview&&webrender,255-255,29-269) == img-width-slice-1.html  img-width-slice-1-ref.html
 == img-width-slice-2.html  img-width-slice-2-ref.html
 
 # Alternate version of "width & height both non-%-valued" tests, but now
@@ -154,18 +154,18 @@ fuzzy-if(webrender,255-255,3-3) fuzzy-if(geckoview&&webrender,255-255,269-269) =
 
 # Alternate versions of "only one dimension is non-%-valued" tests, but now
 # with no explicit viewBox, to trigger "synthesize-viewBox" behavior
-fuzzy-if(geckoview&&webrender,0-2,0-9615) == img-novb-height-meet-1.html    img-novb-height-all-1-ref.html
-fuzzy-if(geckoview&&webrender,0-2,0-9460) == img-novb-height-slice-1.html   img-novb-height-all-1-ref.html
-fuzzy-if(skiaContent,0-255,0-10) fuzzy-if(geckoview&&webrender,0-2,0-2536) == img-novb-width-meet-1.html     img-novb-width-all-1-ref.html
-fuzzy-if(skiaContent,0-255,0-10) fuzzy-if(geckoview&&webrender,0-2,0-2109) == img-novb-width-slice-1.html    img-novb-width-all-1-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-12000) == img-novb-height-meet-1.html    img-novb-height-all-1-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-12000) == img-novb-height-slice-1.html   img-novb-height-all-1-ref.html
+fuzzy-if(skiaContent,0-255,0-10) fuzzy-if(geckoview&&webrender,0-2,0-12000) == img-novb-width-meet-1.html     img-novb-width-all-1-ref.html
+fuzzy-if(skiaContent,0-255,0-10) fuzzy-if(geckoview&&webrender,0-2,0-12000) == img-novb-width-slice-1.html    img-novb-width-all-1-ref.html
 
 # with with a fragmentIdentifier viewBox
-== img-fragment-1a.html  img-fragment-1-ref.html
-== img-fragment-1b.html  img-fragment-1-ref.html
-== img-fragment-1c.html  img-fragment-1-ref.html
-== img-fragment-2a.html  img-fragment-2-ref.html
-== img-fragment-2b.html  img-fragment-2-ref.html
-== img-fragment-2c.html  img-fragment-2-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-968) == img-fragment-1a.html  img-fragment-1-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-968) == img-fragment-1b.html  img-fragment-1-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-968) == img-fragment-1c.html  img-fragment-1-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-968) == img-fragment-2a.html  img-fragment-2-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-968) == img-fragment-2b.html  img-fragment-2-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-968) == img-fragment-2c.html  img-fragment-2-ref.html
 
 == list-simple-1.html list-simple-1-ref.html
 

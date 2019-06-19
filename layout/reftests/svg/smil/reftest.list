@@ -129,7 +129,7 @@ fuzzy-if(skiaContent,0-1,0-600) == anim-feGaussianBlur-01.svg lime.svg
 == anim-polyline-points-01.svg anim-polyline-points-01-ref.svg
 
 # animate path data:
-== anim-path-d-01.svg anim-path-d-01-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-52) == anim-path-d-01.svg anim-path-d-01-ref.svg
 
 # animate some enumeration attributes:
 == anim-feComposite-operator-01.svg lime.svg

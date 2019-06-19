@@ -1109,11 +1109,11 @@ random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-c
 random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) != css-writing-modes/text-combine-upright-value-none-001.html css-writing-modes/reference/horizontal-ahem-1x3-notref.html
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-003.xht css-writing-modes/text-indent-vlr-003-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-005.xht css-writing-modes/text-indent-vlr-005-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-2,0-1239) == css-writing-modes/text-indent-vlr-007.xht css-writing-modes/text-indent-vlr-003-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-009.xht css-writing-modes/text-indent-vlr-005-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-2,0-1247) == css-writing-modes/text-indent-vlr-007.xht css-writing-modes/text-indent-vlr-003-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-2,0-1247) == css-writing-modes/text-indent-vlr-009.xht css-writing-modes/text-indent-vlr-005-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-011.xht css-writing-modes/text-indent-vlr-011-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-013.xht css-writing-modes/text-indent-vlr-013-ref.xht
-fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,1-2,1224-1239) == css-writing-modes/text-indent-vlr-015.xht css-writing-modes/text-indent-vlr-011-ref.xht
+fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) fuzzy-if(geckoview&&webrender,0-2,0-1247) == css-writing-modes/text-indent-vlr-015.xht css-writing-modes/text-indent-vlr-011-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vlr-017.xht css-writing-modes/text-indent-vlr-013-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-002.xht css-writing-modes/text-indent-vrl-002-ref.xht
 fuzzy-if(OSX||winWidget,0-255,0-480) random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == css-writing-modes/text-indent-vrl-004.xht css-writing-modes/text-indent-vrl-004-ref.xht

@@ -135,7 +135,7 @@ fuzzy-if(Android,0-4,0-87) == dynamic-clipPath-01.svg pass.svg
 == dynamic-feFlood-01.svg pass.svg
 asserts(0-1) == dynamic-feImage-01.svg pass.svg # intermittent assertions (bug 886080)
 == dynamic-fill-01.svg dynamic-fill-01-ref.svg
-== dynamic-fill-rule-01.svg dynamic-fill-rule-01-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-648) == dynamic-fill-rule-01.svg dynamic-fill-rule-01-ref.svg
 fuzzy-if(d2d||skiaContent,0-1,0-10000) == dynamic-filter-contents-01a.svg dynamic-filter-contents-01-ref.svg
 fuzzy-if(d2d||skiaContent,0-1,0-10000) == dynamic-filter-contents-01b.svg dynamic-filter-contents-01-ref.svg
 == dynamic-gradient-contents-01.svg pass.svg
@@ -269,7 +269,7 @@ fuzzy-if(cocoaWidget,0-15,0-19679) fuzzy-if(winWidget,0-1,0-8800) fuzzy-if(!coco
 fuzzy-if(/^Windows\x20NT\x2010\.0/.test(http.oscpu)||skiaContent,0-1,0-800000) == markers-and-group-opacity-01.svg markers-and-group-opacity-01-ref.svg
 == marker-attribute-01.svg pass.svg
 fuzzy-if(skiaContent,0-1,0-1) == marker-dynamic-opacity.html marker-dynamic-opacity-ref.html
-== marker-css-transform.html marker-css-transform-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-978) == marker-css-transform.html marker-css-transform-ref.html
 == marker-effects-01.svg marker-effects-01-ref.svg
 fuzzy-if(skiaContent,0-1,0-100) == marker-viewBox-01.svg marker-viewBox-01-ref.svg
 fuzzy-if(skiaContent,0-1,0-100) == marker-orientation-01.svg marker-orientation-01-ref.svg
@@ -278,7 +278,7 @@ fuzzy-if(skiaContent,0-1,0-5) == marker-orientation-02.svg marker-orientation-02
 == marker-orientation-04.svg pass.svg
 == marker-orientation-05.svg pass.svg
 
-fuzzy(0-28,0-28) == mask-and-clipPath.html mask-and-clipPath-ref.html
+fuzzy(0-28,0-39) == mask-and-clipPath.html mask-and-clipPath-ref.html
 == mask-and-clipPath-2.svg pass.svg
 == mask-ref-loop-01.svg pass.svg
 == mask-basic-01.svg pass.svg
@@ -314,7 +314,7 @@ fuzzy-if(d2d||skiaContent,0-1,0-6400) == mask-type-04.svg mask-type-01-ref.svg
 fuzzy-if(skiaContent,0-3,0-448000) == nesting-invalid-01.svg nesting-invalid-01-ref.svg
 
 fuzzy-if(d2d&&/^Windows\x20NT\x20(6\.1|10\.0)/.test(http.oscpu),0-63,0-168) fuzzy-if(cocoaWidget,0-1,0-122) fuzzy-if(skiaContent,0-2,0-1000) == non-scaling-stroke-01.svg non-scaling-stroke-01-ref.svg # bug 1074161 for Win7 and OSX 10.8
-fuzzy-if(gtkWidget,0-1,0-99) fuzzy-if(!contentSameGfxBackendAsCanvas,0-9,0-99) fuzzy-if(Android,0-9,0-586) == non-scaling-stroke-02.svg non-scaling-stroke-02-ref.svg
+fuzzy-if(gtkWidget,0-1,0-99) fuzzy-if(!contentSameGfxBackendAsCanvas,0-9,0-99) fuzzy-if(Android,0-9,0-586) fuzzy-if(geckoview&&webrender,0-2,0-2976) == non-scaling-stroke-02.svg non-scaling-stroke-02-ref.svg
 == non-scaling-stroke-03.svg non-scaling-stroke-03-ref.svg
 
 == objectBoundingBox-and-clipPath.svg pass.svg
@@ -350,8 +350,8 @@ fuzzy(0-16,0-193) fuzzy-if(skiaContent,0-7,0-193) fuzzy-if(webrender,54-54,124-4
 == paint-on-maskLayer-1b.html paint-on-maskLayer-1-ref.html
 == paint-on-maskLayer-1c.html paint-on-maskLayer-1-ref.html
 fuzzy-if(/^Windows\x20NT\x2010\.0/.test(http.oscpu),0-16,0-5) == paint-order-01.svg paint-order-01-ref.svg
-== paint-order-02.svg paint-order-02-ref.svg
-fuzzy-if(webrender,72-72,96-613) == paint-order-03.svg paint-order-03-ref.svg
+fuzzy-if(webrender&&geckoview,0-2,0-1030) == paint-order-02.svg paint-order-02-ref.svg
+fuzzy-if(webrender,72-73,96-1753) == paint-order-03.svg paint-order-03-ref.svg
 
 #fuzzy(0-23,0-60) fails-if(d2d) == path-01.svg path-01-ref.svg
 == path-02.svg pass.svg
@@ -375,7 +375,7 @@ fuzzy-if(skiaContent,0-1,0-5) == pattern-scale-01a.svg pattern-scale-01-ref.svg
 == pattern-scale-01b.svg pattern-scale-01-ref.svg
 fuzzy-if(skiaContent,0-3,0-5) == pattern-scale-01c.svg pattern-scale-01-ref.svg
 fuzzy-if(webrender,0-2,0-227) == pattern-transform-presence-01.svg pattern-transform-presence-01-ref.svg
-fuzzy-if(skiaContent||webrender,0-72,0-1239) == pattern-transformed-01.svg pattern-transformed-01-ref.svg
+fuzzy-if(skiaContent||webrender,0-72,0-1240) == pattern-transformed-01.svg pattern-transformed-01-ref.svg
 
 == polygon-01.svg polygon-01-ref.svg
 == polygon-marker-01.svg pass.svg
@@ -483,8 +483,8 @@ random-if(/^Windows\x20NT\x206\.1/.test(http.oscpu)) == text-scale-03.svg text-s
 == text-style-01e.svg text-style-01-ref.svg
 
 == text-stroke-scaling-01.svg text-stroke-scaling-01-ref.svg
-fuzzy(0-16,0-3) == text-stroke-scaling-02a.html text-stroke-scaling-02-ref.html # antialiasing
-fuzzy(0-16,0-3) == text-stroke-scaling-02b.html text-stroke-scaling-02-ref.html # antialiasing
+fuzzy(0-16,0-3) fuzzy-if(geckoview&&webrender,0-2,0-552) == text-stroke-scaling-02a.html text-stroke-scaling-02-ref.html # antialiasing
+fuzzy(0-16,0-3) fuzzy-if(geckoview&&webrender,0-2,0-552) == text-stroke-scaling-02b.html text-stroke-scaling-02-ref.html # antialiasing
 == text-stroke-scaling-02a.html text-stroke-scaling-02b.html
 == textPath-01.svg textPath-01-ref.svg
 == textPath-02.svg pass.svg

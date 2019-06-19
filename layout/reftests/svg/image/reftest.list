@@ -32,8 +32,8 @@ fuzzy-if(Android,0-4,0-34) == image-opacity-02.svg image-opacity-02-ref.svg # Bu
 == imported-image-02.svg                      imported-image-ref.svg
 
 # Tests for <image> with preserveAspectRatio
-== image-preserveAspectRatio-01-raster.svg image-preserveAspectRatio-01-ref.svg
-== image-preserveAspectRatio-01-svg.svg    image-preserveAspectRatio-01-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-3061) == image-preserveAspectRatio-01-raster.svg image-preserveAspectRatio-01-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-3061) == image-preserveAspectRatio-01-svg.svg    image-preserveAspectRatio-01-ref.svg
 == image-preserveAspectRatio-02-raster.svg image-preserveAspectRatio-02-ref.svg
 == image-preserveAspectRatio-02-svg.svg    image-preserveAspectRatio-02-ref.svg
 == image-preserveAspectRatio-03.svg        image-preserveAspectRatio-03-ref.svg

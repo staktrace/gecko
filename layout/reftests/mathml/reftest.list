@@ -246,7 +246,7 @@ random-if(gtkWidget) == menclose-2-roundedbox.html menclose-2-roundedbox-ref.htm
 fails-if(Android) == menclose-3-radical.html menclose-3-radical-ref.html # Bug 973917
 == menclose-3-default.html menclose-3-default-ref.html
 == menclose-3-invalid.html menclose-3-invalid-ref.html
-== menclose-3-multiple.html menclose-3-multiple-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-6) == menclose-3-multiple.html menclose-3-multiple-ref.html
 == menclose-3-unknown.html menclose-3-unknown.html
 == menclose-4.html data:text/html,<body>Pass
 == menclose-5-actuarial.html menclose-5-actuarial-ref.html

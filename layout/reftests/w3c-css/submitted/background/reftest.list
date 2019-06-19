@@ -31,7 +31,7 @@ fuzzy-if(webrender,7-7,208-294) == border-image-repeat-round-2.html border-image
 == border-image-repeat-space-5.html border-image-repeat-space-5-ref-1.html
 == border-image-repeat-space-5-ref-1.html border-image-repeat-space-5-ref-2.html
 == border-image-repeat-space-6.html border-image-repeat-space-6-ref.html
-== border-image-repeat-space-7.html border-image-repeat-space-7-ref.html
+fuzzy-if(geckoview&&webrender,0-2,0-2116) == border-image-repeat-space-7.html border-image-repeat-space-7-ref.html
 == border-image-repeat-1.html border-image-repeat-1-ref.html
 
 # background-attachment test cases

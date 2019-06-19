@@ -5,8 +5,8 @@ include clip-path/reftest.list
 == clipPath-html-01-extref.xhtml clipPath-html-01-ref.svg
 == clipPath-html-02.xhtml clipPath-html-02-ref.svg
 == clipPath-html-02-extref.xhtml clipPath-html-02-ref.svg
-fuzzy-if(geckoview&&webrender,0-2,0-261) == clipPath-html-03.xhtml clipPath-html-03-ref.svg
-fuzzy-if(geckoview&&webrender,0-2,0-261) == clipPath-html-03-extref.xhtml clipPath-html-03-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-263) == clipPath-html-03.xhtml clipPath-html-03-ref.svg
+fuzzy-if(geckoview&&webrender,0-2,0-263) == clipPath-html-03-extref.xhtml clipPath-html-03-ref.svg
 == clipPath-html-04.xhtml clipPath-html-04-ref.xhtml
 == clipPath-html-04-extref.xhtml clipPath-html-04-ref.xhtml
 fuzzy-if(true,0-140,0-70) == clipPath-html-05.xhtml clipPath-html-05-ref.xhtml # Bug 776089
