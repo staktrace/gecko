@@ -63,15 +63,26 @@ async function* test() {
   dump("OOPIF response: " + JSON.stringify(iframeResponse) + "\n");
   ok(iframeResponse, "code_for_oopif_to_run successfully installed");
 
+  is(window.scrollY, 0, "window is at 0 scroll position");
+
   // hit-test into the iframe before scrolling
   let oldClickPoint = await clickOnIframe(50, 250);
 
   // do an APZ scroll and wait for the main-thread to get the repaint request,
   // and queue up a paint-skip scroll notification back to APZ.
   await promiseMoveMouseAndScrollWheelOver(document.body, 10, 10);
+
+  // The wheel scroll might have started an APZ animation, so run that to the end
+  var utils = SpecialPowers.getDOMWindowUtils(window);
+  for (var i = 0; i < 60; i++) {
+    utils.advanceTimeAndRefresh(16);
+  }
+  utils.restoreNormalRefresh();
+  // Let the repaint requests get processed
+  await promiseApzRepaintsFlushed();
   await promiseAllPaintsDone();
 
-  is(window.scrollY, 10, "window has scrolled by 10 pixels");
+  ok(window.scrollY > 5, "window has scrolled by " + window.scrollY + " pixels");
 
   // hit-test into the iframe after scrolling. The coordinates here are the
   // same relative to the body as before, but get computed to be different
