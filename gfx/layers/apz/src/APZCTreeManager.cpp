@@ -3267,6 +3267,7 @@ void APZCTreeManager::SendSubtreeTransformsToChromeMainThread(
   nsTArray<MatrixMessage> messages;
   bool underAncestor = (aAncestor == nullptr);
   {
+   printf_stderr("Computing transform matrices!\n");
     RecursiveMutexAutoLock lock(mTreeLock);
     // This formulation duplicates matrix multiplications closer
     // to the root of the tree. For now, aiming for separation
@@ -3282,6 +3283,7 @@ void APZCTreeManager::SendSubtreeTransformsToChromeMainThread(
           LayersId layersId = aNode->GetLayersId();
           HitTestingTreeNode* parent = aNode->GetParent();
           if (!parent || layersId != parent->GetLayersId()) {
+            printf_stderr("Sending %" PRIx64 " -> %s\n", layersId.mId, Stringify(aNode->GetTransformToGecko()).c_str());
             messages.AppendElement(
                 MatrixMessage(aNode->GetTransformToGecko(), layersId));
           }

@@ -136,6 +136,7 @@
 #include "mozilla/dom/WindowGlobalChild.h"
 #include "MMPrinter.h"
 #include "mozilla/ResultExtensions.h"
+#include "LayersLogging.h"
 
 #ifdef XP_WIN
 #  include "mozilla/plugins/PluginWidgetChild.h"
@@ -1221,6 +1222,9 @@ mozilla::ipc::IPCResult BrowserChild::RecvUpdateDimensions(
   mUnscaledOuterRect = aDimensionInfo.rect();
   mClientOffset = aDimensionInfo.clientOffset();
   mChromeOffset = aDimensionInfo.chromeOffset();
+  printf_stderr("BrowserChild(%" PRIx64 ") getting dimensions %s %s %s\n",
+    mLayersId.mId, Stringify(mUnscaledOuterRect).c_str(),
+Stringify(mClientOffset).c_str(), Stringify(mChromeOffset).c_str());
 
   mOrientation = aDimensionInfo.orientation();
   SetUnscaledInnerSize(aDimensionInfo.size());
@@ -1514,6 +1518,11 @@ void BrowserChild::ProcessPendingCoalescedMouseDataAndDispatchEvents() {
 
 LayoutDeviceToLayoutDeviceMatrix4x4
 BrowserChild::GetChildToParentConversionMatrix() const {
+  printf_stderr("BrowserChild(%" PRIx64 ") producing %s offset %s\n",
+    mLayersId.mId, mChildToParentConversionMatrix ?
+Stringify(*mChildToParentConversionMatrix).c_str() :
+Stringify(GetChromeOffset()).c_str(),
+Stringify(GetChromeOffset()).c_str());
   if (mChildToParentConversionMatrix) {
     return *mChildToParentConversionMatrix;
   }

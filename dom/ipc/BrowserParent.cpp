@@ -110,6 +110,7 @@
 #include "mozilla/dom/WindowGlobalParent.h"
 #include "mozilla/dom/CanonicalBrowsingContext.h"
 #include "MMPrinter.h"
+#include "LayersLogging.h"
 
 #ifdef XP_WIN
 #  include "mozilla/plugins/PluginWidgetParent.h"
@@ -995,6 +996,10 @@ void BrowserParent::UpdateDimensions(const nsIntRect& rect,
     mDimensions = size;
     mOrientation = orientation;
     mClientOffset = clientOffset;
+    if (mChromeOffset.y == 119 && chromeOffset.y == 0) {
+      printf_stderr("FAILBOAT!\n");
+      //MOZ_ASSERT(false);
+    }
     mChromeOffset = chromeOffset;
 
     Unused << SendUpdateDimensions(GetDimensionInfo());
@@ -2212,6 +2217,11 @@ LayoutDeviceIntRect BrowserParent::TransformChildToParent(
 
 LayoutDeviceToLayoutDeviceMatrix4x4
 BrowserParent::GetChildToParentConversionMatrix() {
+  printf_stderr("BrowserParent(%" PRIx64 ") producing %s offset %s\n",
+    GetLayersId().mId, mChildToParentConversionMatrix ?
+Stringify(*mChildToParentConversionMatrix).c_str() :
+Stringify(-GetChildProcessOffset()).c_str(),
+Stringify(-GetChildProcessOffset()).c_str());
   if (mChildToParentConversionMatrix) {
     return *mChildToParentConversionMatrix;
   }
