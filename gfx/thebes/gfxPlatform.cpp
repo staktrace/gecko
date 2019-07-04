@@ -2618,7 +2618,7 @@ static void HardwareTooOldForWR(FeatureState& aFeature) {
 }
 
 static void UpdateWRQualificationForNvidia(FeatureState& aFeature,
-    int32_t aDeviceId) {
+    int32_t aDeviceId, bool* aOutGuardedByQualifiedPref) {
   // 0x6c0 is the lowest Fermi device id. Unfortunately some Tesla
   // devices that don't support D3D 10.1 have higher deviceIDs. They
   // will be included, but blocked by ANGLE.
@@ -2629,11 +2629,16 @@ static void UpdateWRQualificationForNvidia(FeatureState& aFeature,
     return;
   }
 
-  // Any additional Nvidia checks go here
+  // Any additional Nvidia checks go here. Make sure to leave
+  // aOutGuardedByQualifiedPref as true unless the hardware is qualified
+  // for users on the release channel.
+
+  // Nvidia devices with device id >= 0x6c0 got WR in release Firefox 67.
+  *aOutGuardedByQualifiedPref = false;
 }
 
 static void UpdateWRQualificationForAMD(FeatureState& aFeature,
-    int32_t aDeviceId) {
+    int32_t aDeviceId, bool* aOutGuardedByQualifiedPref) {
   // AMD deviceIDs are not very well ordered. This
   // condition is based off the information in gpu-db
   bool supported =
@@ -2651,19 +2656,28 @@ static void UpdateWRQualificationForAMD(FeatureState& aFeature,
     return;
   }
 
-  // we have a desktop CAYMAN, SI, CIK, VI, or GFX9 device
-  // so treat the device as qualified unless it is not Windows
-  // and not nightly.
-#if !defined(XP_WIN) && !defined(NIGHTLY_BUILD)
+  // we have a desktop CAYMAN, SI, CIK, VI, or GFX9 device.
+
+#if defined(XP_WIN)
+  // These devices got WR in release Firefox 68.
+  *aOutGuardedByQualifiedPref = false;
+  return;
+#elif defined(NIGHTLY_BUILD)
+  // Qualify on Linux Nightly, but leave *aOutGuardedByQualifiedPref as true
+  // to indicate users on release don't have it yet, and it's still guarded
+  // by the qualified pref.
+  return;
+#else
+  // Disqualify everywhere else
   aFeature.Disable(
       FeatureStatus::BlockedReleaseChannelAMD,
       "Release channel and AMD",
       NS_LITERAL_CSTRING("FEATURE_FAILURE_RELEASE_CHANNEL_AMD"));
-#endif  // !XPWIN && !NIGHTLY_BUILD
+#endif
 }
 
 static void UpdateWRQualificationForIntel(FeatureState& aFeature,
-    int32_t aDeviceId, int32_t aScreenPixels) {
+    int32_t aDeviceId, int32_t aScreenPixels, bool* aOutGuardedByQualifiedPref) {
   const uint16_t supportedDevices[] = {
       // skylake gt2+
       0x1912,
@@ -2785,7 +2799,9 @@ static void UpdateWRQualificationForIntel(FeatureState& aFeature,
 #if ((defined(XP_WIN) && defined(EARLY_BETA_OR_EARLIER)) || \
      (defined(MOZ_WIDGET_GTK) && defined(NIGHTLY_BUILD)))
   // Qualify Intel graphics cards on Windows up to early beta, and
-  // on Linux nightly.
+  // on Linux nightly. Return *aOutGuardedByQualifiedPref as true to indicate no
+  // release users have this yet, and it's still guarded by the qualified pref.
+  return;
 #else
   // Disqualify everywhere else
   aFeature.Disable(
@@ -2796,10 +2812,12 @@ static void UpdateWRQualificationForIntel(FeatureState& aFeature,
 }
 
 static FeatureState& WebRenderHardwareQualificationStatus(
-    const IntSize& aScreenSize, bool aHasBattery) {
+    const IntSize& aScreenSize, bool aHasBattery,
+    bool* aOutGuardedByQualifiedPref) {
   FeatureState& featureWebRenderQualified =
       gfxConfig::GetFeature(Feature::WEBRENDER_QUALIFIED);
   featureWebRenderQualified.EnableByDefault();
+  MOZ_ASSERT(aOutGuardedByQualifiedPref && *aOutGuardedByQualifiedPref);
 
   if (Preferences::HasUserValue(WR_ROLLOUT_HW_QUALIFIED_OVERRIDE)) {
     if (!Preferences::GetBool(WR_ROLLOUT_HW_QUALIFIED_OVERRIDE)) {
@@ -2844,12 +2862,14 @@ static FeatureState& WebRenderHardwareQualificationStatus(
   const int32_t screenPixels = aScreenSize.width * aScreenSize.height;
 
   if (adapterVendorID == u"0x10de") { // Nvidia
-    UpdateWRQualificationForNvidia(featureWebRenderQualified, deviceID);
+    UpdateWRQualificationForNvidia(featureWebRenderQualified, deviceID,
+                                   aOutGuardedByQualifiedPref);
   } else if (adapterVendorID == u"0x1002") {  // AMD
-    UpdateWRQualificationForAMD(featureWebRenderQualified, deviceID);
+    UpdateWRQualificationForAMD(featureWebRenderQualified, deviceID,
+                                aOutGuardedByQualifiedPref);
   } else if (adapterVendorID == u"0x8086") {  // Intel
     UpdateWRQualificationForIntel(featureWebRenderQualified, deviceID,
-                                  screenPixels);
+                                  screenPixels, aOutGuardedByQualifiedPref);
   } else {
     featureWebRenderQualified.Disable(
         FeatureStatus::BlockedVendorUnsupported, "Unsupported vendor",
@@ -2857,13 +2877,20 @@ static FeatureState& WebRenderHardwareQualificationStatus(
   }
 
   if (!featureWebRenderQualified.IsEnabled()) {
-    // One of the checks above failed, early exit
+    // One of the checks above failed, early exit. If this happens then
+    // this population must still be guarded by the qualified pref.
+    MOZ_ASSERT(*aOutGuardedByQualifiedPref)
     return featureWebRenderQualified;
   }
 
   // We leave checking the battery for last because we would like to know
   // which users were denied WebRender only because they have a battery.
   if (aHasBattery) {
+    // We never released WR to the battery populations, so let's keep the pref
+    // guard for these populations. That way we can do a gradual rollout to
+    // the battery population using the pref.
+    *aOutGuardedByQualifiedPref = true;
+
     // For AMD/Intel devices, if we have a battery, ignore it if the
     // screen is small enough. Note that we always check for a battery
     // with NVIDIA because we do not have a limited/curated set of devices
@@ -2915,8 +2942,10 @@ void gfxPlatform::InitWebRenderConfig() {
     return;
   }
 
+  bool guardedByQualifiedPref = true;
   FeatureState& featureWebRenderQualified =
-      WebRenderHardwareQualificationStatus(GetScreenSize(), HasBattery());
+      WebRenderHardwareQualificationStatus(GetScreenSize(), HasBattery(),
+              &guardedByQualifiedPref);
   FeatureState& featureWebRender = gfxConfig::GetFeature(Feature::WEBRENDER);
 
   featureWebRender.DisableByDefault(
@@ -2933,8 +2962,15 @@ void gfxPlatform::InitWebRenderConfig() {
     featureWebRender.UserEnable("Force enabled by envvar");
   } else if (prefEnabled) {
     featureWebRender.UserEnable("Force enabled by pref");
-  } else if (wrQualifiedAll && featureWebRenderQualified.IsEnabled()) {
-    featureWebRender.UserEnable("Qualified enabled by pref ");
+  } else if (featureWebRenderQualified.IsEnabled()) {
+    // If the HW is qualified, we enable if either the HW has been qualified
+    // on the release channel (i.e. it's no longer guarded by the qualified
+    // pref), or if the qualified pref is enabled.
+    if (!guardedByQualifiedPref) {
+      featureWebRender.UserEnable("Qualified in release");
+    } else if (wrQualifiedAll) {
+      featureWebRender.UserEnable("Qualified enabled by pref");
+    }
   }
 
   // If the user set the pref to force-disable, let's do that. This will
