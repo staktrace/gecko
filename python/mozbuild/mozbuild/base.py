@@ -229,7 +229,11 @@ class MozbuildObject(ProcessExecutionMixin):
                     return True
                 raise
             if dep_mtime > mtime:
-                print(" %s is out of date with respect to %s" % (output, f))
+                print(" %s (modified %s) is out of date with respect to %s (modified %s)"
+                      % (output, mtime, f, dep_mtime))
+                if os.getenv('MOZ_DEBUG_1620429') is not None and os.path.abspath(output).endswith('config.status'):
+                    print(" Aborting! Do a clobber and rebuild if you want a full build")
+                    sys.exit(1)
                 return True
         return False
 
