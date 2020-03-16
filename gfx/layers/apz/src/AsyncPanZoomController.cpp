@@ -4349,7 +4349,7 @@ ParentLayerRect AsyncPanZoomController::RecursivelyClipCompBounds(
   }
 
   // Recurse up the tree
-  if (mParent) {
+  if (mParent && !compBoundsInParentSpace.IsEmpty()) {
     // Make sure we're not holding our lock when we do this, to be extra safe.
     mRecursiveMutex.AssertNotCurrentThreadIn();
     compBoundsInParentSpace =
@@ -4377,7 +4377,7 @@ CSSRect AsyncPanZoomController::GetRecursivelyVisibleRect() const {
     zoom = Metrics().GetZoom();
   }
 
-  if (mParent) {
+  if (mParent && !visible.IsEmpty()) {
     // compBounds and clippedCompBounds are relative to the layer tree origin
     ParentLayerRect clippedCompBounds =
         mParent->RecursivelyClipCompBounds(compBounds);
