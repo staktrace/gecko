@@ -4400,16 +4400,36 @@ CSSRect AsyncPanZoomController::GetRecursivelyVisibleRect() const {
 }
 
 uint32_t AsyncPanZoomController::GetCheckerboardMagnitude() const {
-  RecursiveMutexAutoLock lock(mRecursiveMutex);
+  // First we do the "cheap" check for checkerboarding using the non-recursive
+  // visible rect. Most of the time this should produce a zero checkerboard
+  // area, so we can early-exit. If it produces a nonzero checkerboard area,
+  // then we fall through to the more expensive recursive visible rect to
+  // see if we're really checkerboarding.
 
-  CSSRect painted = mLastContentPaintMetrics.GetDisplayPort() +
-                    mLastContentPaintMetrics.GetScrollOffset();
-  CSSRect visible = GetVisibleRect(lock);
+  CSSIntRect painted;
+  CSSIntRect visible;
 
+  {  // scope lock
+    RecursiveMutexAutoLock lock(mRecursiveMutex);
+    // Round so as to minimize checkerboarding; if we're only showing fractional
+    // pixels of checkerboarding it's not really worth counting
+    painted = RoundedOut(mLastContentPaintMetrics.GetDisplayPort() +
+                         mLastContentPaintMetrics.GetScrollOffset());
+    visible = RoundedIn(GetVisibleRect(lock));
+    if (visible.IsEmpty() || painted.Contains(visible)) {
+      return 0;
+    }
+  }
+
+  visible = RoundedIn(GetRecursivelyVisibleRect());
+  if (visible.IsEmpty() || painted.Contains(visible)) {
+    return 0;
+  }
+  APZC_LOG_FM(Metrics(),
+              "%p is currently checkerboarding (painted %s visible %s)", this,
+              Stringify(painted).c_str(), Stringify(visible).c_str());
   CSSIntRegion checkerboard;
-  // Round so as to minimize checkerboarding; if we're only showing fractional
-  // pixels of checkerboarding it's not really worth counting
-  checkerboard.Sub(RoundedIn(visible), RoundedOut(painted));
+  checkerboard.Sub(visible, painted);
   return checkerboard.Area();
 }
 
@@ -4472,26 +4492,6 @@ void AsyncPanZoomController::FlushActiveCheckerboardReport() {
   // Pretend like we got a frame with 0 pixels checkerboarded. This will
   // terminate the checkerboard event and flush it out
   UpdateCheckerboardEvent(lock, 0);
-}
-
-bool AsyncPanZoomController::IsCurrentlyCheckerboarding() const {
-  CSSRect painted;
-  {  // scope lock
-    RecursiveMutexAutoLock lock(mRecursiveMutex);
-    painted = mLastContentPaintMetrics.GetDisplayPort() +
-              mLastContentPaintMetrics.GetScrollOffset();
-  }
-
-  painted.Inflate(CSSMargin::FromAppUnits(
-      nsMargin(1, 1, 1, 1)));  // fuzz for rounding error
-  CSSRect visible = GetRecursivelyVisibleRect();
-  if (visible.IsEmpty() || painted.Contains(visible)) {
-    return false;
-  }
-  APZC_LOG_FM(Metrics(),
-              "%p is currently checkerboarding (painted %s visible %s)", this,
-              Stringify(painted).c_str(), Stringify(visible).c_str());
-  return true;
 }
 
 void AsyncPanZoomController::NotifyLayersUpdated(

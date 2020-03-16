@@ -881,7 +881,8 @@ void APZCTreeManager::SampleForWebRender(
 
 bool APZCTreeManager::AdvanceAnimations(Maybe<wr::RenderRoot> aRenderRoot,
                                         const TimeStamp& aSampleTime) {
-  MutexAutoLock lock(mMapLock);
+  RecursiveMutexAutoLock treeLock(mTreeLock);  // for ReportCheckerboard
+  MutexAutoLock lock(mMapLock);                // for walking mApzcMap
   return AdvanceAnimationsInternal(lock, aRenderRoot, aSampleTime);
 }
 
@@ -3581,8 +3582,7 @@ bool APZCTreeManager::GetAPZTestData(LayersId aLayersId,
   }
 
   {  // add some additional "current state" into the returned APZTestData
-    RecursiveMutexAutoLock treeLock(
-        mTreeLock);                   // for IsCurrentlyCheckerboarding
+    RecursiveMutexAutoLock treeLock(mTreeLock);  // for GetCheckerboardMagnitude
     MutexAutoLock mapLock(mMapLock);  // for mApzcMap
     for (const auto& mapping : mApzcMap) {
       if (mapping.first.mLayersId != aLayersId) {
@@ -3591,7 +3591,7 @@ bool APZCTreeManager::GetAPZTestData(LayersId aLayersId,
       AsyncPanZoomController* apzc = mapping.second;
       std::string viewId = std::to_string(mapping.first.mScrollId);
       std::string apzcState;
-      if (apzc->IsCurrentlyCheckerboarding()) {
+      if (apzc->GetCheckerboardMagnitude()) {
         apzcState += "checkerboarding,";
       }
       aOutData->RecordAdditionalData(viewId, apzcState);

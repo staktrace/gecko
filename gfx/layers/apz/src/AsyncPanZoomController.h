@@ -309,12 +309,22 @@ class AsyncPanZoomController {
 
   /**
    * Returns the number of CSS pixels of checkerboard according to the metrics
-   * in this APZC.
+   * in this APZC. This uses the last-painted content as well as the async
+   * transforms from this and ancestor APZCs to compute how much of the content
+   * is actually displayed as checkerboarded to the screen.
+   * In other words, an APZC with checkerboarding that is scrolled offscreen by
+   * an ancestor APZC will get reported as having 0 checkerboarded pixels.
+   *
+   * Callers to this function must be holding the APZCTreeManager's tree lock
+   * as this function may walk the APZC tree using the mParent pointers.
    */
   uint32_t GetCheckerboardMagnitude() const;
 
   /**
    * Report the number of CSSPixel-milliseconds of checkerboard to telemetry.
+   *
+   * Callers to this function must be holding the APZCTreeManager's tree lock
+   * as this function may walk the APZC tree using the mParent pointers.
    */
   void ReportCheckerboard(const TimeStamp& aSampleTime);
 
@@ -326,14 +336,6 @@ class AsyncPanZoomController {
    * on the next composite.
    */
   void FlushActiveCheckerboardReport();
-
-  /**
-   * Returns whether or not the APZC is currently in a state of checkerboarding.
-   * This is a simple computation based on the last-painted content and whether
-   * the async transform has pushed it so far that it doesn't fully contain the
-   * composition bounds.
-   */
-  bool IsCurrentlyCheckerboarding() const;
 
   /**
    * Recalculates the displayport. Ideally, this should paint an area bigger
