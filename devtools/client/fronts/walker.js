@@ -460,14 +460,30 @@ class WalkerFront extends FrontClassWithSpec(walkerSpec) {
    * two documents.
    */
   async reparentRemoteFrame() {
-    // Get the parent target, which most likely runs in another process
-    const descriptorFront = this.targetFront.descriptorFront;
-    // If we are on the top target, descriptorFront will be the RootFront
-    // and won't have the getParentTarget method.
-    if (!descriptorFront.getParentTarget) {
+    let parentTarget;
+    const traits = this.conn.mainRoot.traits;
+    const supportsFrameWatcher = traits.descriptorWatcher
+      ? traits.descriptorWatcher.frame
+      : false;
+    if (supportsFrameWatcher) {
+      const { descriptorFront } = this.targetFront;
+      const watcher = await descriptorFront.getWatcher();
+      parentTarget = await watcher.getParentBrowsingContextTarget(
+        this.targetFront.browsingContextID
+      );
+    } else {
+      // Get the parent target, which most likely runs in another process
+      const descriptorFront = this.targetFront.descriptorFront;
+      // If we are on the top target, descriptorFront will be the RootFront
+      // and won't have the getParentTarget method.
+      if (!descriptorFront.getParentTarget) {
+        return;
+      }
+      parentTarget = await descriptorFront.getParentTarget();
+    }
+    if (!parentTarget) {
       return;
     }
-    const parentTarget = await descriptorFront.getParentTarget();
     // Don't reparent if we are on the top target
     if (parentTarget == this.targetFront) {
       return;
@@ -478,7 +494,7 @@ class WalkerFront extends FrontClassWithSpec(walkerSpec) {
     // As this <iframe> most likely runs in another process, we have to get it through the parent
     // target's WalkerFront.
     const parentNode = (
-      await parentWalker.getEmbedderElement(descriptorFront.id)
+      await parentWalker.getEmbedderElement(this.targetFront.browsingContextID)
     ).node;
 
     // Finally, set this embedder element's node front as the

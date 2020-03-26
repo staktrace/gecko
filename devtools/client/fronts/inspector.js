@@ -168,26 +168,28 @@ class InspectorFront extends FrontClassWithSpec(inspectorSpec) {
       return this.walker.gripToNodeFront(grip);
     }
 
-    const { contentDomReference } = grip;
-    const { browsingContextId } = contentDomReference;
+    return this.getNodeActorFromContentDomReference(grip.contentDomReference);
+  }
 
-    // If the grip lives in the same browsing context id than the current one, we can
-    // directly use the current walker.
-    // TODO: When Bug 1578745 lands, we might want to force using `this.walker` as well
-    // when the new pref is set to false.
-    if (this.targetFront.browsingContextID === browsingContextId) {
+  async getNodeActorFromContentDomReference(contentDomReference) {
+    const { browsingContextId } = contentDomReference;
+    // If the contentDomReference lives in the same browsing context id than the
+    // current one, we can directly use the current walker.
+    if (
+      this.targetFront.browsingContextID === browsingContextId ||
+      !this.isContentFissionEnabled
+    ) {
       return this.walker.getNodeActorFromContentDomReference(
         contentDomReference
       );
     }
 
-    // If the contentDomReference has a different browsing context than the current one,
-    // we are either in Fission or in the Multiprocess Browser Toolbox, so we need to
-    // retrieve the walker of the BrowsingContextTarget.
-    const descriptor = await this.targetFront.client.mainRoot.getBrowsingContextDescriptor(
-      browsingContextId
-    );
-    const target = await descriptor.getTarget();
+    // If the contentDomReference has a different browsing context than the
+    // current one, we are either in Fission or in the Multiprocess Browser
+    // Toolbox, so we need to retrieve the walker of the BrowsingContextTarget.
+    const { descriptorFront } = this.targetFront;
+    const watcher = await descriptorFront.getWatcher();
+    const target = await watcher.getBrowsingContextTarget(browsingContextId);
     const { walker } = await target.getFront("inspector");
     return walker.getNodeActorFromContentDomReference(contentDomReference);
   }

@@ -249,5 +249,5 @@ async function testThrowingInOnAvailable(mainRoot) {
     "retrieved the expected number of processes via onAvailable. All but the first one where we have thrown."
   );
 
-  targetList.stopListening();
+  await targetList.stopListening();
 }

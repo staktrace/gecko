@@ -85,8 +85,26 @@ loader.lazyRequireGetter(
   "devtools/shared/constants",
   true
 );
+loader.lazyRequireGetter(
+  this,
+  "isRemoteFrame",
+  "devtools/shared/layout/utils",
+  true
+);
+
+loader.lazyRequireGetter(
+  this,
+  "DevToolsServer",
+  "devtools/server/devtools-server",
+  true
+);
 
 const kStateHover = 0x00000004; // NS_EVENT_STATE_HOVER
+
+const USE_NEW_HIGHLIGHTER_PREF = Services.prefs.getBoolPref(
+  "devtools.accessibility.use-new-highlighter",
+  false
+);
 
 const {
   EVENT_TEXT_CHANGED,
@@ -276,11 +294,34 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
     this._preventContentEvent = this._preventContentEvent.bind(this);
     this.onKey = this.onKey.bind(this);
     this.onHighlighterEvent = this.onHighlighterEvent.bind(this);
+
+    if (DevToolsServer.isInChildProcess) {
+      const target = this.targetActor.chromeEventHandler;
+      target.addEventListener(
+        "mousemove",
+        ({ explicitOriginalTarget }) => {
+          // if (isRemoteFrame(explicitOriginalTarget)) {
+          //   return;
+          // }
+          console.log(this.actorID);
+        },
+        true
+      );
+    }
   },
 
   get highlighter() {
     if (!this._highlighter) {
-      if (isXUL(this.rootWin)) {
+      if (USE_NEW_HIGHLIGHTER_PREF) {
+        if (!isTypeRegistered("AccessibleHighlighter")) {
+          register("AccessibleHighlighter", "accessible-observer");
+        }
+
+        this._highlighter = CustomHighlighterActor(
+          this,
+          "AccessibleHighlighter"
+        );
+      } else if (isXUL(this.rootWin)) {
         if (!isTypeRegistered("XULWindowAccessibleHighlighter")) {
           register("XULWindowAccessibleHighlighter", "xul-accessible");
         }
@@ -484,9 +525,14 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
    */
   getAccessibleFor(domNode) {
     // We need to make sure that the document is loaded processed by a11y first.
-    return this.getDocument().then(() =>
-      this.addRef(this.getRawAccessibleFor(domNode.rawNode))
-    );
+    return this.getDocument().then(() => {
+      const rawAccessible = this.getRawAccessibleFor(domNode.rawNode);
+      if (!rawAccessible) {
+        return null;
+      }
+
+      return this.addRef(rawAccessible);
+    });
   },
 
   /**
@@ -743,7 +789,7 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
    * @param  {Object} win
    *         Window where highlighting happens.
    */
-  clearStyles(win) {
+  async clearStyles(win) {
     const requests = this._loadedSheets.get(win);
     if (requests != null) {
       this._loadedSheets.set(win, requests + 1);
@@ -756,7 +802,7 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
     // taking a snapshot for contrast measurement).
     loadSheetForBackgroundCalculation(win);
     this._loadedSheets.set(win, 1);
-    this.hideHighlighter();
+    await this.hideHighlighter();
   },
 
   /**
@@ -767,7 +813,7 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
    * @param  {Object} win
    *         Window where highlighting was happenning.
    */
-  restoreStyles(win) {
+  async restoreStyles(win) {
     const requests = this._loadedSheets.get(win);
     if (!requests) {
       return;
@@ -778,26 +824,26 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
       return;
     }
 
-    this.showHighlighter();
+    await this.showHighlighter();
     removeSheetForBackgroundCalculation(win);
     this._loadedSheets.delete(win);
   },
 
-  hideHighlighter() {
+  async hideHighlighter() {
     // TODO: Fix this workaround that temporarily removes higlighter bounds
     // overlay that can interfere with the contrast ratio calculation.
     if (this._highlighter) {
       const highlighter = this._highlighter.instance;
-      highlighter.hideAccessibleBounds();
+      await highlighter.hideAccessibleBounds();
     }
   },
 
-  showHighlighter() {
+  async showHighlighter() {
     // TODO: Fix this workaround that temporarily removes higlighter bounds
     // overlay that can interfere with the contrast ratio calculation.
     if (this._highlighter) {
       const highlighter = this._highlighter.instance;
-      highlighter.showAccessibleBounds();
+      await highlighter.showAccessibleBounds();
     }
   },
 
@@ -874,6 +920,14 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
   },
 
   _preventContentEvent(event) {
+    // console.log(`PREVENT: ${event.type} ${event.target} ${this.actorID}`);
+    // if (isRemoteFrame(event.explicitOriginalTarget)) {
+    //   console.log(
+    //     `REMOTE FRAME: ${event.type} ${event.target} ${this.actorID}`
+    //   );
+    // return;
+    // }
+
     event.stopPropagation();
     event.preventDefault();
 
@@ -903,6 +957,11 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
    *         Current click event.
    */
   onPick(event) {
+    // if (isRemoteFrame(event.explicitOriginalTarget)) {
+    //   return;
+    // }
+    console.log(`ON PICK ${this.actorID}`);
+
     if (!this._isPicking) {
       return;
     }
@@ -937,6 +996,12 @@ const AccessibleWalkerActor = ActorClassWithSpec(accessibleWalkerSpec, {
    *         Current hover event.
    */
   async onHovered(event) {
+    if (isRemoteFrame(event.explicitOriginalTarget)) {
+      return;
+    }
+
+    console.log(`ON HOVER ${this.actorID}`);
+
     if (!this._isPicking) {
       return;
     }

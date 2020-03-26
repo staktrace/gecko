@@ -38,11 +38,6 @@ const { XPCOMUtils } = ChromeUtils.import(
 
 ChromeUtils.defineModuleGetter(
   this,
-  "ActorManagerParent",
-  "resource://gre/modules/ActorManagerParent.jsm"
-);
-ChromeUtils.defineModuleGetter(
-  this,
   "Services",
   "resource://gre/modules/Services.jsm"
 );
@@ -1235,22 +1230,7 @@ DevToolsStartup.prototype = {
     this.recorded = true;
   },
 
-  _registerDevToolsJsWindowActors() {
-    ActorManagerParent.addActors({
-      DevToolsFrame: {
-        parent: {
-          moduleURI:
-            "resource://devtools/server/connectors/js-window-actor/DevToolsFrameParent.jsm",
-        },
-        child: {
-          moduleURI:
-            "resource://devtools/server/connectors/js-window-actor/DevToolsFrameChild.jsm",
-        },
-        allFrames: true,
-      },
-    });
-    ActorManagerParent.flush();
-  },
+  _registerDevToolsJsWindowActors() {},
 
   // Used by tests and the toolbox to register the same key shortcuts in toolboxes loaded
   // in a window window.

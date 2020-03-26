@@ -281,6 +281,13 @@ class TargetList {
    */
   constructor(rootFront, targetFront) {
     this.rootFront = rootFront;
+
+    // Once we have descriptor for all targets we create a toolbox for,
+    // we should try to only pass the descriptor to the Toolbox constructor,
+    // and, only receive the root and descriptor front as an argument to TargetList.
+    // Bug 1573779, we only miss descriptors for workers.
+    this.descriptorFront = targetFront.descriptorFront;
+
     // Note that this is a public attribute, used outside of this class
     // and helps knowing what is the current top level target we debug.
     this.targetFront = targetFront;
@@ -415,28 +422,43 @@ class TargetList {
       }
       this._setListening(type, true);
 
-      if (this.legacyImplementation[type]) {
+      const supportsWatcher = this.rootFront.traits.descriptorWatcher
+        ? this.rootFront.traits.descriptorWatcher[type]
+        : false;
+      if (supportsWatcher) {
+        // Starting with FF75, we support frames watching via watchTargets
+        const watcher = await this.descriptorFront.getWatcher();
+        if (!this._startedListeningToWatcher) {
+          this._startedListeningToWatcher = true;
+          watcher.on("target-available", this._onTargetAvailable);
+          watcher.on("target-destroyed", this._onTargetDestroyed);
+        }
+        await watcher.watchTargets(type);
+      } else if (this.legacyImplementation[type]) {
         await this.legacyImplementation[type].listen();
       } else {
-        // TO BE IMPLEMENTED via this.targetFront.watchFronts(type)
-        // For now we always go throught "legacy" codepath.
         throw new Error(`Unsupported target type '${type}'`);
       }
     }
   }
 
-  stopListening() {
+  async stopListening() {
     for (const type of TargetList.ALL_TYPES) {
       if (!this._isListening(type)) {
         continue;
       }
       this._setListening(type, false);
 
-      if (this.legacyImplementation[type]) {
+      const supportsWatcher = this.rootFront.traits.descriptorWatcher
+        ? this.rootFront.traits.descriptorWatcher[type]
+        : false;
+      if (supportsWatcher) {
+        // Starting with FF75, we support frames watching via watchTargets
+        const watcher = await this.descriptorFront.getWatcher();
+        await watcher.unwatchTargets(type);
+      } else if (this.legacyImplementation[type]) {
         this.legacyImplementation[type].unlisten();
       } else {
-        // TO BE IMPLEMENTED via this.targetFront.unwatchFronts(type)
-        // For now we always go throught "legacy" codepath.
         throw new Error(`Unsupported target type '${type}'`);
       }
     }
@@ -553,8 +575,8 @@ class TargetList {
       throw new Error("getAllTargets expects a 'type' argument");
     }
 
-    const targets = [...this._targets].filter(target =>
-      this._matchTargetType(type, target)
+    const targets = [...this._targets].filter(
+      target => this._matchTargetType(type, target) && target.actorID
     );
 
     return targets;

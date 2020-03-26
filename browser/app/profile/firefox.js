@@ -1967,6 +1967,8 @@ pref("devtools.inspector.new-rulesview.enabled", false);
 pref("devtools.inspector.compatibility.enabled", false);
 // Enable the new Box Model Highlighter with renderer in parent process
 pref("devtools.inspector.use-new-box-model-highlighter", false);
+// Enable the new Accessibility Highlighter with renderer in parent process
+pref("devtools.accessibility.use-new-highlighter", false);
 // Enable color scheme simulation in the inspector.
 pref("devtools.inspector.color-scheme-simulation.enabled", false);
 

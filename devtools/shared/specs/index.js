@@ -15,6 +15,7 @@ const Types = (exports.__TypesForTests = [
   {
     types: [
       "accessible",
+      "accessibleHighlighterRenderer",
       "accessiblewalker",
       "accessibility",
       "parentaccessibility",
@@ -286,6 +287,11 @@ const Types = (exports.__TypesForTests = [
     types: ["domwalker"],
     spec: "devtools/shared/specs/walker",
     front: "devtools/client/fronts/walker",
+  },
+  {
+    types: ["watcher"],
+    spec: "devtools/shared/specs/watcher",
+    front: "devtools/client/fronts/watcher",
   },
   {
     types: ["console"],

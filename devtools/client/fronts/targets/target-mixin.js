@@ -62,7 +62,13 @@ function TargetMixin(parentClass) {
     }
 
     get descriptorFront() {
-      return this.parentFront;
+      // If we are on a Top level target, the parent is the descriptorFront.
+      if (this.parentFront.typeName.endsWith("Descriptor")) {
+        return this.parentFront;
+      }
+      // But additional targets don't have any descriptor.
+      // Instead, their parent is the Watcher actor, which is a child of the Descriptor.
+      return this.parentFront.parentFront;
     }
 
     /**

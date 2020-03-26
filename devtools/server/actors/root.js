@@ -164,6 +164,10 @@ exports.RootActor = protocol.ActorClassWithSpec(rootSpec, {
       perfActorVersion: 1,
       // Supports watchpoints in the server for Fx71+
       watchpoints: true,
+      descriptorWatcher: {
+        // FF75+ supports frames in Watcher actor
+        frame: true,
+      },
     };
   },
 

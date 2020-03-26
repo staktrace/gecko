@@ -146,7 +146,7 @@ async function testSwitchToTarget(client) {
     );
   }
 
-  targetList.stopListening();
+  await targetList.stopListening();
 
   BrowserTestUtils.removeTab(firstTab);
   BrowserTestUtils.removeTab(secondTab);

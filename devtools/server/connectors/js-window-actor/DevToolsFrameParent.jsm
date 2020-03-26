@@ -6,16 +6,18 @@
 
 var EXPORTED_SYMBOLS = ["DevToolsFrameParent"];
 const { loader } = ChromeUtils.import("resource://devtools/shared/Loader.jsm");
+const { EventEmitter } = ChromeUtils.import(
+  "resource://gre/modules/EventEmitter.jsm"
+);
+const { getWatcher } = ChromeUtils.import(
+  "resource://devtools/server/actors/descriptors/watcher/FrameWatchers.jsm"
+);
 
 loader.lazyRequireGetter(
   this,
   "JsWindowActorTransport",
   "devtools/shared/transport/js-window-actor-transport",
   true
-);
-
-const { EventEmitter } = ChromeUtils.import(
-  "resource://gre/modules/EventEmitter.jsm"
 );
 
 class DevToolsFrameParent extends JSWindowActorParent {
@@ -48,39 +50,37 @@ class DevToolsFrameParent extends JSWindowActorParent {
     EventEmitter.decorate(this);
   }
 
-  async connectToFrame(connection) {
-    // Compute the same prefix that's used by DevToolsServerConnection when
-    // forwarding packets to the target frame.
-    const forwardingPrefix = connection.allocID("child");
+  connectFromContent({ parentConnectionPrefix, prefix, actor }) {
+    const watcher = getWatcher(parentConnectionPrefix);
 
-    try {
-      const { actor } = await this.connect({ prefix: forwardingPrefix });
-      connection.on("closed", this._onConnectionClosed);
-
-      // Create a js-window-actor based transport.
-      const transport = new JsWindowActorTransport(this, forwardingPrefix);
-      transport.hooks = {
-        onPacket: connection.send.bind(connection),
-        onClosed() {},
-      };
-      transport.ready();
-
-      connection.setForwarding(forwardingPrefix, transport);
-
-      this._connections.set(connection.prefix, {
-        actor,
-        connection,
-        forwardingPrefix,
-        transport,
-      });
-
-      return actor;
-    } catch (e) {
-      // Might fail if we have an actor destruction.
-      console.error("Failed to connect to DevToolsFrameChild actor");
-      console.error(e.toString());
-      return null;
+    if (!watcher) {
+      throw new Error(
+        `Parent Connection with prefix '${parentConnectionPrefix}' can't be found.`
+      );
     }
+    const connection = watcher.conn;
+
+    connection.on("closed", this._onConnectionClosed);
+
+    // Create a js-window-actor based transport.
+    const transport = new JsWindowActorTransport(this, prefix);
+    transport.hooks = {
+      onPacket: connection.send.bind(connection),
+      onClosed() {},
+    };
+    transport.ready();
+
+    connection.setForwarding(prefix, transport);
+
+    this._connections.set(parentConnectionPrefix, {
+      watcher,
+      connection,
+      prefix,
+      transport,
+      actor,
+    });
+
+    watcher.emit("target-available-form", actor);
   }
 
   _onConnectionClosed(prefix) {
@@ -106,7 +106,9 @@ class DevToolsFrameParent extends JSWindowActorParent {
     try {
       // Bug 1169643: Ignore any exception as the child process
       // may already be destroyed by now.
-      await this.disconnect({ prefix: forwardingPrefix });
+      if (!this.manager.isClosed) {
+        await this.disconnect({ prefix: forwardingPrefix });
+      }
     } catch (e) {
       // Nothing to do
     }
@@ -124,12 +126,17 @@ class DevToolsFrameParent extends JSWindowActorParent {
     }
     this._destroyed = true;
 
-    for (const { actor, connection } of this._connections.values()) {
-      if (actor) {
+    for (const { actor, connection, watcher } of this._connections.values()) {
+      if (actor && actor.actorID) {
+        watcher.emit("target-destroyed-form", actor);
+      }
+
+      // XXX: we should probably get rid of this
+      if (actor && connection.transport) {
         // The FrameTargetActor within the child process doesn't necessary
         // have time to uninitialize itself when the frame is closed/killed.
         // So ensure telling the client that the related actor is detached.
-        connection.send({ from: actor.actor, type: "tabDetached" });
+        //connection.send({ from: actor.actor, type: "tabDetached" });
       }
 
       this._cleanupConnection(connection);
@@ -141,10 +148,6 @@ class DevToolsFrameParent extends JSWindowActorParent {
   /**
    * Supported Queries
    */
-
-  async connect(args) {
-    return this.sendQuery("DevToolsFrameParent:connect", args);
-  }
 
   async disconnect(args) {
     return this.sendQuery("DevToolsFrameParent:disconnect", args);
@@ -171,6 +174,8 @@ class DevToolsFrameParent extends JSWindowActorParent {
 
   receiveMessage(data) {
     switch (data.name) {
+      case "DevToolsFrameChild:connectFromContent":
+        return this.connectFromContent(data.data);
       case "DevToolsFrameChild:packet":
         return this.emit("packet-received", data);
       default:

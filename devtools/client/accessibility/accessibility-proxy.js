@@ -103,12 +103,37 @@ class AccessibilityProxy {
    * Stop picking and remove all walker listeners.
    */
   async cancelPick(onHovered, onPicked, onPreviewed, onCanceled) {
-    const front = this.accessibleWalkerFront;
-    await front.cancelPick();
-    this._off(front, "picker-accessible-hovered", onHovered);
-    this._off(front, "picker-accessible-picked", onPicked);
-    this._off(front, "picker-accessible-previewed", onPreviewed);
-    this._off(front, "picker-accessible-canceled", onCanceled);
+    // const front = this.accessibleWalkerFront;
+    // await front.cancelPick();
+    // this._off(front, "picker-accessible-hovered", onHovered);
+    // this._off(front, "picker-accessible-picked", onPicked);
+    // this._off(front, "picker-accessible-previewed", onPreviewed);
+    // this._off(front, "picker-accessible-canceled", onCanceled);
+
+    const accessibilityFronts = await this.toolbox.targetList.getAllFronts(
+      this.toolbox.targetList.TYPES.FRAME,
+      "accessibility"
+    );
+    for (const accessibilityFront of accessibilityFronts) {
+      let { accessibleWalkerFront } = accessibilityFront;
+      if (!accessibleWalkerFront) {
+        await accessibilityFront.bootstrap();
+        ({ accessibleWalkerFront } = accessibilityFront);
+      }
+      await accessibleWalkerFront.cancelPick();
+      this._off(accessibleWalkerFront, "picker-accessible-hovered", onHovered);
+      this._off(accessibleWalkerFront, "picker-accessible-picked", onPicked);
+      this._off(
+        accessibleWalkerFront,
+        "picker-accessible-previewed",
+        onPreviewed
+      );
+      this._off(
+        accessibleWalkerFront,
+        "picker-accessible-canceled",
+        onCanceled
+      );
+    }
   }
 
   async disableAccessibility() {
@@ -158,12 +183,32 @@ class AccessibilityProxy {
    *         If true, move keyboard focus into content.
    */
   async pick(doFocus, onHovered, onPicked, onPreviewed, onCanceled) {
-    const front = this.accessibleWalkerFront;
-    this._on(front, "picker-accessible-hovered", onHovered);
-    this._on(front, "picker-accessible-picked", onPicked);
-    this._on(front, "picker-accessible-previewed", onPreviewed);
-    this._on(front, "picker-accessible-canceled", onCanceled);
-    await front.pick(doFocus);
+    // const front = this.accessibleWalkerFront;
+    // this._on(front, "picker-accessible-hovered", onHovered);
+    // this._on(front, "picker-accessible-picked", onPicked);
+    // this._on(front, "picker-accessible-previewed", onPreviewed);
+    // this._on(front, "picker-accessible-canceled", onCanceled);
+    // await front.pick(doFocus);
+    const accessibilityFronts = await this.toolbox.targetList.getAllFronts(
+      this.toolbox.targetList.TYPES.FRAME,
+      "accessibility"
+    );
+    for (const accessibilityFront of accessibilityFronts) {
+      let { accessibleWalkerFront } = accessibilityFront;
+      if (!accessibleWalkerFront) {
+        await accessibilityFront.bootstrap();
+        ({ accessibleWalkerFront } = accessibilityFront);
+      }
+      this._on(accessibleWalkerFront, "picker-accessible-hovered", onHovered);
+      this._on(accessibleWalkerFront, "picker-accessible-picked", onPicked);
+      this._on(
+        accessibleWalkerFront,
+        "picker-accessible-previewed",
+        onPreviewed
+      );
+      this._on(accessibleWalkerFront, "picker-accessible-canceled", onCanceled);
+      await accessibleWalkerFront.pick(doFocus);
+    }
   }
 
   async resetAccessiblity() {
@@ -274,6 +319,7 @@ class AccessibilityProxy {
 
     this.accessibilityFront = null;
     this.parentAccessibilityFront = null;
+    this.accessibleHighlighterRendererFront = null;
     this.accessibleWalkerFront = null;
     this.simulatorFront = null;
     this.simulate = null;
@@ -342,6 +388,15 @@ class AccessibilityProxy {
       // Finalize accessibility front initialization. See accessibility front
       // bootstrap method description.
       await this.accessibilityFront.bootstrap();
+      this.accessibleHighlighterRendererFront = await this._currentTarget.client.mainRoot
+        .getFront("accessibleHighlighterRenderer")
+        .catch(error => console.log(error)); // Old server.;
+      if (this.accessibleHighlighterRendererFront) {
+        await this.accessibleHighlighterRendererFront.bootstrap(
+          this._currentTarget.isParentProcess
+        );
+      }
+
       this.supports = {};
       // To add a check for backward compatibility add something similar to the
       // example below:

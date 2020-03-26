@@ -155,6 +155,19 @@ let ACTORS = {
     allFrames: true,
   },
 
+  DevToolsHighlighterRelay: {
+    parent: {
+      moduleURI:
+        "resource://devtools/server/actors/highlighters/DevToolsHighlighterRelayParent.jsm",
+    },
+    child: {
+      moduleURI:
+        "resource://devtools/server/actors/highlighters/DevToolsHighlighterRelayChild.jsm",
+    },
+
+    allFrames: true,
+  },
+
   DOMFullscreen: {
     parent: {
       moduleURI: "resource:///actors/DOMFullscreenParent.jsm",

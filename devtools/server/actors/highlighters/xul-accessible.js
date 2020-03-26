@@ -5,7 +5,7 @@
 "use strict";
 
 const {
-  getBounds,
+  getBoundsOld,
   XULWindowInfobar,
 } = require("devtools/server/actors/highlighters/utils/accessibility");
 const {
@@ -273,7 +273,7 @@ class XULWindowAccessibleHighlighter {
     // do. So we need to get the zoom level of the current node's parent window.
     const zoom = getCurrentZoom(this.currentNode);
 
-    return getBounds(this.win, { ...this.options, zoom });
+    return getBoundsOld(this.win, { ...this.options, zoom });
   }
 
   /**

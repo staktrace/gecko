@@ -4,6 +4,7 @@
 
 "use strict";
 
+const Services = require("Services");
 const DevToolsUtils = require("devtools/shared/DevToolsUtils");
 const {
   getCurrentZoom,
@@ -64,6 +65,13 @@ const {
     SCORES,
   },
 } = require("devtools/shared/constants");
+
+const ACCESSIBLE_HIGHLIGHTER_MESSAGES = {
+  SHOW: "devtools:highlighter:accessible:show",
+  HIDE: "devtools:highlighter:accessible:hide",
+  SHOW_BOUNDS: "devtools:highlighter:accessible:showbounds",
+  HIDE_BOUNDS: "devtools:highlighter:accessible:hidebounds",
+};
 
 // Max string length for truncating accessible name values.
 const MAX_STRING_LENGTH = 50;
@@ -839,7 +847,22 @@ class TextLabel extends AuditReport {
  * @return {Object|null} Returns, if available, positioning and bounds information for
  *                 the accessible object.
  */
-function getBounds(win, { x, y, w, h, zoom }) {
+function getBounds(win, { x: left, y: top, w: width, h: height, zoom }) {
+  const zoomFactor = zoom || getCurrentZoom(win);
+  let right = left + width;
+  let bottom = top + height;
+
+  left *= zoomFactor;
+  right *= zoomFactor;
+  top *= zoomFactor;
+  bottom *= zoomFactor;
+  width *= zoomFactor;
+  height *= zoomFactor;
+
+  return { left, right, top, bottom, width, height };
+}
+
+function getBoundsOld(win, { x, y, w, h, zoom }) {
   let { mozInnerScreenX, mozInnerScreenY, scrollX, scrollY } = win;
   let zoomFactor = getCurrentZoom(win);
   let left = x;
@@ -873,7 +896,83 @@ function getBounds(win, { x, y, w, h, zoom }) {
   return { left, right, top, bottom, width, height };
 }
 
+/**
+ * Get or create the IFRAME used by the highlighter as a drawing surface. The
+ * iframe will be created in the relevant ChromeWindow in relation to the
+ * browser that the highlighter is for.
+ *
+ * @param {Object} options
+ *        Object used for passing options:
+ *        - {Object} browser
+ *          Optional browser object that is used to determine the location of
+ *          the highlighter iframe.
+ *        - {Boolean} isBrowserToolbox
+ *          A flag that indicates whether the DevTools toolbox is a browser
+ *          toolbox.
+ *        - {Boolean} createIfNeeded
+ *          A flag that indicates whether the IFRAME needs to be created when it
+ *          is not found in the DOM tree.
+ *        - {Array} classList
+ *          A list of classes to be specified for the IFRAME.
+ */
+function getHighlighterIframe(options = {}) {
+  const { classList = [], isBrowserToolbox, createIfNeeded } = options;
+  const win = Services.wm.getMostRecentBrowserWindow();
+  const { gBrowser } = win;
+  // Get a reference to the selected <browser> element.
+  const browser = options.browser || gBrowser.selectedBrowser;
+  const browserContainer = gBrowser.getBrowserContainer(browser);
+  // The parent node of the iframe depends on the highlighter context:
+  // - browser toolbox: top-level browser window
+  // - content toolbox: host node of the <browser> element for the selected tab
+  const parent = isBrowserToolbox
+    ? win.document.documentElement
+    : browserContainer.querySelector(".browserStack");
+
+  // Grab the host iframe if it was previously created by another highlighter.
+  let iframe = parent.querySelector(
+    `:scope > .${["devtools-highlighter-renderer", ...classList].join(".")}`
+  );
+
+  if (!iframe) {
+    if (createIfNeeded) {
+      iframe = win.document.createElement("iframe");
+      iframe.classList.add("devtools-highlighter-renderer", ...classList);
+
+      if (isBrowserToolbox) {
+        parent.append(iframe);
+      } else {
+        // Ensure highlighters are drawn underneath alerts and dialog boxes.
+        parent.querySelector("browser").after(iframe);
+      }
+    } else {
+      return null;
+    }
+  }
+
+  if (
+    !options.waitForIframeReady ||
+    (iframe.contentWindow.document &&
+      iframe.contentWindow.document.readyState === "complete")
+  ) {
+    return iframe;
+  }
+
+  return new Promise(resolve => {
+    iframe.contentWindow.addEventListener(
+      "DOMContentLoaded",
+      () => resolve(iframe),
+      {
+        once: true,
+      }
+    );
+  });
+}
+
+exports.ACCESSIBLE_HIGHLIGHTER_MESSAGES = ACCESSIBLE_HIGHLIGHTER_MESSAGES;
+exports.getHighlighterIframe = getHighlighterIframe;
 exports.MAX_STRING_LENGTH = MAX_STRING_LENGTH;
 exports.getBounds = getBounds;
+exports.getBoundsOld = getBoundsOld;
 exports.Infobar = Infobar;
 exports.XULWindowInfobar = XULWindowInfobar;

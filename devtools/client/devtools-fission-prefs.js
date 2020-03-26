@@ -45,6 +45,13 @@ const PREFERENCES = [
     "Enable the new version of RDM that doesn't rely on tunnelling and is " +
       "Fission compatible",
   ],
+  [
+    "devtools.accessibility.use-new-highlighter",
+    "Enables a new accessibility highlighter implementation that can " +
+      "simultaneously highlight content in the parent and content processes. " +
+      "This allows to use a single highlighter in the Multiprocess Browser " +
+      "Toolbox.",
+  ],
 ];
 
 /**

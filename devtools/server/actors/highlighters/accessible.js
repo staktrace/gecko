@@ -21,7 +21,7 @@ const { setIgnoreLayoutChanges } = require("devtools/shared/layout/utils");
 
 loader.lazyRequireGetter(
   this,
-  "getBounds",
+  "getBoundsOld",
   "devtools/server/actors/highlighters/utils/accessibility",
   true
 );
@@ -318,7 +318,7 @@ class AccessibleHighlighter extends AutoRefreshHighlighter {
    *                       information for the accessible object.
    */
   get _bounds() {
-    return getBounds(this.win, this.options);
+    return getBoundsOld(this.win, this.options);
   }
 
   /**

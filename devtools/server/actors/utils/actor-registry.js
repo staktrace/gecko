@@ -164,6 +164,19 @@ const ActorRegistry = {
         type: { global: true },
       }
     );
+    /**
+     * Always register accessibility highlighter renderer actor as a global
+     * module. This actor is responsible for rendering highlighted accessible
+     * objects in parent process.
+     */
+    this.registerModule(
+      "devtools/server/actors/highlighters/accessible-renderer",
+      {
+        prefix: "accessibleHighlighterRenderer",
+        constructor: "AccessibleHighlighterRendererActor",
+        type: { global: true },
+      }
+    );
   },
 
   /**

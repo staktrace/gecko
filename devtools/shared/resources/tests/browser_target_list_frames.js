@@ -151,7 +151,7 @@ async function testTabFrames(mainRoot) {
   }
   targetList.unwatchTargets([TargetList.TYPES.FRAME], onAvailable);
 
-  targetList.stopListening();
+  await targetList.stopListening();
 
   BrowserTestUtils.removeTab(tab);
 }

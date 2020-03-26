@@ -35,11 +35,17 @@ const frameTargetPrototype = extend({}, browsingContextTargetPrototype);
  *
  * @param connection DevToolsServerConnection
  *        The conection to the client.
- * @param docShell
+ * @param docShell nsIDocShell
  *        The |docShell| for the debugged frame.
+ * @param options Object
+ *        See BrowsingContextTargetActor.initialize doc.
  */
-frameTargetPrototype.initialize = function(connection, docShell) {
-  BrowsingContextTargetActor.prototype.initialize.call(this, connection);
+frameTargetPrototype.initialize = function(connection, docShell, options) {
+  BrowsingContextTargetActor.prototype.initialize.call(
+    this,
+    connection,
+    options
+  );
 
   // Retrieve the message manager from the provided docShell.
   // Note that messageManager also has a docShell property, but in some
@@ -48,7 +54,9 @@ frameTargetPrototype.initialize = function(connection, docShell) {
 
   this.traits.reconfigure = false;
   this._sendForm = this._sendForm.bind(this);
-  this._messageManager.addMessageListener("debug:form", this._sendForm);
+  if (this._messageManager) {
+    this._messageManager.addMessageListener("debug:form", this._sendForm);
+  }
 
   Object.defineProperty(this, "docShell", {
     value: docShell,
@@ -65,7 +73,7 @@ Object.defineProperty(frameTargetPrototype, "title", {
 });
 
 frameTargetPrototype.exit = function() {
-  if (this._sendForm) {
+  if (this._sendForm && this._messageManager) {
     try {
       this._messageManager.removeMessageListener("debug:form", this._sendForm);
     } catch (e) {

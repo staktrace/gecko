@@ -9,6 +9,8 @@ DIRS += [
 ]
 
 DevToolsModules(
+    'accessible-observer.js',
+    'accessible-renderer.js',
     'accessible.js',
     'auto-refresh.js',
     'box-model-observer.js',
@@ -16,6 +18,8 @@ DevToolsModules(
     'box-model.js',
     'css-grid.js',
     'css-transform.js',
+    'DevToolsHighlighterRelayChild.jsm',
+    'DevToolsHighlighterRelayParent.jsm',
     'eye-dropper.js',
     'flexbox.js',
     'fonts.js',

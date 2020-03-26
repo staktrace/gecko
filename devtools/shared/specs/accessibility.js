@@ -169,7 +169,7 @@ const accessibleWalkerSpec = generateActorSpec({
     getAccessibleFor: {
       request: { node: Arg(0, "domnode") },
       response: {
-        accessible: RetVal("accessible"),
+        accessible: RetVal("nullable:accessible"),
       },
     },
     getAncestry: {
@@ -298,7 +298,19 @@ const parentAccessibilitySpec = generateActorSpec({
   },
 });
 
+const accessibleHighlighterRendererSpec = generateActorSpec({
+  typeName: "accessibleHighlighterRenderer",
+
+  methods: {
+    bootstrap: {
+      request: { isBrowserToolbox: Arg(0, "boolean") },
+      response: {},
+    },
+  },
+});
+
 exports.accessibleSpec = accessibleSpec;
+exports.accessibleHighlighterRendererSpec = accessibleHighlighterRendererSpec;
 exports.accessibleWalkerSpec = accessibleWalkerSpec;
 exports.accessibilitySpec = accessibilitySpec;
 exports.parentAccessibilitySpec = parentAccessibilitySpec;

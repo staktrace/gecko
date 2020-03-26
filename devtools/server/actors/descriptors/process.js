@@ -31,6 +31,12 @@ loader.lazyRequireGetter(
   "devtools/server/connectors/content-process-connector",
   true
 );
+loader.lazyRequireGetter(
+  this,
+  "WatcherActor",
+  "devtools/server/actors/descriptors/watcher/watcher",
+  true
+);
 
 const ProcessDescriptorActor = ActorClassWithSpec(processDescriptorSpec, {
   initialize(connection, options = {}) {
@@ -127,6 +133,19 @@ const ProcessDescriptorActor = ActorClassWithSpec(processDescriptorSpec, {
     }
     // This is a remote process we are connecting to
     return this._childProcessConnect();
+  },
+
+  /**
+   * Return a Watcher actor, allowing to keep track of targets which
+   * already exists or will be created. It also helps knowing when they
+   * are destroyed.
+   */
+  getWatcher() {
+    if (!this.watcher) {
+      this.watcher = new WatcherActor(this.conn);
+      this.manage(this.watcher);
+    }
+    return this.watcher;
   },
 
   form() {

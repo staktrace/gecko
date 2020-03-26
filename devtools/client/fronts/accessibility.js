@@ -10,12 +10,18 @@ const {
 } = require("devtools/shared/protocol.js");
 const {
   accessibleSpec,
+  accessibleHighlighterRendererSpec,
   accessibleWalkerSpec,
   accessibilitySpec,
   parentAccessibilitySpec,
   simulatorSpec,
 } = require("devtools/shared/specs/accessibility");
 const events = require("devtools/shared/event-emitter");
+const Services = require("Services");
+const BROWSER_TOOLBOX_FISSION_ENABLED = Services.prefs.getBoolPref(
+  "devtools.browsertoolbox.fission",
+  false
+);
 
 class AccessibleFront extends FrontClassWithSpec(accessibleSpec) {
   constructor(client, targetFront, parentFront) {
@@ -36,6 +42,10 @@ class AccessibleFront extends FrontClassWithSpec(accessibleSpec) {
 
   marshallPool() {
     return this.getParent();
+  }
+
+  get remoteFrame() {
+    return BROWSER_TOOLBOX_FISSION_ENABLED && this._form.remoteFrame;
   }
 
   get role() {
@@ -159,6 +169,29 @@ class AccessibleFront extends FrontClassWithSpec(accessibleSpec) {
       Object.assign(this._form, properties);
     });
   }
+
+  async children() {
+    if (!this.remoteFrame) {
+      return super.children();
+    }
+
+    const { walker: domWalkerFront } = await this.targetFront.getFront(
+      "inspector"
+    );
+    const node = await domWalkerFront.getNodeFromActor(this.actorID, [
+      "rawAccessible",
+      "DOMNode",
+    ]);
+    const {
+      nodes: [documentNodeFront],
+    } = await domWalkerFront.children(node);
+    const accessibilityFront = await documentNodeFront.targetFront.getFront(
+      "accessibility"
+    );
+    await accessibilityFront.bootstrap();
+
+    return accessibilityFront.accessibleWalkerFront.children();
+  }
 }
 
 class AccessibleWalkerFront extends FrontClassWithSpec(accessibleWalkerSpec) {
@@ -172,6 +205,37 @@ class AccessibleWalkerFront extends FrontClassWithSpec(accessibleWalkerSpec) {
     }
 
     return super.pick();
+  }
+
+  async getAncestry(accessible) {
+    const ancestry = await super.getAncestry(accessible);
+    const { descriptorFront } = this.targetFront;
+    const watcher = await descriptorFront.getWatcher();
+    const parentTarget = await watcher.getParentBrowsingContextTarget(
+      this.targetFront.browsingContextID
+    );
+    if (!parentTarget) {
+      return ancestry;
+    }
+
+    const { walker: domWalkerFront } = await this.targetFront.getFront(
+      "inspector"
+    );
+    const frameNodeFront = (await domWalkerFront.getRootNode()).parentNode();
+    const accessibilityFront = await parentTarget.getFront("accessibility");
+    await accessibilityFront.bootstrap();
+    const { accessibleWalkerFront } = accessibilityFront;
+    const frameAccessibleFront = await accessibleWalkerFront.getAccessibleFor(
+      frameNodeFront
+    );
+    ancestry.push(
+      {
+        accessible: frameAccessibleFront,
+        children: await frameAccessibleFront.children(),
+      },
+      ...(await accessibleWalkerFront.getAncestry(frameAccessibleFront))
+    );
+    return ancestry;
   }
 }
 
@@ -261,10 +325,21 @@ class ParentAccessibilityFront extends FrontClassWithSpec(
   }
 }
 
+class AccessibleHighlighterRendererFront extends FrontClassWithSpec(
+  accessibleHighlighterRendererSpec
+) {
+  constructor(client, targetFront, parentFront) {
+    super(client, targetFront, parentFront);
+    this.formAttributeName = "accessibleHighlighterRendererActor";
+  }
+}
+
 const SimulatorFront = FrontClassWithSpec(simulatorSpec);
 
 exports.AccessibleFront = AccessibleFront;
 registerFront(AccessibleFront);
+exports.AccessibleHighlighterRendererFront = AccessibleHighlighterRendererFront;
+registerFront(AccessibleHighlighterRendererFront);
 exports.AccessibleWalkerFront = AccessibleWalkerFront;
 registerFront(AccessibleWalkerFront);
 exports.AccessibilityFront = AccessibilityFront;

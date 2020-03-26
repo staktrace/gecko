@@ -528,11 +528,12 @@ class NodeFront extends FrontClassWithSpec(nodeSpec) {
     if (this._remoteFrameTarget) {
       return this._remoteFrameTarget;
     }
-    // First get the target actor form of this remote frame element
-    const descriptor = await this.targetFront.client.mainRoot.getBrowsingContextDescriptor(
+    // Get the target for this remote frame element
+    const { descriptorFront } = this.targetFront;
+    const watcher = await descriptorFront.getWatcher();
+    this._remoteFrameTarget = await watcher.getBrowsingContextTarget(
       this._form.browsingContextID
     );
-    this._remoteFrameTarget = await descriptor.getTarget();
     return this._remoteFrameTarget;
   }
 

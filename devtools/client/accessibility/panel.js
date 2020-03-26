@@ -108,6 +108,23 @@ AccessibilityPanel.prototype = {
       ],
     });
 
+    if (!this._toolbox.target.isParentProcess) {
+      const accessibilityFronts = await this._toolbox.targetList.getAllFronts(
+        this._toolbox.targetList.TYPES.FRAME,
+        "accessibility"
+      );
+      for (const accessibilityFront of accessibilityFronts) {
+        let { accessibleWalkerFront } = accessibilityFront;
+        if (!accessibleWalkerFront) {
+          await accessibilityFront.bootstrap();
+          ({ accessibleWalkerFront } = accessibilityFront);
+          console.log(
+            `SETTING UP A WALKER FOR FRAME ${accessibleWalkerFront.actorID}`
+          );
+        }
+      }
+    }
+
     this.isReady = true;
     this.emit("ready");
     resolver(this);

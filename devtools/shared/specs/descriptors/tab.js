@@ -15,6 +15,11 @@ const tabDescriptorSpec = generateActorSpec({
         frame: RetVal("json"),
       },
     },
+
+    getWatcher: {
+      request: {},
+      response: RetVal("watcher"),
+    },
   },
 });
 

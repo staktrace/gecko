@@ -789,6 +789,10 @@
 
 /* Accessible highlighter */
 
+:-moz-native-anonymous .accessible-elements {
+  position: absolute;
+}
+
 :-moz-native-anonymous .accessible-infobar {
   min-width: unset;
 }
@@ -819,6 +823,7 @@
 :-moz-native-anonymous .accessible-bounds {
   opacity: 0.6;
   fill: #6a5acd;
+  pointer-events: none;
 }
 
 :-moz-native-anonymous .accessible-infobar-name,
