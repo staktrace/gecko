@@ -8478,3 +8478,18 @@ already_AddRefed<nsIWidget> nsIWidget::CreateChildWindow() {
   nsCOMPtr<nsIWidget> window = new nsWindow(true);
   return window.forget();
 }
+
+void nsWindow::ListenForVsync() {
+  if (mVsyncListener != null) {
+    return;
+  }
+  mVsyncListener = new My_VsyncObserver_Impl();
+  gfxWindowsPlatform::GetPlatform()->GetHardwareVsync()->AddGenericObserver(mVsyncListener);
+}
+
+void nsWindow::StopListening() {
+  if (mVsyncListener != null) {
+    gfxWindowsPlatform::GetPlatform()->GetHardwareVsync()->RemoveGenericObserver(mVsyncListener);
+    mVsyncListener = null;
+  }
+}

@@ -58,6 +58,9 @@ class VsyncSource {
         CompositorVsyncDispatcher* aCompositorVsyncDispatcher);
     void DisableCompositorVsyncDispatcher(
         CompositorVsyncDispatcher* aCompositorVsyncDispatcher);
+    void AddGenericObserver(VsyncObserver* aObserver);
+    void RemoveGenericObserver(VsyncObserver* aObserver);
+
     void MoveListenersToNewSource(const RefPtr<VsyncSource>& aNewSource);
     void NotifyRefreshTimerVsyncStatus(bool aEnable);
     virtual TimeDuration GetVsyncRate();
@@ -78,7 +81,9 @@ class VsyncSource {
     nsTArray<RefPtr<CompositorVsyncDispatcher>>
         mRegisteredCompositorVsyncDispatchers;
     RefPtr<RefreshTimerVsyncDispatcher> mRefreshTimerVsyncDispatcher;
+    nsTArray<RefPtr<VsyncObserver>> mGenericObservers; // can only be touched from the main thread
     VsyncId mVsyncId;
+    VsyncId mLastMainThreadProcessedVsyncId; // hold mDispatcherLock to touch
   };
 
   void EnableCompositorVsyncDispatcher(
@@ -89,6 +94,14 @@ class VsyncSource {
       CompositorVsyncDispatcher* aCompositorVsyncDispatcher);
   void DeregisterCompositorVsyncDispatcher(
       CompositorVsyncDispatcher* aCompositorVsyncDispatcher);
+
+  // Add and remove a generic observer for vsync. Note that keeping an observer
+  // registered means vsync will keep firing, which may impact power usage. So
+  // this is intended only for "short term" vsync observers. These methods must
+  // be called on the parent process main thread, and the observer will likewise
+  // be notified on the parent process main thread.
+  void AddGenericObserver(VsyncObserver* aObserver);
+  void RemoveGenericObserver(VsyncObserver* aObserver);
 
   void MoveListenersToNewSource(const RefPtr<VsyncSource>& aNewSource);
 
