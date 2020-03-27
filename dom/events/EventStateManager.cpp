@@ -1292,9 +1292,11 @@ void EventStateManager::DispatchCrossProcessEvent(WidgetEvent* aEvent,
     // else there is a race between layout and focus tracking,
     // so fall back to delivering the event to the topmost child process.
   } else if (aEvent->mLayersId.IsValid()) {
+    printf_stderr("APZ provided a layers id of 0x%" PRIx64 "\n", aEvent->mLayersId.mId);
     BrowserParent* preciseRemote =
         BrowserParent::GetBrowserParentFromLayersId(aEvent->mLayersId);
     if (preciseRemote) {
+      printf_stderr("Found precise remote\n");
       remote = preciseRemote;
     }
     // else there is a race between APZ and the LayersId to BrowserParent
