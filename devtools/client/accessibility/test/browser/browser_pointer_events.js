@@ -11,15 +11,11 @@ srcURL.searchParams.append(
       <meta charset="utf-8"/>
       <title>OOP Document</title>
     </head>
-    <body><h1>Top level header</h1><p>This is a paragraph.</p></body>
+    <body></body>
   </html>`
 );
-
-let url = `<iframe title="OOP IFrame" src="${srcURL.href}"/>
-  <script>
-    document.addEventListener("mousemove", () => console.log("TOP"));
-  </script>`;
-url = `data:text/html;charset=UTF-8,${encodeURIComponent(url)}`;
+const iframeHTML = `<iframe title="OOP IFrame" src="${srcURL.href}"/>`;
+const url = `data:text/html;charset=UTF-8,${encodeURIComponent(iframeHTML)}`;
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const STYLES_SHEET = `data:text/css;charset=utf-8,
@@ -33,30 +29,6 @@ const STYLES_SHEET = `data:text/css;charset=utf-8,
 .test-path {
   opacity: 0.6;
 }`;
-
-requestLongerTimeout(5);
-
-function invokeContentTask(browser, args, task, runInIframe = false) {
-  return SpecialPowers.spawn(
-    browser,
-    [runInIframe, task.toString(), ...args],
-    (runInIframeFlag, contentTask, ...contentArgs) => {
-      // eslint-disable-next-line no-eval
-      const runnableTask = eval(`
-      (() => {
-        return (${contentTask});
-      })();`);
-      let frame;
-      if (runInIframeFlag) {
-        frame = content.document.getElementsByTagName("iframe")[0];
-      }
-
-      return frame
-        ? SpecialPowers.spawn(frame, contentArgs, runnableTask)
-        : runnableTask.call(this, ...contentArgs);
-    }
-  );
-}
 
 add_task(async () => {
   const tab = BrowserTestUtils.addTab(gBrowser, url);
@@ -86,8 +58,6 @@ add_task(async () => {
     iframe.contentWindow.windowUtils.AGENT_SHEET
   );
 
-  const { mozInnerScreenX, mozInnerScreenY } = iframe.contentWindow;
-
   const svg = iframe.contentWindow.document.createElementNS(SVG_NS, "svg");
   svg.setAttribute("class", "test-svg");
   const path = iframe.contentWindow.document.createElementNS(SVG_NS, "path");
@@ -99,40 +69,66 @@ add_task(async () => {
     `M${0},${0} L${innerWidth},${0} L${innerWidth},${innerHeight} L${0},${innerHeight}`
   );
   svg.appendChild(path);
-  // iframe.contentWindow.document.body.appendChild(svg);
-  /*const content = */ iframe.contentWindow.document.insertAnonymousContent(
-    svg
-  );
+  iframe.contentWindow.document.insertAnonymousContent(svg);
 
-  await invokeContentTask(
-    browser,
-    [],
-    () => {
-      content.docShell.chromeEventHandler.addEventListener(
-        "mousemove",
-        () => content.console.log("TOP LEVEL"),
-        { capture: true }
-      );
-    },
-    false
-  );
+  const { x, y } = await SpecialPowers.spawn(browser, [], () => {
+    const { left, top, height, width } = content.document
+      .getElementsByTagName("iframe")[0]
+      .getBoundingClientRect();
+    return {
+      x: left + width / 2,
+      y: top + height / 2,
+    };
+  });
 
-  await invokeContentTask(
-    browser,
-    [],
-    () => {
-      return new Promise(resolve => {
-        content.docShell.chromeEventHandler.addEventListener(
-          "mousemove",
-          () => resolve(),
-          { capture: true, once: true }
-        );
-      });
-    },
-    true
-  );
+  // await SpecialPowers.spawn(browser, [], () => {
+  //   content.docShell.chromeEventHandler.addEventListener(
+  //     "click",
+  //     e => {
+  //       content.console.log(
+  //         `top ${e.clientX} ${e.clientY} ${e.pageX} ${e.pageY} ${e.screenX} ${e.screenY}`
+  //       );
+  //     },
+  //     {
+  //       capture: true,
+  //     }
+  //   );
+  // });
 
-  ok(true, "EVENT WORKED");
+  // await SpecialPowers.spawn(browser, [], () => {
+  //   const frame = content.document.getElementsByTagName("iframe")[0];
+  //   return SpecialPowers.spawn(frame, [], () => {
+  //     content.docShell.chromeEventHandler.addEventListener(
+  //       "click",
+  //       e => {
+  //         content.console.log(
+  //           `iframe ${e.clientX} ${e.clientY} ${e.pageX} ${e.pageY} ${e.screenX} ${e.screenY}`
+  //         );
+  //       },
+  //       {
+  //         capture: true,
+  //       }
+  //     );
+  //   });
+  // });
 
-  // await new Promise(resolve => setTimeout(resolve, 1000000));
+  const onMouse = SpecialPowers.spawn(browser, [], () => {
+    const frame = content.document.getElementsByTagName("iframe")[0];
+    return SpecialPowers.spawn(
+      frame,
+      [],
+      () =>
+        new Promise(resolve => {
+          content.docShell.chromeEventHandler.addEventListener(
+            "click",
+            () => resolve(true),
+            { capture: true, once: true }
+          );
+        })
+    );
+  });
+
+  const { left, top } = browser.getBoundingClientRect();
+  EventUtils.synthesizeMouseAtPoint(x + left, y + top, {});
+  ok(await onMouse, "Mouse event was fired in the OOP iframe.");
 });
