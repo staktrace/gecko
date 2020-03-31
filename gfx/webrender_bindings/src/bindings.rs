@@ -3635,7 +3635,7 @@ pub extern "C" fn wr_api_hit_test(
         .hit_tester
         .as_ref()
         .unwrap()
-        .hit_test(None, point, HitTestFlags::empty());
+        .hit_test(None, point, HitTestFlags::FIND_ALL);
 
     for item in &result.items {
         out_results.push(HitResult {
