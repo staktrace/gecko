@@ -113,6 +113,10 @@ add_task(async () => {
   // });
 
   const onMouse = SpecialPowers.spawn(browser, [], () => {
+    content.docShell.chromeEventHandler.addEventListener(
+        "mousedown",
+        (e) => { content.console.log(`browser got hit: ${e.clientX}`); },
+        { capture: true, passive: true, once: true });
     const frame = content.document.getElementsByTagName("iframe")[0];
     return SpecialPowers.spawn(
       frame,
@@ -120,8 +124,11 @@ add_task(async () => {
       () =>
         new Promise(resolve => {
           content.docShell.chromeEventHandler.addEventListener(
-            "click",
-            () => resolve(true),
+            "mousedown",
+            (e) => {
+                content.console.log(`iframe got hit: ${e.clientX}`);
+                resolve(true);
+            },
             { capture: true, once: true }
           );
         })

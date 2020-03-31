@@ -1674,6 +1674,8 @@ mozilla::ipc::IPCResult BrowserChild::RecvNormalPrioritySynthMouseMoveEvent(
 mozilla::ipc::IPCResult BrowserChild::RecvRealMouseButtonEvent(
     const WidgetMouseEvent& aEvent, const ScrollableLayerGuid& aGuid,
     const uint64_t& aInputBlockId) {
+  MOZ_LOG(sApzChildLog, LogLevel::Info, ("Got mouse %s\n",
+ToChar(aEvent.mMessage)));
   if (mCoalesceMouseMoveEvents && mCoalescedMouseEventFlusher &&
       aEvent.mMessage != eMouseMove) {
     // When receiving a mouse event other than mousemove, we have to dispatch
