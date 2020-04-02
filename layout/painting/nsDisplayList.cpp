@@ -6880,13 +6880,12 @@ bool nsDisplayOwnLayer::IsScrollbarContainer() const {
          layers::ScrollbarLayerType::Container;
 }
 
-bool nsDisplayOwnLayer::IsRootScrollbarContainerWithDynamicToolbar() const {
+bool nsDisplayOwnLayer::IsRootScrollbarContainer() const {
   if (!IsScrollbarContainer()) {
     return false;
   }
 
   return mFrame->PresContext()->IsRootContentDocumentCrossProcess() &&
-         mFrame->PresContext()->HasDynamicToolbar() &&
          mScrollbarData.mTargetViewId ==
              nsLayoutUtils::ScrollIdForRootScrollFrame(mFrame->PresContext());
 }
@@ -6897,6 +6896,16 @@ bool nsDisplayOwnLayer::IsZoomingLayer() const {
 
 bool nsDisplayOwnLayer::IsFixedPositionLayer() const {
   return GetType() == DisplayItemType::TYPE_FIXED_POSITION;
+}
+
+bool nsDisplayOwnLayer::HasDynamicToolbar() const {
+  if (!mFrame->PresContext()->IsRootContentDocumentCrossProcess()) {
+    return false;
+  }
+  return mFrame->PresContext()->HasDynamicToolbar() ||
+         // For tests on Android, this pref is set to simulate the dynamic
+         // toolbar
+         StaticPrefs::apz_fixed_margin_override_enabled();
 }
 
 // nsDisplayOpacity uses layers for rendering
@@ -6924,10 +6933,10 @@ bool nsDisplayOwnLayer::CreateWebRenderCommands(
     const StackingContextHelper& aSc, RenderRootStateManager* aManager,
     nsDisplayListBuilder* aDisplayListBuilder) {
   Maybe<wr::WrAnimationProperty> prop;
-  bool needsProp =
-      aManager->LayerManager()->AsyncPanZoomEnabled() &&
-      (IsScrollThumbLayer() || IsZoomingLayer() || IsFixedPositionLayer() ||
-       IsRootScrollbarContainerWithDynamicToolbar());
+  bool needsProp = aManager->LayerManager()->AsyncPanZoomEnabled() &&
+                   (IsScrollThumbLayer() || IsZoomingLayer() ||
+                    (IsFixedPositionLayer() && HasDynamicToolbar()) ||
+                    (IsRootScrollbarContainer() && HasDynamicToolbar()));
 
   if (needsProp) {
     // APZ is enabled and this is a scroll thumb or zooming layer, so we need
@@ -6965,8 +6974,9 @@ bool nsDisplayOwnLayer::CreateWebRenderCommands(
 bool nsDisplayOwnLayer::UpdateScrollData(
     mozilla::layers::WebRenderScrollData* aData,
     mozilla::layers::WebRenderLayerScrollData* aLayerData) {
-  bool isRelevantToApz = (IsScrollThumbLayer() || IsScrollbarContainer() ||
-                          IsZoomingLayer() || IsFixedPositionLayer());
+  bool isRelevantToApz =
+      (IsScrollThumbLayer() || IsScrollbarContainer() || IsZoomingLayer() ||
+       (IsFixedPositionLayer() && HasDynamicToolbar()));
   if (!isRelevantToApz) {
     return false;
   }
@@ -6980,7 +6990,7 @@ bool nsDisplayOwnLayer::UpdateScrollData(
     return true;
   }
 
-  if (IsFixedPositionLayer()) {
+  if (IsFixedPositionLayer() && HasDynamicToolbar()) {
     aLayerData->SetFixedPositionAnimationId(mWrAnimationId);
     return true;
   }
@@ -6989,7 +6999,7 @@ bool nsDisplayOwnLayer::UpdateScrollData(
 
   aLayerData->SetScrollbarData(mScrollbarData);
 
-  if (IsRootScrollbarContainerWithDynamicToolbar()) {
+  if (IsRootScrollbarContainer() && HasDynamicToolbar()) {
     aLayerData->SetScrollbarAnimationId(mWrAnimationId);
     return true;
   }
