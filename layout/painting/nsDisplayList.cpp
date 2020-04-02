@@ -6898,6 +6898,10 @@ bool nsDisplayOwnLayer::IsFixedPositionLayer() const {
   return GetType() == DisplayItemType::TYPE_FIXED_POSITION;
 }
 
+bool nsDisplayOwnLayer::IsStickyPositionLayer() const {
+  return GetType() == DisplayItemType::TYPE_STICKY_POSITION;
+}
+
 bool nsDisplayOwnLayer::HasDynamicToolbar() const {
   if (!mFrame->PresContext()->IsRootContentDocumentCrossProcess()) {
     return false;
@@ -6936,6 +6940,7 @@ bool nsDisplayOwnLayer::CreateWebRenderCommands(
   bool needsProp = aManager->LayerManager()->AsyncPanZoomEnabled() &&
                    (IsScrollThumbLayer() || IsZoomingLayer() ||
                     (IsFixedPositionLayer() && HasDynamicToolbar()) ||
+                    (IsStickyPositionLayer() && HasDynamicToolbar()) ||
                     (IsRootScrollbarContainer() && HasDynamicToolbar()));
 
   if (needsProp) {
@@ -6976,7 +6981,9 @@ bool nsDisplayOwnLayer::UpdateScrollData(
     mozilla::layers::WebRenderLayerScrollData* aLayerData) {
   bool isRelevantToApz =
       (IsScrollThumbLayer() || IsScrollbarContainer() || IsZoomingLayer() ||
-       (IsFixedPositionLayer() && HasDynamicToolbar()));
+       (IsFixedPositionLayer() && HasDynamicToolbar()) ||
+       (IsStickyPositionLayer() && HasDynamicToolbar()));
+
   if (!isRelevantToApz) {
     return false;
   }
@@ -6992,6 +6999,11 @@ bool nsDisplayOwnLayer::UpdateScrollData(
 
   if (IsFixedPositionLayer() && HasDynamicToolbar()) {
     aLayerData->SetFixedPositionAnimationId(mWrAnimationId);
+    return true;
+  }
+
+  if (IsStickyPositionLayer() && HasDynamicToolbar()) {
+    aLayerData->SetStickyPositionAnimationId(mWrAnimationId);
     return true;
   }
 
@@ -7341,7 +7353,8 @@ bool nsDisplayFixedPosition::UpdateScrollData(
     }
     aLayerData->SetFixedPositionScrollContainerId(GetScrollTargetId());
   }
-  return nsDisplayOwnLayer::UpdateScrollData(aData, aLayerData) | true;
+  nsDisplayOwnLayer::UpdateScrollData(aData, aLayerData);
+  return true;
 }
 
 void nsDisplayFixedPosition::WriteDebugInfo(std::stringstream& aStream) {
@@ -7461,23 +7474,11 @@ already_AddRefed<Layer> nsDisplayStickyPosition::BuildLayer(
       stickyScrollContainer->ScrollFrame()->GetScrolledFrame()->GetContent());
 
   float factor = presContext->AppUnitsPerDevPixel();
-  nsRectAbsolute outer;
-  nsRectAbsolute inner;
-  stickyScrollContainer->GetScrollRanges(mFrame, &outer, &inner);
-  LayerRectAbsolute stickyOuter(
-      NSAppUnitsToFloatPixels(outer.X(), factor) * aContainerParameters.mXScale,
-      NSAppUnitsToFloatPixels(outer.Y(), factor) * aContainerParameters.mYScale,
-      NSAppUnitsToFloatPixels(outer.XMost(), factor) *
-          aContainerParameters.mXScale,
-      NSAppUnitsToFloatPixels(outer.YMost(), factor) *
-          aContainerParameters.mYScale);
-  LayerRectAbsolute stickyInner(
-      NSAppUnitsToFloatPixels(inner.X(), factor) * aContainerParameters.mXScale,
-      NSAppUnitsToFloatPixels(inner.Y(), factor) * aContainerParameters.mYScale,
-      NSAppUnitsToFloatPixels(inner.XMost(), factor) *
-          aContainerParameters.mXScale,
-      NSAppUnitsToFloatPixels(inner.YMost(), factor) *
-          aContainerParameters.mYScale);
+  LayerRectAbsolute stickyOuter;
+  LayerRectAbsolute stickyInner;
+  CalculateLayerScrollRanges(
+      stickyScrollContainer, factor, aContainerParameters.mXScale,
+      aContainerParameters.mYScale, stickyOuter, stickyInner);
   layer->SetStickyPositionData(scrollId, stickyOuter, stickyInner);
 
   return layer.forget();
@@ -7497,11 +7498,7 @@ static nscoord DistanceToRange(nscoord min, nscoord max) {
   return 0;
 }
 
-bool nsDisplayStickyPosition::CreateWebRenderCommands(
-    mozilla::wr::DisplayListBuilder& aBuilder,
-    mozilla::wr::IpcResourceUpdateQueue& aResources,
-    const StackingContextHelper& aSc, RenderRootStateManager* aManager,
-    nsDisplayListBuilder* aDisplayListBuilder) {
+StickyScrollContainer* nsDisplayStickyPosition::GetStickyScrollContainer() {
   StickyScrollContainer* stickyScrollContainer =
       StickyScrollContainer::GetStickyScrollContainerForFrame(mFrame);
   if (stickyScrollContainer) {
@@ -7521,6 +7518,15 @@ bool nsDisplayStickyPosition::CreateWebRenderCommands(
       stickyScrollContainer = nullptr;
     }
   }
+  return stickyScrollContainer;
+}
+
+bool nsDisplayStickyPosition::CreateWebRenderCommands(
+    mozilla::wr::DisplayListBuilder& aBuilder,
+    mozilla::wr::IpcResourceUpdateQueue& aResources,
+    const StackingContextHelper& aSc, RenderRootStateManager* aManager,
+    nsDisplayListBuilder* aDisplayListBuilder) {
+  StickyScrollContainer* stickyScrollContainer = GetStickyScrollContainer();
 
   Maybe<wr::SpaceAndClipChainHelper> saccHelper;
 
@@ -7656,7 +7662,7 @@ bool nsDisplayStickyPosition::CreateWebRenderCommands(
         wr::WrStackingContextClip::ClipChain(aBuilder.CurrentClipChainId());
     StackingContextHelper sc(aSc, GetActiveScrolledRoot(), mFrame, this,
                              aBuilder, params);
-    nsDisplayWrapList::CreateWebRenderCommands(aBuilder, aResources, sc,
+    nsDisplayOwnLayer::CreateWebRenderCommands(aBuilder, aResources, sc,
                                                aManager, aDisplayListBuilder);
   }
 
@@ -7665,6 +7671,62 @@ bool nsDisplayStickyPosition::CreateWebRenderCommands(
   }
 
   return true;
+}
+
+void nsDisplayStickyPosition::CalculateLayerScrollRanges(
+    StickyScrollContainer* aStickyScrollContainer, float aAppUnitsPerDevPixel,
+    float aScaleX, float aScaleY, LayerRectAbsolute& aStickyOuter,
+    LayerRectAbsolute& aStickyInner) {
+  nsRectAbsolute outer;
+  nsRectAbsolute inner;
+  aStickyScrollContainer->GetScrollRanges(mFrame, &outer, &inner);
+  aStickyOuter.SetBox(
+      NSAppUnitsToFloatPixels(outer.X(), aAppUnitsPerDevPixel) * aScaleX,
+      NSAppUnitsToFloatPixels(outer.Y(), aAppUnitsPerDevPixel) * aScaleY,
+      NSAppUnitsToFloatPixels(outer.XMost(), aAppUnitsPerDevPixel) * aScaleX,
+      NSAppUnitsToFloatPixels(outer.YMost(), aAppUnitsPerDevPixel) * aScaleY);
+  aStickyInner.SetBox(
+      NSAppUnitsToFloatPixels(inner.X(), aAppUnitsPerDevPixel) * aScaleX,
+      NSAppUnitsToFloatPixels(inner.Y(), aAppUnitsPerDevPixel) * aScaleY,
+      NSAppUnitsToFloatPixels(inner.XMost(), aAppUnitsPerDevPixel) * aScaleX,
+      NSAppUnitsToFloatPixels(inner.YMost(), aAppUnitsPerDevPixel) * aScaleY);
+}
+
+bool nsDisplayStickyPosition::UpdateScrollData(
+    mozilla::layers::WebRenderScrollData* aData,
+    mozilla::layers::WebRenderLayerScrollData* aLayerData) {
+  bool hasDynamicToolbar = HasDynamicToolbar();
+  if (aLayerData && hasDynamicToolbar) {
+    StickyScrollContainer* stickyScrollContainer = GetStickyScrollContainer();
+    if (stickyScrollContainer) {
+      float auPerDevPixel = mFrame->PresContext()->AppUnitsPerDevPixel();
+      float cumulativeResolution =
+          mFrame->PresShell()->GetCumulativeResolution();
+      LayerRectAbsolute stickyOuter;
+      LayerRectAbsolute stickyInner;
+      CalculateLayerScrollRanges(stickyScrollContainer, auPerDevPixel,
+                                 cumulativeResolution, cumulativeResolution,
+                                 stickyOuter, stickyInner);
+      aLayerData->SetStickyScrollRangeOuter(stickyOuter);
+      aLayerData->SetStickyScrollRangeInner(stickyInner);
+
+      SideBits sides =
+          nsLayoutUtils::GetSideBitsForFixedPositionContent(mFrame);
+      aLayerData->SetFixedPositionSides(sides);
+
+      ViewID scrollId =
+          nsLayoutUtils::FindOrCreateIDFor(stickyScrollContainer->ScrollFrame()
+                                               ->GetScrolledFrame()
+                                               ->GetContent());
+      aLayerData->SetStickyPositionScrollContainerId(scrollId);
+    }
+  }
+  // Return true if either there is a dynamic toolbar affecting this sticky
+  // item or the OwnLayer base implementation returns true for some other
+  // reason.
+  bool ret = hasDynamicToolbar;
+  ret |= nsDisplayOwnLayer::UpdateScrollData(aData, aLayerData);
+  return ret;
 }
 
 nsDisplayScrollInfoLayer::nsDisplayScrollInfoLayer(
