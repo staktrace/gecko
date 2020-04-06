@@ -1447,21 +1447,22 @@ void nsBaseWidget::ResizeClient(const DesktopSize& aSize, bool aRepaint) {
   NS_ASSERTION((aSize.width >= 0), "Negative width passed to ResizeClient");
   NS_ASSERTION((aSize.height >= 0), "Negative height passed to ResizeClient");
 
+  LayoutDeviceIntRect bounds = GetBounds();
   LayoutDeviceIntRect clientBounds = GetClientBounds();
 
-  // GetClientBounds and mBounds are device pixels; scale back to desktop pixels
+  // GetClientBounds and GetBounds are device pixels; scale back to desktop pixels
   // if that's what this widget uses for the Move/Resize APIs
   if (BoundsUseDesktopPixels()) {
     DesktopSize desktopDelta =
-        (LayoutDeviceIntSize(mBounds.Width(), mBounds.Height()) -
+        (LayoutDeviceIntSize(bounds.Width(), bounds.Height()) -
          clientBounds.Size()) /
         GetDesktopToDeviceScale();
     Resize(aSize.width + desktopDelta.width, aSize.height + desktopDelta.height,
            aRepaint);
   } else {
     LayoutDeviceSize layoutSize = aSize * GetDesktopToDeviceScale();
-    Resize(mBounds.Width() + (layoutSize.width - clientBounds.Width()),
-           mBounds.Height() + (layoutSize.height - clientBounds.Height()),
+    Resize(bounds.Width() + (layoutSize.width - clientBounds.Width()),
+           bounds.Height() + (layoutSize.height - clientBounds.Height()),
            aRepaint);
   }
 }
@@ -1470,6 +1471,7 @@ void nsBaseWidget::ResizeClient(const DesktopRect& aRect, bool aRepaint) {
   NS_ASSERTION((aRect.Width() >= 0), "Negative width passed to ResizeClient");
   NS_ASSERTION((aRect.Height() >= 0), "Negative height passed to ResizeClient");
 
+  LayoutDeviceIntRect bounds = GetBounds();
   LayoutDeviceIntRect clientBounds = GetClientBounds();
   LayoutDeviceIntPoint clientOffset = GetClientOffset();
   DesktopToLayoutDeviceScale scale = GetDesktopToDeviceScale();
@@ -1477,7 +1479,7 @@ void nsBaseWidget::ResizeClient(const DesktopRect& aRect, bool aRepaint) {
   if (BoundsUseDesktopPixels()) {
     DesktopPoint desktopOffset = clientOffset / scale;
     DesktopSize desktopDelta =
-        (LayoutDeviceIntSize(mBounds.Width(), mBounds.Height()) -
+        (LayoutDeviceIntSize(bounds.Width(), bounds.Height()) -
          clientBounds.Size()) /
         scale;
     Resize(aRect.X() - desktopOffset.x, aRect.Y() - desktopOffset.y,
@@ -1486,8 +1488,8 @@ void nsBaseWidget::ResizeClient(const DesktopRect& aRect, bool aRepaint) {
   } else {
     LayoutDeviceRect layoutRect = aRect * scale;
     Resize(layoutRect.X() - clientOffset.x, layoutRect.Y() - clientOffset.y,
-           layoutRect.Width() + mBounds.Width() - clientBounds.Width(),
-           layoutRect.Height() + mBounds.Height() - clientBounds.Height(),
+           layoutRect.Width() + bounds.Width() - clientBounds.Width(),
+           layoutRect.Height() + bounds.Height() - clientBounds.Height(),
            aRepaint);
   }
 }
