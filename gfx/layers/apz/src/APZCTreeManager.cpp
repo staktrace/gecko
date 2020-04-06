@@ -827,6 +827,9 @@ void APZCTreeManager::SampleForWebRender(
 
   for (const FixedPositionInfo& info : mFixedPositionInfo) {
     MOZ_ASSERT(info.mFixedPositionAnimationId.isSome());
+    if (!IsFixedToRootContent(info, lock)) {
+      continue;
+    }
 
     ScreenPoint translation =
         AsyncCompositionManager::ComputeFixedMarginsOffset(
@@ -843,6 +846,9 @@ void APZCTreeManager::SampleForWebRender(
 
   for (const StickyPositionInfo& info : mStickyPositionInfo) {
     MOZ_ASSERT(info.mStickyPositionAnimationId.isSome());
+    if (!IsStuckToRootContent(info, lock)) {
+      continue;
+    }
 
     ScreenPoint translation =
         AsyncCompositionManager::ComputeFixedMarginsOffset(
