@@ -683,9 +683,9 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
   // The map lock is required within these functions; if the map lock is already
   // being held by the caller, the second overload should be used. If the map
   // lock is not being held at the call site, the first overload should be used.
-  bool IsStuckToRootContentAtBottom(const HitTestingTreeNode* aNode) const;
-  bool IsStuckToRootContentAtBottom(const StickyPositionInfo& aStickyInfo,
-                                    const MutexAutoLock& aProofOfMapLock) const;
+  bool IsStuckToRootContent(const HitTestingTreeNode* aNode) const;
+  bool IsStuckToRootContent(const StickyPositionInfo& aStickyInfo,
+                            const MutexAutoLock& aProofOfMapLock) const;
 
   /**
    * Perform hit testing for a touch-start event.

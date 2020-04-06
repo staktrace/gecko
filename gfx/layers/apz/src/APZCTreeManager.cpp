@@ -3471,13 +3471,13 @@ bool APZCTreeManager::IsFixedToRootContent(
   return targetApzc && targetApzc->IsRootContent();
 }
 
-bool APZCTreeManager::IsStuckToRootContentAtBottom(
+bool APZCTreeManager::IsStuckToRootContent(
     const HitTestingTreeNode* aNode) const {
   MutexAutoLock lock(mMapLock);
-  return IsStuckToRootContentAtBottom(StickyPositionInfo(aNode), lock);
+  return IsStuckToRootContent(StickyPositionInfo(aNode), lock);
 }
 
-bool APZCTreeManager::IsStuckToRootContentAtBottom(
+bool APZCTreeManager::IsStuckToRootContent(
     const StickyPositionInfo& aStickyInfo,
     const MutexAutoLock& aProofOfMapLock) const {
   ScrollableLayerGuid::ViewID stickyTarget = aStickyInfo.mStickyPosTarget;
@@ -3511,7 +3511,10 @@ bool APZCTreeManager::IsStuckToRootContentAtBottom(
           .mTranslation;
   return apz::IsStuckAtBottom(translation.y,
                               aStickyInfo.mStickyScrollRangeInner,
-                              aStickyInfo.mStickyScrollRangeOuter);
+                              aStickyInfo.mStickyScrollRangeOuter) ||
+         apz::IsStuckAtTop(translation.y,
+                           aStickyInfo.mStickyScrollRangeInner,
+                           aStickyInfo.mStickyScrollRangeOuter);
 }
 
 LayerToParentLayerMatrix4x4 APZCTreeManager::ComputeTransformForNode(
@@ -3593,14 +3596,14 @@ LayerToParentLayerMatrix4x4 APZCTreeManager::ComputeTransformForNode(
     return aNode->GetTransform() *
            CompleteAsyncTransform(
                AsyncTransformComponentMatrix::Translation(translation));
-  } else if (IsStuckToRootContentAtBottom(aNode)) {
+  } else if (IsStuckToRootContent(aNode)) {
     ParentLayerPoint translation;
     {
       MutexAutoLock mapLock(mMapLock);
       translation = ViewAs<ParentLayerPixel>(
           AsyncCompositionManager::ComputeFixedMarginsOffset(
               GetCompositorFixedLayerMargins(mapLock),
-              aNode->GetFixedPosSides() & SideBits::eTopBottom,
+              aNode->GetFixedPosSides(),
               // For sticky layers, we don't need to factor
               // mGeckoFixedLayerMargins because Gecko doesn't shift the
               // position of sticky elements for dynamic toolbar movements.
