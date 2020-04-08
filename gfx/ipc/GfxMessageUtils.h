@@ -589,7 +589,7 @@ struct ParamTraits<mozilla::gfx::RectAbsoluteTyped<T>> {
 
     bool retVal = (ReadParam(msg, iter, &l) && ReadParam(msg, iter, &r) &&
                    ReadParam(msg, iter, &t) && ReadParam(msg, iter, &b));
-    result->SetBox(l, r, t, b);
+    result->SetBox(l, t, r, b);
     return retVal;
   }
 };
