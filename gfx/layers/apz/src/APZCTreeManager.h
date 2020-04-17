@@ -1066,6 +1066,9 @@ class APZCTreeManager : public IAPZCTreeManager, public APZInputBridge {
   // This must only be touched on the controller thread.
   float mDPI;
 
+  // This must only be touched on the sampler thread.
+  Maybe<TimeStamp> mLastWRSampleTime;
+
 #if defined(MOZ_WIDGET_ANDROID)
  public:
   AndroidDynamicToolbarAnimator* GetAndroidDynamicToolbarAnimator();

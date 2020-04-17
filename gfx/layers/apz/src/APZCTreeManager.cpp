@@ -711,6 +711,18 @@ void APZCTreeManager::SampleForWebRender(
     wr::RenderRoot aRenderRoot,
     const wr::WrPipelineIdEpochs* aEpochsBeingRendered) {
   AssertOnSamplerThread();
+
+  if (mLastWRSampleTime && *mLastWRSampleTime == aSampleTime) {
+    // We already advanced animations to aSampleTime the last time this function
+    // was called with aSampleTime, so if we sample the APZ state here, it will
+    // actually give different results than last time. This is undesirable since
+    // we're in the same vsync interval as the last call, which means we'll
+    // get non-smooth rendering. Instead just bail out and don't resample until
+    // the next vsync interval.
+    return;
+  }
+  mLastWRSampleTime = Some(aSampleTime);
+
   MutexAutoLock lock(mMapLock);
 
   nsTArray<wr::WrTransformProperty> transforms;
