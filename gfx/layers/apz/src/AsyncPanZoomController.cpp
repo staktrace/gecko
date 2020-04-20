@@ -322,13 +322,6 @@ typedef PlatformSpecificStateBase
  * NOTE: Should not be set to anything
  * other than 0.0 for Android except for tests to disable flings.
  *
- * \li\b apz.frame_delay.enabled
- * If this is set to true, changes to the async scroll offset and async zoom
- * will not be immediately reflected in GetCurrentAsyncTransform() when called
- * with |AsyncTransformConsumer::eForCompositing|. Rather, the transform will
- * reflect the value of the async scroll offset and async zoom at the last time
- * SampleCompositedAsyncTransform() was called.
- *
  * \li\b apz.keyboard.enabled
  * Determines whether scrolling with the keyboard will be allowed to be handled
  * by APZ.
@@ -3163,12 +3156,7 @@ void AsyncPanZoomController::UpdateWithTouchAtDevicePoint(
 }
 
 Maybe<CompositionPayload> AsyncPanZoomController::NotifyScrollSampling() {
-  if (StaticPrefs::apz_frame_delay_enabled()) {
-    return std::move(mCompositedScrollPayload);
-  }
-  // If frame.delay disabled, the triggering events are those
-  // from the most recent frame
-  return std::move(mScrollPayload);
+  return std::move(mCompositedScrollPayload);
 }
 
 bool AsyncPanZoomController::AttemptScroll(
@@ -4232,7 +4220,7 @@ CSSRect AsyncPanZoomController::GetEffectiveLayoutViewport(
   if (aMode == eForCompositing && mScrollMetadata.IsApzForceDisabled()) {
     return mLastContentPaintMetrics.GetLayoutViewport();
   }
-  if (aMode == eForCompositing && StaticPrefs::apz_frame_delay_enabled()) {
+  if (aMode == eForCompositing) {
     return mCompositedLayoutViewport;
   }
   return Metrics().GetLayoutViewport();
@@ -4243,7 +4231,7 @@ CSSPoint AsyncPanZoomController::GetEffectiveScrollOffset(
   if (aMode == eForCompositing && mScrollMetadata.IsApzForceDisabled()) {
     return mLastContentPaintMetrics.GetVisualViewportOffset();
   }
-  if (aMode == eForCompositing && StaticPrefs::apz_frame_delay_enabled()) {
+  if (aMode == eForCompositing) {
     return mCompositedScrollOffset;
   }
   return Metrics().GetScrollOffset();
@@ -4254,7 +4242,7 @@ CSSToParentLayerScale2D AsyncPanZoomController::GetEffectiveZoom(
   if (aMode == eForCompositing && mScrollMetadata.IsApzForceDisabled()) {
     return mLastContentPaintMetrics.GetZoom();
   }
-  if (aMode == eForCompositing && StaticPrefs::apz_frame_delay_enabled()) {
+  if (aMode == eForCompositing) {
     return mCompositedZoom;
   }
   return Metrics().GetZoom();
