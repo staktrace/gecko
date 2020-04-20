@@ -713,6 +713,24 @@ void APZCTreeManager::SampleForWebRender(
   AssertOnSamplerThread();
   MutexAutoLock lock(mMapLock);
 
+  // Advance animations. It's important that this happens before
+  // sampling all async transforms, so that AdvanceAnimations() updates
+  // the effective scroll offset to the value it should have for this
+  // composite.
+  bool activeAnimations =
+      AdvanceAnimationsInternal(lock, Some(aRenderRoot), aSampleTime);
+  if (activeAnimations) {
+    RefPtr<CompositorController> controller;
+    CompositorBridgeParent::CallWithIndirectShadowTree(
+        mRootLayersId, [&](LayerTreeState& aState) -> void {
+          controller = aState.GetCompositorController();
+        });
+    if (controller) {
+      controller->ScheduleRenderOnCompositorThread(
+          wr::RenderRootSet(aRenderRoot));
+    }
+  }
+
   nsTArray<wr::WrTransformProperty> transforms;
 
   // Sample async transforms on scrollable layers.
@@ -892,24 +910,6 @@ void APZCTreeManager::SampleForWebRender(
   }
 
   aTxn.AppendTransformProperties(transforms);
-
-  // Advance animations. It's important that this happens after
-  // sampling all async transforms, because AdvanceAnimations() updates
-  // the effective scroll offset to the value it should have for the *next*
-  // composite after this one.
-  bool activeAnimations =
-      AdvanceAnimationsInternal(lock, Some(aRenderRoot), aSampleTime);
-  if (activeAnimations) {
-    RefPtr<CompositorController> controller;
-    CompositorBridgeParent::CallWithIndirectShadowTree(
-        mRootLayersId, [&](LayerTreeState& aState) -> void {
-          controller = aState.GetCompositorController();
-        });
-    if (controller) {
-      controller->ScheduleRenderOnCompositorThread(
-          wr::RenderRootSet(aRenderRoot));
-    }
-  }
 }
 
 bool APZCTreeManager::AdvanceAnimations(Maybe<wr::RenderRoot> aRenderRoot,

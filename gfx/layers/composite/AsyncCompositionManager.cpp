@@ -1481,6 +1481,12 @@ bool AsyncCompositionManager::TransformShadowTree(
   mPreviousFrameTimeStamp = wantNextFrame ? aCurrentFrame : TimeStamp();
 
   if (!(aSkip & CompositorBridgeParentBase::TransformsToSkip::APZ)) {
+    bool apzAnimating = false;
+    if (RefPtr<APZSampler> apz = mCompositorBridge->GetAPZSampler()) {
+      apzAnimating = apz->AdvanceAnimations(aCurrentFrame);
+    }
+    wantNextFrame |= apzAnimating;
+
     // Apply an async content transform to any layer that has
     // an async pan zoom controller.
     bool foundRoot = false;
@@ -1493,12 +1499,6 @@ bool AsyncCompositionManager::TransformShadowTree(
       }
 #endif
     }
-
-    bool apzAnimating = false;
-    if (RefPtr<APZSampler> apz = mCompositorBridge->GetAPZSampler()) {
-      apzAnimating = apz->AdvanceAnimations(nextFrame);
-    }
-    wantNextFrame |= apzAnimating;
   }
 
   HostLayer* rootComposite = root->AsHostLayer();

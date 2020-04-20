@@ -1169,12 +1169,6 @@ void WebRenderBridgeParent::SetAPZSampleTime() {
   if (RefPtr<APZSampler> apz = cbp->GetAPZSampler()) {
     TimeStamp animationTime = cbp->GetTestingTimeStamp().valueOr(
         mCompositorScheduler->GetLastComposeTime());
-    TimeDuration frameInterval = cbp->GetVsyncInterval();
-    // As with the non-webrender codepath in AsyncCompositionManager, we want to
-    // use the timestamp for the next vsync when advancing animations.
-    if (frameInterval != TimeDuration::Forever()) {
-      animationTime += frameInterval;
-    }
     apz->SetSampleTime(animationTime);
   }
 }
