@@ -5445,7 +5445,8 @@ bool nsDisplayCompositorHitTestInfo::CreateWebRenderCommands(
 
   // Insert a transparent rectangle with the hit-test info
   aBuilder.SetHitTestInfo(scrollId, HitTestFlags(),
-                          sideBits.valueOr(SideBits::eNone));
+                          sideBits.valueOr(SideBits::eNone),
+                          (void*)this);
 
   const LayoutDeviceRect devRect =
       LayoutDeviceRect::FromAppUnits(HitTestArea(), mAppUnitsPerDevPixel);
@@ -7790,7 +7791,7 @@ bool nsDisplayScrollInfoLayer::CreateWebRenderCommands(
   ScrollableLayerGuid::ViewID scrollId =
       nsLayoutUtils::FindOrCreateIDFor(mScrollFrame->GetContent());
 
-  aBuilder.SetHitTestInfo(scrollId, mHitInfo, SideBits::eNone);
+  aBuilder.SetHitTestInfo(scrollId, mHitInfo, SideBits::eNone, (void*)this);
   const LayoutDeviceRect devRect = LayoutDeviceRect::FromAppUnits(
       mHitArea, mScrollFrame->PresContext()->AppUnitsPerDevPixel());
 

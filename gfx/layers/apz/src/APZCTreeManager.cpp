@@ -2811,8 +2811,9 @@ APZCTreeManager::HitTestResult APZCTreeManager::GetAPZCAtPointWR(
   Maybe<wr::WrHitResult> chosenResult;
   for (const wr::WrHitResult& result : results) {
     ScrollableLayerGuid guid{result.mLayersId, 0, result.mScrollId};
-    APZCTM_LOG("Examining result with guid %s hit info 0x%d... ",
-               Stringify(guid).c_str(), result.mHitInfo.serialize());
+    APZCTM_LOG("Examining result with guid %s hit info 0x%d from blob %p... ",
+               Stringify(guid).c_str(), result.mHitInfo.serialize(),
+               result.mBlob);
     if (result.mHitInfo == CompositorHitTestInvisibleToHit) {
       APZCTM_LOG("skipping due to invisibility.\n");
       continue;

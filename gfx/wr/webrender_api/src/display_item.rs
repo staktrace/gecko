@@ -27,7 +27,7 @@ use crate::units::*;
 /// movement. In Gecko, the first is a scrollframe identifier, while the second
 /// is used to store various flags that APZ needs to properly process input
 /// events.
-pub type ItemTag = (u64, u16);
+pub type ItemTag = (u64, u16, usize);
 
 /// An identifier used to refer to previously sent display items. Currently it
 /// refers to individual display items, but this may change later.

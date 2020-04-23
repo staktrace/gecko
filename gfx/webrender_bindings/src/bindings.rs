@@ -3600,8 +3600,8 @@ pub unsafe extern "C" fn wr_api_finalize_builder(
 }
 
 #[no_mangle]
-pub extern "C" fn wr_set_item_tag(state: &mut WrState, scroll_id: u64, hit_info: u16) {
-    state.current_tag = Some((scroll_id, hit_info));
+pub extern "C" fn wr_set_item_tag(state: &mut WrState, scroll_id: u64, hit_info: u16, blob: usize) {
+    state.current_tag = Some((scroll_id, hit_info, blob));
 }
 
 #[no_mangle]
@@ -3614,6 +3614,7 @@ pub struct HitResult {
     pipeline_id: WrPipelineId,
     scroll_id: u64,
     hit_info: u16,
+    blob: usize,
 }
 
 #[no_mangle]
@@ -3631,6 +3632,7 @@ pub extern "C" fn wr_api_hit_test(dh: &mut DocumentHandle, point: WorldPoint, ou
             pipeline_id: item.pipeline,
             scroll_id: item.tag.0,
             hit_info: item.tag.1,
+            blob: item.tag.2,
         });
     }
 }

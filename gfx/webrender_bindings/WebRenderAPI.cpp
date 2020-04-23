@@ -480,6 +480,7 @@ std::vector<WrHitResult> WebRenderAPI::HitTest(const wr::WorldPoint& aPoint) {
         static_cast<layers::ScrollableLayerGuid::ViewID>(wrResult.scroll_id);
     geckoResult.mSideBits = ExtractSideBitsFromHitInfoBits(wrResult.hit_info);
     geckoResult.mHitInfo.deserialize(wrResult.hit_info);
+    geckoResult.mBlob = (void*)wrResult.blob;
     geckoResults.push_back(geckoResult);
   }
   return geckoResults;
@@ -1564,7 +1565,8 @@ uint16_t SideBitsToHitInfoBits(SideBits aSideBits) {
 
 void DisplayListBuilder::SetHitTestInfo(
     const layers::ScrollableLayerGuid::ViewID& aScrollId,
-    gfx::CompositorHitTestInfo aHitInfo, SideBits aSideBits) {
+    gfx::CompositorHitTestInfo aHitInfo, SideBits aSideBits,
+    void* aBlob) {
   static_assert(gfx::DoesCompositorHitTestInfoFitIntoBits<12>(),
                 "CompositorHitTestFlags MAX value has to be less than number "
                 "of bits in uint16_t minus 4 for SideBitsPacked");
@@ -1572,7 +1574,7 @@ void DisplayListBuilder::SetHitTestInfo(
   uint16_t hitInfoBits = static_cast<uint16_t>(aHitInfo.serialize()) |
                          SideBitsToHitInfoBits(aSideBits);
 
-  wr_set_item_tag(mWrState, aScrollId, hitInfoBits);
+  wr_set_item_tag(mWrState, aScrollId, hitInfoBits, (uintptr_t)aBlob);
 }
 
 void DisplayListBuilder::ClearHitTestInfo() { wr_clear_item_tag(mWrState); }

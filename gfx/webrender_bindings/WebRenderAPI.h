@@ -84,6 +84,7 @@ struct WrHitResult {
   layers::ScrollableLayerGuid::ViewID mScrollId;
   gfx::CompositorHitTestInfo mHitInfo;
   SideBits mSideBits;
+  void* mBlob;
 };
 
 class TransactionBuilder final {
@@ -650,7 +651,8 @@ class DisplayListBuilder final {
   // Set the hit-test info to be used for all display items until the next call
   // to SetHitTestInfo or ClearHitTestInfo.
   void SetHitTestInfo(const layers::ScrollableLayerGuid::ViewID& aScrollId,
-                      gfx::CompositorHitTestInfo aHitInfo, SideBits aSideBits);
+                      gfx::CompositorHitTestInfo aHitInfo, SideBits aSideBits,
+                      void* aBlob);
   // Clears the hit-test info so that subsequent display items will not have it.
   void ClearHitTestInfo();
 

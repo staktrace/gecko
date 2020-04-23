@@ -303,6 +303,7 @@ struct DIGroup {
   gfx::Size mScale;
   ScrollableLayerGuid::ViewID mScrollId;
   CompositorHitTestInfo mHitInfo;
+  void* mBlob;
   LayerPoint mResidualOffset;
   LayerIntRect mLayerBounds;  // mGroupBounds converted to Layer space
   // mLayerBounds clipped to the container/parent of the
@@ -315,7 +316,8 @@ struct DIGroup {
   DIGroup()
       : mAppUnitsPerDevPixel(0),
         mScrollId(ScrollableLayerGuid::NULL_SCROLL_ID),
-        mHitInfo(CompositorHitTestInvisibleToHit) {}
+        mHitInfo(CompositorHitTestInvisibleToHit),
+        mBlob(nullptr) {}
 
   void InvalidateRect(const IntRect& aRect) {
     auto r = aRect.Intersect(mPreservedRect);
@@ -757,7 +759,7 @@ struct DIGroup {
     // cf. Bug 1455422.
     // wr::LayoutRect clip = wr::ToLayoutRect(bounds.Intersect(mVisibleRect));
 
-    aBuilder.SetHitTestInfo(mScrollId, hitInfo, SideBits::eNone);
+    aBuilder.SetHitTestInfo(mScrollId, hitInfo, SideBits::eNone, mBlob);
     aBuilder.PushImage(dest, dest, !backfaceHidden,
                        wr::ToImageRendering(sampleFilter),
                        wr::AsImageKey(mKey.value().second));
@@ -1488,6 +1490,7 @@ void WebRenderCommandBuilder::DoGroupingForDisplayList(
                      .PostTranslate(residualOffset.x, residualOffset.y);
   group.mScale = scale;
   group.mScrollId = scrollId;
+  group.mBlob = (void*)aWrappingItem;
   g.ConstructGroups(aDisplayListBuilder, this, aBuilder, aResources, &group,
                     aList, aSc);
   mClipManager.EndList(aSc);
