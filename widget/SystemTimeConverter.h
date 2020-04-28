@@ -89,7 +89,9 @@ class SystemTimeConverter {
     //                                               deltaFromNow
     //
     Time deltaFromNow;
-    bool newer = IsTimeNewerThanTimestamp(aTime, roughlyNow, &deltaFromNow);
+    TimeDuration fractionalMillis;
+    bool newer = IsTimeNewerThanTimestamp(aTime, roughlyNow, &deltaFromNow,
+                                          &fractionalMillis);
 
     // Tolerance when detecting clock skew.
     static const Time kTolerance = 30;
@@ -117,7 +119,8 @@ class SystemTimeConverter {
     }
 
     // Finally, calculate the timestamp
-    return roughlyNow - TimeDuration::FromMilliseconds(deltaFromNow);
+    return roughlyNow - TimeDuration::FromMilliseconds(deltaFromNow) -
+           fractionalMillis;
   }
 
   void CompensateForBackwardsSkew(Time aReferenceTime,
@@ -156,7 +159,8 @@ class SystemTimeConverter {
     // If that's not the case, then we probably just got caught behind
     // temporarily.
     Time delta;
-    if (IsTimeNewerThanTimestamp(aReferenceTime, aLowerBound, &delta)) {
+    if (IsTimeNewerThanTimestamp(aReferenceTime, aLowerBound, &delta,
+                                 nullptr)) {
       return;
     }
 
@@ -189,8 +193,8 @@ class SystemTimeConverter {
     mReferenceTimeStamp = aReferenceTimeStamp;
   }
 
-  bool IsTimeNewerThanTimestamp(Time aTime, TimeStamp aTimeStamp,
-                                Time* aDelta) {
+  bool IsTimeNewerThanTimestamp(Time aTime, TimeStamp aTimeStamp, Time* aDelta,
+                                TimeDuration* aFractionalMillis) {
     Time timeDelta = aTime - mReferenceTime;
 
     // Cast the result to signed 64-bit integer first since that should be
@@ -199,10 +203,20 @@ class SystemTimeConverter {
     // is outside the integer range is undefined.
     // Then we do an implicit cast to Time (typically an unsigned 32-bit
     // integer) which wraps times outside that range.
-    Time timeStampDelta = static_cast<int64_t>(
-        (aTimeStamp - mReferenceTimeStamp).ToMilliseconds());
+    TimeDuration timeStampDelta = (aTimeStamp - mReferenceTimeStamp);
+    int64_t wholeMillis = static_cast<int64_t>(timeStampDelta.ToMilliseconds());
+    Time wrappedTimeStampDelta = wholeMillis;
 
-    Time timeToTimeStamp = timeStampDelta - timeDelta;
+    // Also save the fractional millisecond part that we truncated above when
+    // casting to int64_t. Without this we can end up generating TimeStamp
+    // instances that go backwards in time by fractional milliseconds. See
+    // bug 1626734 comment 4 for a full numerical example.
+    if (aFractionalMillis) {
+      *aFractionalMillis =
+          timeStampDelta - TimeDuration::FromMilliseconds(wholeMillis);
+    }
+
+    Time timeToTimeStamp = wrappedTimeStampDelta - timeDelta;
     bool isNewer = false;
     if (timeToTimeStamp == 0) {
       *aDelta = 0;
@@ -210,7 +224,7 @@ class SystemTimeConverter {
       *aDelta = timeToTimeStamp;
     } else {
       isNewer = true;
-      *aDelta = timeDelta - timeStampDelta;
+      *aDelta = timeDelta - wrappedTimeStampDelta;
     }
 
     return isNewer;
